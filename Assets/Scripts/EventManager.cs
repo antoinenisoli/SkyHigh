@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +14,9 @@ public class EventManager : MonoBehaviour
 
     public class UnityEventBool : UnityEvent<bool> { }
     public UnityEventBool onEndGame = new UnityEventBool();
+
+    public Action<GameObject> onBuildingBuilt;
+    public Action<CrowdMember> onCrowdMemberReachedEnd;
 
     void Awake()
     {

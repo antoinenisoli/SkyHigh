@@ -30,7 +30,7 @@ public class MainGame : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Vector3 size = new Vector3(gridSize.x / 2 - cell.transform.localScale.x/2, 0, gridSize.y / 2 - cell.transform.localScale.z/2);
+        Vector3 size = new Vector3(gridSize.x / 2 - cell.transform.localScale.x / 2, 0, gridSize.y / 2 - cell.transform.localScale.z / 2);
         Gizmos.DrawWireCube(grid.position + size, new Vector3(gridSize.x, 1, gridSize.y));
     }
 
@@ -96,5 +96,6 @@ public class MainGame : MonoBehaviour
         mainCam.transform.DOShakePosition(duration, 0.3f, 90);
         BuildingPrefab = null;
         EventManager.Instance.onNewAction.Invoke();
+        EventManager.Instance.onBuildingBuilt?.Invoke(newBuilding);
     }
 }
