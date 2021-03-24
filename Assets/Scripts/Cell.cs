@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -16,33 +17,39 @@ public class Cell : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (EventSystem.current.IsPointerOverGameObject() || full || !MainGame.Instance.BuildingPrefab)
+            return;
+
         value = 1;
         highlight = !highlight;
     }
 
     private void OnMouseExit()
     {
+        if (EventSystem.current.IsPointerOverGameObject() || full || !MainGame.Instance.BuildingPrefab)
+            return;
+
         highlight = !highlight;
     }
 
     private void OnMouseDown()
     {
-        if (!full)
+        if (EventSystem.current.IsPointerOverGameObject() || full || !MainGame.Instance.BuildingPrefab)
+            return;
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
-            {
-                Vector3 position = transform.position;
-                position.y = hit.point.y;
-                MainGame.Instance.PlaceBuilding(position);
-                full = true;
-            }
+            Vector3 position = transform.position;
+            position.y = hit.point.y;
+            MainGame.Instance.PlaceBuilding(position);
+            full = true;
         }
     }
 
     private void Update()
     {
-        value = highlight && !full ? 1 : 0;
+        value = highlight && !full && !EventSystem.current.IsPointerOverGameObject() ? 1 : 0;
         myMat.SetFloat("_Opacity", value);
     }
 }

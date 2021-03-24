@@ -13,12 +13,17 @@ public class Turn
 {
     public RandomEvent myEvent;
     public int actionsCount = 5;
-    public string currentAction = "Build mode";
+    public ModeType currentMode;
 
-    public Turn(RandomEvent myEvent, int actionsCount, string currentAction)
+    public Turn(RandomEvent myEvent, int actionsCount, ModeType currentMode)
     {
         this.myEvent = myEvent;
         this.actionsCount = actionsCount;
-        this.currentAction = currentAction;
+        this.currentMode = currentMode;
+    }
+
+    public bool CanChoose(int cost)
+    {
+        return actionsCount >= cost;
     }
 }

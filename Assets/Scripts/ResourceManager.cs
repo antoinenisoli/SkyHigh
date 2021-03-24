@@ -7,8 +7,6 @@ using UnityEngine.UI;
 [Serializable]
 public class Resource
 {
-    public string type;
-    public Text displayResource;
     [SerializeField] int currentAmount;
     [SerializeField] int maxAmount;
 
@@ -36,7 +34,7 @@ public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance;
 
-    [SerializeField] Resource[] resources;
+    public Resource Money;
 
     void Awake()
     {
@@ -46,29 +44,14 @@ public class ResourceManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start()
+    public bool CanBuy(float cost)
     {
-        EventManager.Instance.onCost.AddListener(UpdateUI);
-        foreach (var item in resources)
-        {
-            item.CurrentAmount = item.MaxAmount;
-        }
+        return Money.CurrentAmount >= cost;
     }
 
-    public void Cost(int amount, int resourceIndex)
+    public void Cost(int amount)
     {
-        if (resources.Length > resourceIndex && resources[resourceIndex] != null)
-        {
-            resources[resourceIndex].CurrentAmount -= amount;
-            UIManager.Instance.FloatingText(resources[resourceIndex].displayResource.transform.position, "-" + amount + " $");
-        }
-    }
-
-    public void UpdateUI()
-    {
-        foreach (var item in resources)
-        {
-            item.displayResource.text = item.CurrentAmount + " $";
-        }
+        Money.CurrentAmount -= amount;
+        UIManager.Instance.FloatingText("-" + amount + " $");
     }
 }
