@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   cell: {fileID: 2083073688832064984, guid: 0f1cecf211775d347a961d9e1a09476c, type: 3}
-  gridSize: {x: 30, y: 30}
+  gridSize: {x: 5, y: 5}
   waitTurn: 3
   turnCount: 10
 --- !u!1 &4745296645209064104
@@ -176,6 +176,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673b0a6cd9d8bd147becb95b13a0e342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+  - statType: 0
+    currentAmount: 30
+    maxAmount: 100
+  - statType: 1
+    currentAmount: 30
+    maxAmount: 100
+  - statType: 2
+    currentAmount: 30
+    maxAmount: 100
   Money:
+    statType: 3
     currentAmount: 150
     maxAmount: 500

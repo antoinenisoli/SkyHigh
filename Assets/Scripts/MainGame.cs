@@ -15,11 +15,12 @@ public class MainGame : MonoBehaviour
 {
     public static MainGame Instance;
     Camera mainCam;
+    public Goal MainGoal;
 
     [Header("Generate Grid")]
     [SerializeField] Transform grid;
     [SerializeField] GameObject cell;
-    [SerializeField] Vector2 gridSize;
+    [SerializeField] Vector2Int gridSize;
 
     [Header("Turns")]
     [SerializeField] float waitTurn = 4f;
@@ -29,9 +30,12 @@ public class MainGame : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Vector3 size = new Vector3(gridSize.x / 2 - cell.transform.localScale.x/2, 0, gridSize.y / 2 - cell.transform.localScale.z/2);
-        Gizmos.DrawWireCube(grid.position + size, new Vector3(gridSize.x, 1, gridSize.y));
+        if (cell && grid)
+        {
+            Gizmos.color = Color.green;
+            Vector3 size = new Vector3(gridSize.x * cell.transform.localScale.x / 2 - cell.transform.localScale.x / 2, 0, gridSize.y * cell.transform.localScale.z / 2 - cell.transform.localScale.z / 2);
+            Gizmos.DrawWireCube(grid.position + size, new Vector3(gridSize.x * cell.transform.localScale.x, 1, gridSize.y * cell.transform.localScale.z));
+        }
     }
 
     private void Awake()
@@ -59,7 +63,18 @@ public class MainGame : MonoBehaviour
     {
         CurrentTurn = new Turn(null, 3, ModeType.None);
         turnCount--;
-        StartCoroutine(InvokeNewTurn());
+        
+        if (turnCount > 0)
+        {
+            StartCoroutine(InvokeNewTurn());
+        }
+        else 
+        {
+            if (MainGoal.Check())
+                print("win");
+            else
+                print("loose");
+        }
     }
 
     IEnumerator InvokeNewTurn()
@@ -68,6 +83,11 @@ public class MainGame : MonoBehaviour
         CurrentTurn = new Turn(null, 3, ModeType.None);
         EventManager.Instance.onCost.Invoke();
         EventManager.Instance.onNewAction.Invoke();
+        Building[] buildings = FindObjectsOfType<Building>();
+        foreach (var item in buildings)
+        {
+            item.Effect();
+        }
     }
 
     public void SetMode(ModeType newMode)
@@ -77,9 +97,11 @@ public class MainGame : MonoBehaviour
 
     public void CreateGrid()
     {
-        for (int i = 0; i < gridSize.x; i += (int)cell.transform.localScale.x)
+        int xScale = gridSize.x * 5;
+        int zScale = gridSize.y * 5;
+        for (int i = 0; i < xScale; i += (int)cell.transform.localScale.x)
         {
-            for (int j = 0; j < gridSize.y; j += (int)cell.transform.localScale.z)
+            for (int j = 0; j < zScale; j += (int)cell.transform.localScale.z)
             {
                 GameObject newCell = Instantiate(cell, grid);
                 newCell.transform.localPosition = new Vector3(i, 0, j);

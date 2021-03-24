@@ -4,37 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Serializable]
-public class Resource
-{
-    [SerializeField] int currentAmount;
-    [SerializeField] int maxAmount;
-
-    public int CurrentAmount
-    {
-        get => currentAmount;
-
-        set
-        {
-            if (value > maxAmount)
-                value = maxAmount;
-
-            if (value < 0)
-                value = 0;
-
-            currentAmount = value;
-            EventManager.Instance.onCost.Invoke();
-        }
-    }
-
-    public int MaxAmount { get => maxAmount; set => maxAmount = value; }
-}
-
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance;
 
-    public Resource Money;
+    public Statistic[] stats = new Statistic[3];
+    Dictionary<StatType, Statistic> allStats = new Dictionary<StatType, Statistic>();
+    public Statistic Money;
 
     void Awake()
     {
@@ -42,6 +18,11 @@ public class ResourceManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        foreach (var item in stats)
+        {
+            allStats.Add(item.statType, item);
+        }
     }
 
     public bool CanBuy(float cost)
@@ -49,9 +30,17 @@ public class ResourceManager : MonoBehaviour
         return Money.CurrentAmount >= cost;
     }
 
-    public void Cost(int amount)
+    public Statistic GetStat(StatType type)
     {
-        Money.CurrentAmount -= amount;
-        UIManager.Instance.FloatingText("-" + amount + " $");
+        return allStats[type];
+    }
+
+    public void ModifyMoney(int amount)
+    {
+        Money.CurrentAmount += amount;
+        if (amount < 0)
+            UIManager.Instance.FloatingText(amount + " $");
+        else if (amount > 0)
+            UIManager.Instance.FloatingText("+" + amount + " $");
     }
 }

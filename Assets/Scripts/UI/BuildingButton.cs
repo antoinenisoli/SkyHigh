@@ -26,6 +26,6 @@ public class BuildingButton : MonoBehaviour
     public void GetBuilding()
     {
         MainGame.Instance.BuildingPrefab = buildingPrefab;
-        ResourceManager.Instance.Cost(50);
+        ResourceManager.Instance.ModifyMoney(50);
     }
 }
