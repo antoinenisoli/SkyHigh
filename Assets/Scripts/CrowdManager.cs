@@ -37,7 +37,13 @@ public class CrowdManager : MonoBehaviour
         EventManager.Instance.onCrowdMemberReachedEnd -= StartResetCrowdMember;
     }
 
-    private void AddSpawnPosition(Building posObject) { memberSpawnPositions.Add(posObject.transform.position); }
+    private void AddSpawnPosition(Building posObject)
+    {
+        memberSpawnPositions.Add(posObject.CrowdEntryPosition
+            ? posObject.CrowdEntryPosition.position
+            : posObject.transform.position
+        );
+    }
 
     private void StartResetCrowdMember(CrowdMember member) { StartCoroutine(ResetCrowdMember(member)); }
     private IEnumerator ResetCrowdMember(CrowdMember member)

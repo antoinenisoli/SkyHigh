@@ -4862,6 +4862,36 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &2988910513920776432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7353760030131188783}
+  m_Layer: 0
+  m_Name: Crowd Entry/Exit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7353760030131188783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2988910513920776432}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9182645289856015101}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9182645289856344949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4892,6 +4922,7 @@ Transform:
   m_Children:
   - {fileID: 2362760806694733685}
   - {fileID: 7291924289902077061}
+  - {fileID: 7353760030131188783}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4916,6 +4947,7 @@ MonoBehaviour:
   fx: {fileID: 8880545297513756261}
   stat: 1
   resourceGain: 5
+  crowdEntryPos: {fileID: 7353760030131188783}
 --- !u!1001 &7113620314790724462
 PrefabInstance:
   m_ObjectHideFlags: 0

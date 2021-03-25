@@ -16,7 +16,12 @@ public class Building : MonoBehaviour
     [SerializeField] protected ParticleSystem fx;
     [SerializeField] protected StatType stat;
     [SerializeField] protected int resourceGain = 10;
+    [Space(15)]
+    [Tooltip("The positon that crowd members will enter and exit from. If null, they'll enter/exit from this object's position.")]
+    [SerializeField] private Transform crowdEntryPos = null;
     Vector3? pos;
+
+    public Transform CrowdEntryPosition { get { return crowdEntryPos; } }
 
     public virtual void Effect()
     {
