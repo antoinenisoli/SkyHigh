@@ -6,7 +6,7 @@ using UnityEngine;
 public enum Condition
 {
     Equal,
-    Higher,
+    Greater,
     Lower,
 }
 
@@ -24,7 +24,7 @@ public class Goal
         {
             case Condition.Equal:
                 return stat.CurrentAmount == compare;
-            case Condition.Higher:
+            case Condition.Greater:
                 return stat.CurrentAmount > compare;
             case Condition.Lower:
                 return stat.CurrentAmount < compare;

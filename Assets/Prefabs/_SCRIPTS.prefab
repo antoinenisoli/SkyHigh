@@ -47,6 +47,7 @@ MonoBehaviour:
     type: 3}
   memberAmount: 50
   inactivePos: {x: -0, y: -75, z: -0}
+  memberContainer: {fileID: 0}
   members: []
   memberSpawnPositions: []
 --- !u!1 &4745296644338113602
@@ -144,11 +145,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981dfce2fbda15e45a6fc3d00145f33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainGoal:
+    stat: 0
+    condition: 1
+    compare: 50
+  allCharityActions:
+  - {fileID: 11400000, guid: 6493f60a9985cf043a82b5fb79770fc7, type: 2}
+  - {fileID: 11400000, guid: cd2917cf919c2614bac29bbff2707a47, type: 2}
+  - {fileID: 11400000, guid: 7087d5cfd4387f64b98e5585103b3a48, type: 2}
+  availableCharityActions:
+  - {fileID: 11400000, guid: 6493f60a9985cf043a82b5fb79770fc7, type: 2}
+  - {fileID: 11400000, guid: cd2917cf919c2614bac29bbff2707a47, type: 2}
+  - {fileID: 11400000, guid: 7087d5cfd4387f64b98e5585103b3a48, type: 2}
+  - {fileID: 11400000, guid: 7087d5cfd4387f64b98e5585103b3a48, type: 2}
   grid: {fileID: 0}
   cell: {fileID: 2083073688832064984, guid: 0f1cecf211775d347a961d9e1a09476c, type: 3}
   gridSize: {x: 5, y: 5}
   waitTurn: 3
   turnCount: 10
+  allRandomEvents:
+  - {fileID: 11400000, guid: db9f0c71521a98c4ba7b0e608ffe6948, type: 2}
 --- !u!1 &4745296645209064104
 GameObject:
   m_ObjectHideFlags: 0

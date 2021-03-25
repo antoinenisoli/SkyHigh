@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EducationalEvent
   m_EditorClassIdentifier: 
   statType: 1
+  illustration: {fileID: 0}
   amount: 30
   moneyCost: 65
-  description: 
+  description: educ

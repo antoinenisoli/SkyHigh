@@ -38,9 +38,6 @@ public class ResourceManager : MonoBehaviour
     public void ModifyMoney(int amount)
     {
         Money.CurrentAmount += amount;
-        if (amount < 0)
-            UIManager.Instance.FloatingText(amount + " $");
-        else if (amount > 0)
-            UIManager.Instance.FloatingText("+" + amount + " $");
+        UIManager.Instance.FloatingText(amount);
     }
 }

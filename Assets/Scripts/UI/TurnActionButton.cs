@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,5 +26,7 @@ public class TurnActionButton : MonoBehaviour
         UIManager.Instance.NewMode(modeIndex);
         MainGame.Instance.CurrentTurn.actionsCount -= pointCost;
         EventManager.Instance.onCost.Invoke();
+        transform.DOComplete();
+        transform.DOPunchScale(Vector3.one * -0.1f, 0.15f);
     }
 }

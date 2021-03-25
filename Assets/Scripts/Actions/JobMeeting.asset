@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: JobMeeting
   m_EditorClassIdentifier: 
   statType: 2
+  illustration: {fileID: 0}
   amount: 20
   moneyCost: 50
+  description: jobs

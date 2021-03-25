@@ -17,6 +17,10 @@ public class MainGame : MonoBehaviour
     Camera mainCam;
     public Goal MainGoal;
 
+    [Header("Charity Actions")]
+    public List<CharityAction> allCharityActions = new List<CharityAction>();
+    public List<CharityAction> availableCharityActions = new List<CharityAction>();
+
     [Header("Generate Grid")]
     [SerializeField] Transform grid;
     [SerializeField] GameObject cell;
@@ -27,6 +31,9 @@ public class MainGame : MonoBehaviour
     public int turnCount = 10;
     public GameObject BuildingPrefab { get; set; }
     public Turn CurrentTurn;
+
+    [Header("Random events")]
+    public List<RandomEvent> allRandomEvents = new List<RandomEvent>();
 
     private void OnDrawGizmos()
     {
@@ -46,7 +53,7 @@ public class MainGame : MonoBehaviour
             Destroy(gameObject);
 
         mainCam = Camera.main;
-        CurrentTurn = new Turn(null, 3, ModeType.None);
+        CurrentTurn = new Turn(3, ModeType.None);
     }
 
     private IEnumerator Start()
@@ -61,14 +68,28 @@ public class MainGame : MonoBehaviour
 
     public void NewTurn()
     {
-        CurrentTurn = new Turn(null, 3, ModeType.None);
+        CurrentTurn = new Turn(3, ModeType.None);
         turnCount--;
-        
+        StartCoroutine(InvokeNewTurn());
+    }
+
+    IEnumerator InvokeNewTurn()
+    {
+        yield return new WaitForSeconds(waitTurn);
+        CurrentTurn = new Turn(3, ModeType.None);
+        Building[] buildings = FindObjectsOfType<Building>();
+        foreach (var item in buildings)
+        {
+            yield return new WaitForSeconds(0.2f);
+            item.Effect();
+        }
+
         if (turnCount > 0)
         {
-            StartCoroutine(InvokeNewTurn());
+            CurrentTurn.myEvent?.ExecuteEvent();
+            EventManager.Instance.onNewAction.Invoke();
         }
-        else 
+        else
         {
             if (MainGoal.Check())
                 print("win");
@@ -77,22 +98,18 @@ public class MainGame : MonoBehaviour
         }
     }
 
-    IEnumerator InvokeNewTurn()
-    {
-        yield return new WaitForSeconds(waitTurn);
-        CurrentTurn = new Turn(null, 3, ModeType.None);
-        EventManager.Instance.onCost.Invoke();
-        EventManager.Instance.onNewAction.Invoke();
-        Building[] buildings = FindObjectsOfType<Building>();
-        foreach (var item in buildings)
-        {
-            item.Effect();
-        }
-    }
-
     public void SetMode(ModeType newMode)
     {
         CurrentTurn.currentMode = newMode;
+        switch (newMode)
+        {
+            case ModeType.Building:
+                break;
+            case ModeType.ActionChoose:
+                break;
+            case ModeType.Store:
+                break;
+        }
     }
 
     public void CreateGrid()

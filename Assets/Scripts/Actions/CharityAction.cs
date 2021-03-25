@@ -7,6 +7,7 @@ using UnityEngine;
 public class CharityAction : ScriptableObject
 {
     public StatType statType;
+    public Sprite illustration;
     public int amount = 20;
     public int moneyCost = 50;
     [TextArea] public string description;

@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     [Header("Charity Action mode")]
     [SerializeField] GameObject charityPanel;
     Vector3 charityPanelScale;
+    CharityActionButton[] charityActionButtons;
+    [SerializeField] Slider[] sliders;
 
     void Awake()
     {
@@ -41,7 +43,10 @@ public class UIManager : MonoBehaviour
         EventManager.Instance.onNewAction.AddListener(NewAction);
         EventManager.Instance.onNewTurn.AddListener(NewTurn);
         EventManager.Instance.onCost.AddListener(UpdateUI);
+        EventManager.Instance.onNewTurn.AddListener(UpdateUI);
         turnText.text = MainGame.Instance.turnCount + " turns left !";
+        charityActionButtons = GetComponentsInChildren<CharityActionButton>();
+        NewDeck();
 
         turnPanelScale = turnButtons.transform.localScale;
         turnButtons.transform.localScale = Vector3.one * 0.0001f;
@@ -89,11 +94,13 @@ public class UIManager : MonoBehaviour
             " needs to be " + MainGame.Instance.MainGoal.condition.ToString().ToLower() + 
             " than " + MainGame.Instance.MainGoal.compare.ToString().ToLower();
 
-        Slider[] sliders = statPanel.GetComponentsInChildren<Slider>();
+        sliders = statPanel.GetComponentsInChildren<Slider>();
         for (int i = 0; i < sliders.Length; i++)
         {
-            sliders[i].maxValue = ResourceManager.Instance.stats[i].MaxAmount;
-            sliders[i].value = ResourceManager.Instance.stats[i].CurrentAmount;
+            Statistic stat = ResourceManager.Instance.stats[i];
+            sliders[i].maxValue = stat.MaxAmount;
+            sliders[i].DOValue(stat.CurrentAmount, 1);
+            sliders[i].GetComponentInChildren<Text>().text = stat.CurrentAmount + "\n / " + "\n" + stat.MaxAmount;
         }
     }
 
@@ -117,16 +124,26 @@ public class UIManager : MonoBehaviour
         switch (mode)
         {
             case ModeType.Building:
-                displayMode.text = "Build mode !";
+                displayMode.text = "Pick a building !";
                 buildPanel.transform.DOLocalMoveX(-800, 0.7f);
                 break;
             case ModeType.ActionChoose:
                 displayMode.text = "Make an action !";
                 PanelAnim(charityPanel, true, charityPanelScale);
+                NewDeck();
                 break;
             case ModeType.Store:
                 displayMode.text = "Choose an action to buy !";
                 break;
+        }
+    }
+
+    void NewDeck()
+    {
+        foreach (var item in charityActionButtons)
+        {
+            int random = Random.Range(0, MainGame.Instance.availableCharityActions.Count);
+            item.Action = MainGame.Instance.availableCharityActions[random];
         }
     }
 
@@ -136,10 +153,21 @@ public class UIManager : MonoBehaviour
         PanelAnim(turnButtons, false, turnPanelScale);
     }
 
-    public void FloatingText(string txt)
+    public void FloatingText(int amount)
     {
         Text newText = Instantiate(floatingText, displayMoney.transform.position, Quaternion.identity, transform).GetComponent<Text>();
-        newText.text = txt;
+        displayMoney.transform.DOComplete();
+        if (amount > 0)
+        {
+            newText.text = "+" + amount + " $";
+            displayMoney.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f);
+        }
+        else if (amount < 0)
+        {
+            newText.text = amount + " $";
+            displayMoney.transform.DOPunchScale(Vector3.one * -0.2f, 0.3f);
+        }
+
         float duration = 3;
         newText.transform.DOMoveY(displayMoney.transform.position.y + 200, duration);
         Destroy(newText.gameObject, duration);
