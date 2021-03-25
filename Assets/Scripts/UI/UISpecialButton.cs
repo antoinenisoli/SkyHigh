@@ -10,10 +10,15 @@ public abstract class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPo
     Vector3 startScale;
     protected Button button;
 
-    public void Awake()
+    public virtual void Awake()
     {
         startScale = transform.localScale;
         button = GetComponentInChildren<Button>();
+    }
+
+    public virtual void Start()
+    {
+        EventManager.Instance.onCost.AddListener(UpdateUI);
     }
 
     public abstract void UpdateUI();

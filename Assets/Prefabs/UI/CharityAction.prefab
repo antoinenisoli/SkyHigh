@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6139955047434810808}
   - component: {fileID: 7063886265546536886}
   m_Layer: 5
-  m_Name: CharityAction01
+  m_Name: CharityAction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

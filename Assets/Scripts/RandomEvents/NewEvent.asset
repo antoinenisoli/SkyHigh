@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Event
   minProbabilityRange: 0
-  maxProbabilityRange: 100
-  description: Waw !
+  maxProbabilityRange: 20
+  description: A bad event !!!!
   choices:
   - name: Destroy
-    eventType: 0
+    eventType: 1
     buildingToDestroy: Bank
     statType: 0
     amount: 0
   - name: Lose
-    eventType: -1
+    eventType: 2
     buildingToDestroy: 
     statType: 0
     amount: -50

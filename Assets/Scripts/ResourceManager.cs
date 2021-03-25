@@ -8,6 +8,7 @@ public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance;
 
+    [SerializeField] [Range(0,100)] int hapinessPercent = 10;
     public Statistic[] stats = new Statistic[3];
     Dictionary<StatType, Statistic> allStats = new Dictionary<StatType, Statistic>();
     public Statistic Money;
@@ -27,7 +28,7 @@ public class ResourceManager : MonoBehaviour
 
     public bool CanBuy(float cost)
     {
-        return Money.CurrentAmount >= cost;
+        return Money.CurrentAmount - cost >= 0;
     }
 
     public Statistic GetStat(StatType type)
@@ -37,7 +38,15 @@ public class ResourceManager : MonoBehaviour
 
     public void ModifyMoney(int amount)
     {
-        Money.CurrentAmount += amount;
-        UIManager.Instance.FloatingText(amount);
+        int computeAmount = amount;
+        if (amount > 0)
+        {
+            int percent = GetStat(StatType.Hapiness).CurrentAmount * hapinessPercent / 100;
+            print(percent);
+            computeAmount += percent;
+        }
+
+        Money.CurrentAmount += computeAmount;
+        UIManager.Instance.FloatingText(computeAmount);
     }
 }

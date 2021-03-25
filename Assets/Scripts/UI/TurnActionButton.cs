@@ -9,11 +9,6 @@ public class TurnActionButton : UISpecialButton
     [SerializeField] int modeIndex;
     [SerializeField] int pointCost = 1;
 
-    private void Start()
-    {
-        EventManager.Instance.onCost.AddListener(UpdateUI);
-    }
-
     public override void UpdateUI()
     {
         button.interactable = MainGame.Instance.CurrentTurn.CanChoose(pointCost);

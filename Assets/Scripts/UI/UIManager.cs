@@ -169,6 +169,7 @@ public class UIManager : MonoBehaviour
             case ModeType.Building:
                 displayMode.text = "Pick a building !";
                 buildPanel.transform.DOLocalMoveX(xPan, 0.7f);
+                EventManager.Instance.onCost?.Invoke();
                 break;
             case ModeType.ActionChoose:
                 displayMode.text = "Make an action !";

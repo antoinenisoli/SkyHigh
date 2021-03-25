@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public abstract class Building : MonoBehaviour
+public class Building : MonoBehaviour
 {
     [Header("Building")]
     public string buildingName;
+    public Sprite buildingImage;
+
+    public int moneyCost = 35;
     [SerializeField] float animDuration = 2f;
     [SerializeField] int shakeVibration = 90;
     [SerializeField] float shakeStrength = 0.3f;
@@ -38,5 +41,10 @@ public abstract class Building : MonoBehaviour
         transform.DOMoveY(pos.Value.y - 4, animDuration);
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
         Destroy(gameObject, animDuration);
+    }
+
+    public override string ToString()
+    {
+        return "Earn " + resourceGain + " " + stat.ToString() + " per turn.";
     }
 }

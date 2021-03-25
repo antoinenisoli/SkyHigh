@@ -20,11 +20,12 @@ public class CharityActionButton : UISpecialButton
     Text displayDescription;
     Image image;
 
-    private void Start()
+    public override void Awake()
     {
         displayDescription = GetComponentInChildren<Text>();
         image = GetComponentInChildren<Image>();
         UpdateUI();
+        base.Awake();
     }
 
     public override void UpdateUI()
@@ -33,8 +34,7 @@ public class CharityActionButton : UISpecialButton
             return;
 
         button.interactable = true;
-        string info = " (Earn " + Action.amount + " " + Action.statType + ", cost : " + Action.moneyCost + "$)"; 
-        displayDescription.text = Action.description + info;
+        displayDescription.text = Action.description + ToString();
         if (Action.illustration)
             image.sprite = Action.illustration;
     }
@@ -45,5 +45,10 @@ public class CharityActionButton : UISpecialButton
         ResourceManager.Instance.GetStat(Action.statType).CurrentAmount += Action.amount;
         ResourceManager.Instance.ModifyMoney(-Action.moneyCost);
         UIManager.Instance.ExitCharityPanel();
+    }
+
+    public override string ToString()
+    {
+        return "\n (Earn " + Action.amount + " " + Action.statType + ", cost : " + Action.moneyCost + "$)";
     }
 }

@@ -20,7 +20,8 @@ public class EventEffect
         {
             ResourceManager.Instance.GetStat(statType).CurrentAmount += amount;
         }
-        else if (eventType.HasFlag(EventType.DestroyBuilding))
+
+        if (eventType.HasFlag(EventType.DestroyBuilding))
         {
             Building[] b = UnityEngine.Object.FindObjectsOfType<Building>();
             foreach (var item in b)

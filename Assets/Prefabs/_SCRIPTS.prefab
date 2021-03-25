@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainGoal:
-    stat: 0
+    stat: 2
     condition: 1
     compare: 50
   allCharityActions:

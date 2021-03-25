@@ -6,8 +6,8 @@ using UnityEngine;
 [Flags]
 public enum EventType
 {
-    DestroyBuilding,
-    LoseResource,
+    DestroyBuilding = 1 << 0,
+    LoseResource = 1 << 1,
 }
 
 [CreateAssetMenu(fileName = "NewEvent", menuName = "Random Events/New Event")]

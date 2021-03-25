@@ -70,6 +70,7 @@ public class MainGame : MonoBehaviour
     {
         CurrentTurn = new Turn(3, ModeType.None);
         turnCount--;
+        UIManager.Instance.UpdateUI();
         StartCoroutine(InvokeNewTurn());
     }
 

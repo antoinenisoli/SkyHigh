@@ -6,29 +6,36 @@ using UnityEngine.UI;
 
 public class BuildingButton : UISpecialButton
 {
-    [SerializeField] GameObject buildingPrefab;
-    [SerializeField] int moneyCost = 10;
+    [HideInInspector] public GameObject buildingPrefab;
+    Building building;
+    Image image;
     [SerializeField] Text costDisplay;
     [SerializeField] Text nameDisplay;
+    [SerializeField] Text descriptionDisplay;
 
-    private void Start()
+    public override void Start()
     {
-        EventManager.Instance.onCost.AddListener(UpdateUI);
+        base.Start();
+        building = buildingPrefab.GetComponent<Building>();
+        image = GetComponent<Image>();
         UpdateUI();
     }
 
     public override void UpdateUI()
     {
-        button.interactable = ResourceManager.Instance.CanBuy(moneyCost) && !MainGame.Instance.BuildingPrefab;
-        costDisplay.text = -moneyCost + "$";
-        nameDisplay.text = buildingPrefab.GetComponent<Building>().name;
+        button.interactable = ResourceManager.Instance.CanBuy(building.moneyCost) && !MainGame.Instance.BuildingPrefab;
+        costDisplay.text = -building.moneyCost + "$";
+        nameDisplay.text = building.name;
+        descriptionDisplay.text = building.ToString();
+        if (building.buildingImage)
+            image.sprite = building.buildingImage;
     }
 
     public void GetBuilding()
     {
         Click();
         MainGame.Instance.BuildingPrefab = buildingPrefab;
-        ResourceManager.Instance.ModifyMoney(moneyCost);
+        ResourceManager.Instance.ModifyMoney(building.moneyCost);
         UpdateUI();
     }
 }
