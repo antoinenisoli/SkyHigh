@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddc58275a52d1a46bdc28724b11bc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Bank
+  buildingName: Bank
   fx: {fileID: 895419822837537876}
-  moneyGain: 10
+  stat: 3
+  resourceGain: 10
 --- !u!1 &8918961889353542953
 GameObject:
   m_ObjectHideFlags: 0

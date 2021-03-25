@@ -12,6 +12,9 @@ public class EventManager : MonoBehaviour
     public UnityEvent onNewTurn = new UnityEvent();
     public UnityEvent onNewAction = new UnityEvent();
 
+    public class UnityRandomEvent : UnityEvent<RandomEvent> { }
+    public UnityRandomEvent onNewRandomEvent = new UnityRandomEvent();
+
     public class UnityEventBool : UnityEvent<bool> { }
     public UnityEventBool onEndGame = new UnityEventBool();
 

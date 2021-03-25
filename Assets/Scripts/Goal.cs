@@ -32,4 +32,11 @@ public class Goal
 
         return false;
     }
+
+    public override string ToString()
+    {
+        return "- " + stat.ToString() +
+            " needs to be " + condition.ToString().ToLower() +
+            " than " + compare.ToString().ToLower();
+    }
 }

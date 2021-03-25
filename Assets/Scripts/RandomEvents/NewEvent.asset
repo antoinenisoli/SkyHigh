@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd5484b968fb0e9409012ce780e3541d, type: 3}
   m_Name: NewEvent
   m_EditorClassIdentifier: 
-  eventType: -1
-  minProbabilityRange: 11
-  maxProbabilityRange: 24
-  buildingToDestroy: Bank
-  statType: 0
-  amount: -20
+  name: Event
+  minProbabilityRange: 0
+  maxProbabilityRange: 100
+  description: Waw !
+  choices:
+  - name: Destroy
+    eventType: 0
+    buildingToDestroy: Bank
+    statType: 0
+    amount: 0
+  - name: Lose
+    eventType: -1
+    buildingToDestroy: 
+    statType: 0
+    amount: -50

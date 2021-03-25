@@ -59,10 +59,10 @@ public class MainGame : MonoBehaviour
     private IEnumerator Start()
     {
         CreateGrid();
-        EventManager.Instance.onCost.Invoke();
+        EventManager.Instance.onCost?.Invoke();
         yield return new WaitForSeconds(0.5f);
-        EventManager.Instance.onNewTurn.Invoke();
-        EventManager.Instance.onNewAction.Invoke();
+        EventManager.Instance.onNewTurn?.Invoke();
+        EventManager.Instance.onNewAction?.Invoke();
         EventManager.Instance.onNewTurn.AddListener(NewTurn);
     }
 
@@ -84,18 +84,16 @@ public class MainGame : MonoBehaviour
             item.Effect();
         }
 
+        yield return new WaitForSeconds(1f);
         if (turnCount > 0)
         {
-            CurrentTurn.myEvent?.ExecuteEvent();
-            EventManager.Instance.onNewAction.Invoke();
+            if (CurrentTurn.myEvent)
+                EventManager.Instance.onNewRandomEvent?.Invoke(CurrentTurn.myEvent);
+            else
+                EventManager.Instance.onNewAction?.Invoke();
         }
         else
-        {
-            if (MainGoal.Check())
-                print("win");
-            else
-                print("loose");
-        }
+            EventManager.Instance.onEndGame?.Invoke(MainGoal.Check());
     }
 
     public void SetMode(ModeType newMode)
@@ -126,13 +124,16 @@ public class MainGame : MonoBehaviour
         }
     }
 
+    public void ShakeCamera(float animDuration = 2f, float shakeStrength = 0.3f, int shakeVibration = 10)
+    {
+        mainCam.transform.DOComplete();
+        mainCam.transform.DOShakePosition(animDuration, shakeStrength, shakeVibration);
+    }
+
     public void PlaceBuilding(Vector3 position)
     {
-        GameObject newBuilding = Instantiate(BuildingPrefab, position - Vector3.up * 2, BuildingPrefab.transform.rotation);
-        float duration = 2;
-        newBuilding.transform.DOMoveY(position.y, duration);
-        mainCam.transform.DOComplete();
-        mainCam.transform.DOShakePosition(duration, 0.3f, 90);
+        GameObject newBuilding = Instantiate(BuildingPrefab, position - Vector3.up * 4, BuildingPrefab.transform.rotation);
+        newBuilding.GetComponent<Building>().Build(position);
         BuildingPrefab = null;
         EventManager.Instance.onNewAction.Invoke();
     }

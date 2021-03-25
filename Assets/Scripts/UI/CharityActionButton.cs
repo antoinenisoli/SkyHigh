@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharityActionButton : MonoBehaviour
+public class CharityActionButton : UISpecialButton
 {
     CharityAction action;
     public CharityAction Action 
@@ -17,23 +17,17 @@ public class CharityActionButton : MonoBehaviour
         }
     }
 
-    Button button;
     Text displayDescription;
     Image image;
 
-    private void Awake()
-    {
-        button = GetComponent<Button>();
-        displayDescription = GetComponentInChildren<Text>();
-        image = GetComponentInChildren<Image>();
-    }
-
     private void Start()
     {
+        displayDescription = GetComponentInChildren<Text>();
+        image = GetComponentInChildren<Image>();
         UpdateUI();
     }
 
-    public void UpdateUI()
+    public override void UpdateUI()
     {
         if (!Action)
             return;
@@ -47,8 +41,7 @@ public class CharityActionButton : MonoBehaviour
 
     public void ExecuteAction()
     {
-        transform.DOComplete();
-        transform.DOPunchScale(Vector3.one * -0.2f, 0.3f);
+        Click();
         ResourceManager.Instance.GetStat(Action.statType).CurrentAmount += Action.amount;
         ResourceManager.Instance.ModifyMoney(-Action.moneyCost);
         UIManager.Instance.ExitCharityPanel();

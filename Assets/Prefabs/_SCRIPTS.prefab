@@ -162,8 +162,10 @@ MonoBehaviour:
   cell: {fileID: 2083073688832064984, guid: 0f1cecf211775d347a961d9e1a09476c, type: 3}
   gridSize: {x: 5, y: 5}
   waitTurn: 3
-  turnCount: 10
+  turnCount: 5
   allRandomEvents:
+  - {fileID: 11400000, guid: db9f0c71521a98c4ba7b0e608ffe6948, type: 2}
+  - {fileID: 11400000, guid: db9f0c71521a98c4ba7b0e608ffe6948, type: 2}
   - {fileID: 11400000, guid: db9f0c71521a98c4ba7b0e608ffe6948, type: 2}
 --- !u!1 &4745296645209064104
 GameObject:
