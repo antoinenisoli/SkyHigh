@@ -133,7 +133,7 @@ public class MainGame : MonoBehaviour
 
     public void PlaceBuilding(Vector3 position)
     {
-        GameObject newBuilding = Instantiate(BuildingPrefab, position - Vector3.up * 4, BuildingPrefab.transform.rotation);
+        GameObject newBuilding = Instantiate(BuildingPrefab, position - Vector3.up * 4, BuildingPrefab.transform.rotation, grid);
         newBuilding.GetComponent<Building>().Build(position);
         BuildingPrefab = null;
         EventManager.Instance.onNewAction.Invoke();

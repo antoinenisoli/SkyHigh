@@ -18,8 +18,12 @@ public class CrowdManager : MonoBehaviour
         //On startup, init the members array to have the amount of members specified,
         members = new CrowdMember[maxMemberAmount];
         //Create an empty game object to put all the member's in, for better inspector organization
-        memberContainer = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
-        memberContainer.name = "Crowd Members";
+        if (!memberContainer)
+        {
+            memberContainer = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
+            memberContainer.name = "Crowd Members";
+        }
+
         for (int i = 0; i < maxMemberAmount; i++)
         {
             //Then make a new member for each element of the array.
