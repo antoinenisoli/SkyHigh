@@ -337,6 +337,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4745296644883290546, guid: b075efc185faa984984f6e8fd1b500e7,
+        type: 3}
+      propertyPath: grid
+      value: 
+      objectReference: {fileID: 452130426}
     - target: {fileID: 4745296645209064104, guid: b075efc185faa984984f6e8fd1b500e7,
         type: 3}
       propertyPath: m_Name
@@ -623,6 +628,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5473447956320874876, guid: e8a7a9183bb818d4f89f8d90de36b47c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6852576287609508058, guid: e8a7a9183bb818d4f89f8d90de36b47c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6852576287609508058, guid: e8a7a9183bb818d4f89f8d90de36b47c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6852576287609508058, guid: e8a7a9183bb818d4f89f8d90de36b47c,
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0

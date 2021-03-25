@@ -34,6 +34,8 @@ public class Building : MonoBehaviour
         transform.DOMoveY(position.y, animDuration);
         pos = position;
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
+
+        StartCoroutine(InvokeBuildingBuilt(animDuration));
     }
 
     public void Death()
@@ -46,5 +48,11 @@ public class Building : MonoBehaviour
     public override string ToString()
     {
         return "Earn " + resourceGain + " " + stat.ToString() + " per turn.";
+    }
+
+    private IEnumerator InvokeBuildingBuilt(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        EventManager.Instance.onBuildingBuilt?.Invoke(this);
     }
 }
