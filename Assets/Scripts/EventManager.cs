@@ -18,7 +18,7 @@ public class EventManager : MonoBehaviour
     public class UnityEventBool : UnityEvent<bool> { }
     public UnityEventBool onEndGame = new UnityEventBool();
 
-    public Action<GameObject> onBuildingBuilt;
+    public Action<Building> onBuildingBuilt;
     public Action<CrowdMember> onCrowdMemberReachedEnd;
 
     void Awake()

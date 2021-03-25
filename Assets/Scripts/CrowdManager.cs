@@ -5,7 +5,7 @@ using UnityEngine;
 public class CrowdManager : MonoBehaviour
 {
     [SerializeField] private CrowdMember memberPrefab = null;
-    [SerializeField] [Range(0, 1000)] private int memberAmount = 50;
+    [SerializeField] [Range(0, 1000)] private int maxMemberAmount = 50;
     [Tooltip("The position crowd members go to on startup, and when they are not used/inactive.")]
     [SerializeField] private Vector3 inactivePos = Vector3.up * -75;
 
@@ -16,11 +16,11 @@ public class CrowdManager : MonoBehaviour
     private void Start()
     {
         //On startup, init the members array to have the amount of members specified,
-        members = new CrowdMember[memberAmount];
+        members = new CrowdMember[maxMemberAmount];
         //Create an empty game object to put all the member's in, for better inspector organization
         memberContainer = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
         memberContainer.name = "Crowd Members";
-        for (int i = 0; i < memberAmount; i++)
+        for (int i = 0; i < maxMemberAmount; i++)
         {
             //Then make a new member for each element of the array.
             members[i] = Instantiate(memberPrefab, inactivePos, Quaternion.identity, memberContainer.transform);
@@ -37,7 +37,7 @@ public class CrowdManager : MonoBehaviour
         EventManager.Instance.onCrowdMemberReachedEnd -= StartResetCrowdMember;
     }
 
-    private void AddSpawnPosition(GameObject posObject) { memberSpawnPositions.Add(posObject.transform.position); }
+    private void AddSpawnPosition(Building posObject) { memberSpawnPositions.Add(posObject.transform.position); }
 
     private void StartResetCrowdMember(CrowdMember member) { StartCoroutine(ResetCrowdMember(member)); }
     private IEnumerator ResetCrowdMember(CrowdMember member)
