@@ -6,19 +6,26 @@ using UnityEngine;
 [Serializable]
 public class EventEffect
 {
+    [Serializable]
+    struct StatChange
+    {
+        public StatType statType;
+        public int amount;
+    }
+
     public string name;
     public EventType eventType;
     [Header("Destroy Building")]
     public string buildingToDestroy;
     [Header("Lose or gain resource")]
-    public StatType statType;
-    public int amount;
+    [SerializeField] StatChange[] changes;
 
     public void Execute()
     {
-        if (eventType.HasFlag(EventType.LoseResource))
+        if (changes.Length > 0)
         {
-            ResourceManager.Instance.GetStat(statType).CurrentAmount += amount;
+            foreach (var item in changes)
+                ResourceManager.Instance.ModifyStat(item.statType, item.amount);
         }
 
         if (eventType.HasFlag(EventType.DestroyBuilding))
@@ -33,5 +40,25 @@ public class EventEffect
                 }
             }
         }
+    }
+
+    public bool CanHappen()
+    {
+        bool b = true;
+        if (eventType.HasFlag(EventType.DestroyBuilding))
+        {
+            Building[] buildings = UnityEngine.Object.FindObjectsOfType<Building>();
+            b = false;
+            foreach (var item in buildings)
+            {
+                if (item.buildingName == buildingToDestroy)
+                {
+                    b = true;
+                    break;
+                }
+            }
+        }
+
+        return b;
     }
 }

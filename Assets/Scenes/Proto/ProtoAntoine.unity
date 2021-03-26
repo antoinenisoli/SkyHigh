@@ -820,7 +820,7 @@ PrefabInstance:
     - target: {fileID: 4745296644883290546, guid: b075efc185faa984984f6e8fd1b500e7,
         type: 3}
       propertyPath: turnCount
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4745296645209064104, guid: b075efc185faa984984f6e8fd1b500e7,
         type: 3}

@@ -163,10 +163,16 @@ MonoBehaviour:
   gridSize: {x: 5, y: 5}
   waitTurn: 2
   turnCount: 5
+  CurrentTurn:
+    myEvent: {fileID: 0}
+    actionsCount: 0
+    currentMode: 0
   allRandomEvents:
+  - {fileID: 11400000, guid: 5203d9743fdb96e49b6c626690e53118, type: 2}
   - {fileID: 11400000, guid: db9f0c71521a98c4ba7b0e608ffe6948, type: 2}
-  - {fileID: 11400000, guid: db9f0c71521a98c4ba7b0e608ffe6948, type: 2}
-  - {fileID: 11400000, guid: db9f0c71521a98c4ba7b0e608ffe6948, type: 2}
+  - {fileID: 11400000, guid: 143fa1124e1792f42a1ced0009b9f8cd, type: 2}
+  - {fileID: 11400000, guid: b9cd169586bacb14f816fca65f274012, type: 2}
+  - {fileID: 11400000, guid: f53d247139360f347b09e6f0df7c0ef4, type: 2}
 --- !u!1 &4745296645209064104
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hapinessPercent: 10
+  educationPercent: 35
   stats:
   - statType: 0
     currentAmount: 30

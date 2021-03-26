@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class TurnActionButton : UISpecialButton
 {
-    [SerializeField] int modeIndex;
-    [SerializeField] int pointCost = 1;
+    [SerializeField] ModeType modeIndex;
+    public int pointCost = 1;
 
     public override void UpdateUI()
     {
@@ -18,7 +18,6 @@ public class TurnActionButton : UISpecialButton
     {
         Click();
         UIManager.Instance.NewMode(modeIndex);
-        MainGame.Instance.CurrentTurn.actionsCount -= pointCost;
         EventManager.Instance.onCost.Invoke();
     }
 }

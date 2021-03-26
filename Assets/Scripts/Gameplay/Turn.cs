@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Turn
 {
     public RandomEvent myEvent;
@@ -17,10 +19,10 @@ public class Turn
 
     public RandomEvent NewEvent()
     {
-        int random = Random.Range(0, 100);
+        int random = UnityEngine.Random.Range(0, 100);
         foreach (var item in MainGame.Instance.allRandomEvents)
         {
-            if (random >= item.minProbabilityRange && random <= item.maxProbabilityRange)
+            if (random >= item.minProbabilityRange && random <= item.maxProbabilityRange && item.CanHappen())
                 return item;
         }
 

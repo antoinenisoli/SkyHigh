@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharityActionButton : UISpecialButton
+public class CharityActionButton : ActionButton
 {
     CharityAction action;
     public CharityAction Action 
@@ -42,8 +42,8 @@ public class CharityActionButton : UISpecialButton
     public void ExecuteAction()
     {
         Click();
-        ResourceManager.Instance.GetStat(Action.statType).CurrentAmount += Action.amount;
-        ResourceManager.Instance.ModifyMoney(-Action.moneyCost);
+        ResourceManager.Instance.ModifyStat(Action.statType, Action.amount);
+        ResourceManager.Instance.ModifyStat(StatType.Money, -Action.moneyCost);
         UIManager.Instance.ExitCharityPanel();
     }
 
