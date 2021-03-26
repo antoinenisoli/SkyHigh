@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject charityPanel;
     Vector3 charityPanelScale;
     CharityActionButton[] charityActionButtons;
-    Slider[] sliders;
+    Slider[] statSliders;
 
     [Header("Random Events")]
     [SerializeField] GameObject eventPanel;
@@ -99,8 +99,7 @@ public class UIManager : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         sequence.Append(blackScreen.DOFade(0.7f, 0.5f));
         float duration = 0.7f;
-        sequence.Join(eventPanel.transform.DOScale(eventPanelScale, duration));
-        sequence.Join(eventPanel.transform.DOPunchScale(Vector3.one * 0.1f, 0.2f).SetDelay(duration - 0.1f));
+        sequence.Join(eventPanel.transform.DOScale(eventPanelScale, duration).SetEase(Ease.InOutCubic));
         sequence.Play();
     }
 
@@ -109,35 +108,39 @@ public class UIManager : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         float duration = 0.3f;
         sequence.Append(blackScreen.DOFade(0, duration));
-        sequence.Join(eventPanel.transform.DOScale(Vector3.one * 0.0001f, duration));
+        sequence.Join(eventPanel.transform.DOScale(Vector3.one * 0.0001f, duration).SetEase(Ease.InOutCubic));
         sequence.Play().SetDelay(2f).OnComplete(NewAction);
     }
 
     void PanelAnim(GameObject obj, bool grow, Vector3 baseScale, float delay = default(float))
     {
-        obj.transform.DOComplete();
+        //obj.transform.DOComplete();
         float duration = 0.7f;
-        Sequence sequence = DOTween.Sequence();
         Vector3 newScale = grow ? baseScale : Vector3.one * 0.0001f;
-        sequence.Append(obj.transform.DOScale(newScale, duration).SetEase(Ease.Linear));
         if (grow)
-            sequence.Join(obj.transform.DOPunchScale(Vector3.one * 0.1f, 0.2f).SetDelay(duration - 0.1f));
-
-        sequence.Play().SetDelay(delay);
+            obj.transform.DOScale(newScale, duration).SetEase(Ease.InOutCubic).SetDelay(delay);
+        else
+            obj.transform.DOScale(newScale, duration).SetEase(Ease.InOutCubic).SetDelay(delay);
     }
 
     public void NewAction()
     {
         blackScreen.gameObject.SetActive(false);
-        PanelAnim(turnButtons, true, turnPanelScale);
         displayMode.text = "Choose an action !";
-        buildPanel.transform.DOLocalMoveX(originPos.x, 2f);
+        PanelAnim(turnButtons, true, turnPanelScale);
+        foreach (var item in charityPanel.GetComponentsInChildren<Button>())
+        {
+            item.interactable = false;
+        }
+
+        PanelAnim(charityPanel, false, charityPanelScale, 0.8f);
+        buildPanel.transform.DOLocalMoveX(originPos.x, 0.5f).SetEase(Ease.InBack);
     }
 
     public void NewTurn()
     {
         displayMode.text = "...";
-        buildPanel.transform.DOLocalMoveX(originPos.x, 2f);
+        buildPanel.transform.DOLocalMoveX(originPos.x, 0.5f).SetEase(Ease.InBack);
     }
 
     public void UpdateUI()
@@ -147,13 +150,18 @@ public class UIManager : MonoBehaviour
         turnText.text = MainGame.Instance.turnCount + " turns left !";
         displayGoal.text = "Goals : \n" + MainGame.Instance.MainGoal.ToString();
 
-        sliders = statPanel.GetComponentsInChildren<Slider>();
-        for (int i = 0; i < sliders.Length; i++)
+        statSliders = statPanel.GetComponentsInChildren<Slider>();
+        for (int i = 0; i < statSliders.Length; i++)
         {
             Statistic stat = ResourceManager.Instance.stats[i];
-            sliders[i].maxValue = stat.MaxAmount;
-            sliders[i].DOValue(stat.CurrentAmount, 1);
-            sliders[i].GetComponentInChildren<Text>().text = stat.CurrentAmount + "\n / " + "\n" + stat.MaxAmount;
+            statSliders[i].maxValue = stat.MaxAmount;
+            if (statSliders[i].value != stat.CurrentAmount)
+            {
+                statSliders[i].DOValue(stat.CurrentAmount, 1);
+                statSliders[i].transform.DOPunchScale(Vector3.one * 0.1f, 0.2f);
+            }
+            
+            statSliders[i].GetComponentInChildren<Text>().text = stat.CurrentAmount + "\n / " + "\n" + stat.MaxAmount;
         }
     }
 
@@ -178,7 +186,7 @@ public class UIManager : MonoBehaviour
         {
             case ModeType.Building:
                 displayMode.text = "Pick a building !";
-                buildPanel.transform.DOLocalMoveX(xPan, 0.7f);
+                buildPanel.transform.DOLocalMoveX(xPan, 0.7f).SetEase(Ease.OutExpo);
                 EventManager.Instance.onCost?.Invoke();
                 break;
             case ModeType.ActionChoose:

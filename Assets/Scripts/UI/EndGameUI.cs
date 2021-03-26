@@ -37,7 +37,7 @@ public class EndGameUI : MonoBehaviour
     public void Anim(bool win)
     {
         StartCoroutine(SliderAnimation(win));
-        transform.DOLocalMoveY(0, 1);
+        transform.DOLocalMoveY(0, 1).SetEase(Ease.OutBack);
         displayState.color = win ? Color.green : Color.red;
         displayState.text = win ? "Victory !" : "Defeat";
     }
@@ -89,5 +89,9 @@ public class EndGameUI : MonoBehaviour
     void Shake()
     {
         MainGame.Instance.ShakeCamera(0.2f, 2f);
+        for (int i = 0; i < transform.root.childCount; i++)
+        {
+            transform.root.GetChild(i).DOShakePosition(0.2f, 5f, 90);
+        }
     }
 }

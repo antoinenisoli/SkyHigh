@@ -81,11 +81,11 @@ public class MainGame : MonoBehaviour
         Building[] buildings = FindObjectsOfType<Building>();
         foreach (var item in buildings)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(1f);
             item.Effect();
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         if (turnCount > 0)
         {
             if (CurrentTurn.myEvent)

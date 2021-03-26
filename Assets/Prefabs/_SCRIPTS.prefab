@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   memberPrefab: {fileID: 2530309879024810035, guid: 35e4935eb3f669c4ba9a5abbc11c35a6,
     type: 3}
-  memberAmount: 50
+  maxMemberAmount: 50
   inactivePos: {x: -0, y: -75, z: -0}
   memberContainer: {fileID: 0}
   members: []
@@ -161,7 +161,7 @@ MonoBehaviour:
   grid: {fileID: 0}
   cell: {fileID: 2083073688832064984, guid: 0f1cecf211775d347a961d9e1a09476c, type: 3}
   gridSize: {x: 5, y: 5}
-  waitTurn: 3
+  waitTurn: 2
   turnCount: 5
   allRandomEvents:
   - {fileID: 11400000, guid: db9f0c71521a98c4ba7b0e608ffe6948, type: 2}
@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673b0a6cd9d8bd147becb95b13a0e342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hapinessPercent: 10
   stats:
   - statType: 0
     currentAmount: 30

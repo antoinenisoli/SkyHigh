@@ -37,7 +37,7 @@ public class ResourceManager : MonoBehaviour
 
     public bool CanBuy(float cost)
     {
-        return Money.CurrentAmount - cost >= 0;
+        return Money.CurrentAmount + cost >= 0;
     }
 
     public Statistic GetStat(StatType type)
