@@ -6,11 +6,15 @@ using UnityEngine;
 public class Floating : MonoBehaviour
 {
     [SerializeField] float offset = 3;
-    [SerializeField] float speed;
+    [SerializeField] float animDuration;
+    Vector3 startPos;
 
     private void Awake()
     {
-        Vector3 pos = transform.position;
-        transform.DOMoveY(pos.y - offset, speed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutSine);
+        startPos = transform.position;
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DOMoveY(startPos.y - offset, animDuration/2).SetEase(Ease.InOutSine));
+        sequence.Append(transform.DOMoveY(startPos.y, animDuration/2).SetEase(Ease.InOutSine));
+        sequence.Play().SetLoops(-1);
     }
 }

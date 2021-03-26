@@ -23,7 +23,7 @@ public abstract class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPo
 
     public abstract void UpdateUI();
 
-    public void Click()
+    public virtual void Click()
     {
         transform.DOComplete();
         transform.DOPunchScale(Vector3.one * -0.2f, 0.3f);
