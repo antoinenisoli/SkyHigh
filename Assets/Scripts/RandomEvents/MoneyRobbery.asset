@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5484b968fb0e9409012ce780e3541d, type: 3}
+  m_Name: MoneyRobbery
+  m_EditorClassIdentifier: 
+  name: Robbery
+  minProbabilityRange: 0
+  maxProbabilityRange: 18
+  description: Treasury has been pillaged ! Should we talk about it to your citizens
+    ?
+  choices:
+  - name: Yes
+    eventType: 0
+    buildingToDestroy: 
+    changes:
+    - statType: 3
+      amount: -30
+    - statType: 0
+      amount: 5
+    - statType: 1
+      amount: -5
+  - name: No
+    eventType: 0
+    buildingToDestroy: 
+    changes:
+    - statType: 3
+      amount: -30
+    - statType: 1
+      amount: 5
+    - statType: 0
+      amount: -5

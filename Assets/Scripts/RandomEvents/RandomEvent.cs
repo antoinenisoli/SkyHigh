@@ -7,7 +7,6 @@ using UnityEngine;
 public enum EventType
 {
     DestroyBuilding = 1 << 0,
-    LoseResource = 1 << 1,
 }
 
 [CreateAssetMenu(fileName = "NewEvent", menuName = "Random Events/New Event")]
@@ -19,8 +18,15 @@ public class RandomEvent : ScriptableObject
     [TextArea] public string description;
     public EventEffect[] choices = new EventEffect[2];
 
-    public void ExecuteEvent(int index)
+    public bool CanHappen()
     {
-        choices[index].Execute();
+        bool b = true;
+        foreach (var item in choices)
+        {
+            if (!item.CanHappen())
+                return false;
+        }
+
+        return b;
     }
 }

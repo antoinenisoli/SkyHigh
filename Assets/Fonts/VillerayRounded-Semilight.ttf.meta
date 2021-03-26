@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 44f2b4267820db34f9ce5f4bafc5ab87
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Villeray Rounded
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1273c2032f1f5d6468b6c93280177679, type: 3}
+  - {fileID: 12800000, guid: 30f3641b1e4111849878e9290ebb4e44, type: 3}
+  - {fileID: 12800000, guid: 314e419eb72b8224fbf1ff83e81caad8, type: 3}
+  - {fileID: 12800000, guid: 24df9fea337009543b3e1b8ff821612a, type: 3}
+  - {fileID: 12800000, guid: 92ee26c8943748140bce007761b7a4af, type: 3}
+  - {fileID: 12800000, guid: f26575b0cddf09a40bfa31480799cd8a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

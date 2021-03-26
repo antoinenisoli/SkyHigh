@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildingButton : UISpecialButton
+public class BuildingButton : ActionButton
 {
     [HideInInspector] public GameObject buildingPrefab;
     Building building;
@@ -35,7 +35,7 @@ public class BuildingButton : UISpecialButton
     {
         Click();
         MainGame.Instance.BuildingPrefab = buildingPrefab;
-        ResourceManager.Instance.ModifyMoney(building.moneyCost);
+        ResourceManager.Instance.ModifyStat(StatType.Money, building.moneyCost);
         UpdateUI();
     }
 }

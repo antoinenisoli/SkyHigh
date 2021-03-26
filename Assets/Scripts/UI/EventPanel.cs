@@ -30,7 +30,7 @@ public class EventPanel : MonoBehaviour
 
     public void EventChoice(int choiceIndex)
     {
-        MainGame.Instance.CurrentTurn.myEvent.ExecuteEvent(choiceIndex);
+        MainGame.Instance.CurrentTurn.myEvent.choices[choiceIndex].Execute();
         UIManager.Instance.ExitEventPanel();
         foreach (var item in buttons) { item.interactable = false; }
     }

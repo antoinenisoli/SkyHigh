@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5484b968fb0e9409012ce780e3541d, type: 3}
+  m_Name: Riot
+  m_EditorClassIdentifier: 
+  name: Riot
+  minProbabilityRange: 0
+  maxProbabilityRange: 10
+  description: The town's citizens are too angry and they are rioting ! You can do
+    nothing and letting one of your bank be destroyed, or pay 65$ in order to calm
+    tensions. But the problem will not be solved anyway...
+  choices:
+  - name: Nothing
+    eventType: 1
+    buildingToDestroy: Bank
+    changes: []
+  - name: Pay
+    eventType: 2
+    buildingToDestroy: 
+    changes:
+    - statType: 3
+      amount: -65

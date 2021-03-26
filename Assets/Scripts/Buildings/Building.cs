@@ -21,14 +21,15 @@ public class Building : MonoBehaviour
     [SerializeField] private Transform crowdEntryPos = null;
     Vector3? pos;
 
-    public Transform CrowdEntryPosition { get { return crowdEntryPos; } }
+    /// <summary>
+    /// The transform containing the position crowd members should enter/exit from. <br/>
+    /// If <see cref="crowdEntryPos"/> is not assigned in the inspector, this will equal this building's transform.
+    /// </summary>
+    public Transform CrowdEntryPosition { get { return crowdEntryPos ? crowdEntryPos : transform; } }
 
     public virtual void Effect()
     {
-        if (stat == StatType.Money)
-            ResourceManager.Instance.ModifyMoney(resourceGain);
-        else
-            ResourceManager.Instance.GetStat(stat).CurrentAmount += resourceGain;
+        ResourceManager.Instance.ModifyStat(stat, resourceGain);
 
         if (fx)
             fx.Play();
@@ -40,13 +41,14 @@ public class Building : MonoBehaviour
         pos = position;
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
 
-        StartCoroutine(InvokeBuildingBuilt(animDuration));
+        StartCoroutine(InvokeBuildingEvent(animDuration, true));
     }
 
     public void Death()
     {
         transform.DOMoveY(pos.Value.y - 4, animDuration);
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
+        StartCoroutine(InvokeBuildingEvent(animDuration - 0.01f, false));
         Destroy(gameObject, animDuration);
     }
 
@@ -55,9 +57,11 @@ public class Building : MonoBehaviour
         return "Earn " + resourceGain + " " + stat.ToString() + " per turn.";
     }
 
-    private IEnumerator InvokeBuildingBuilt(float delay)
+    private IEnumerator InvokeBuildingEvent(float delay, bool isBuilt)
     {
         yield return new WaitForSeconds(delay);
-        EventManager.Instance.onBuildingBuilt?.Invoke(this);
+
+        if (isBuilt) { EventManager.Instance.onBuildingBuilt?.Invoke(this); }
+        else { EventManager.Instance.onBuildingDestroyed?.Invoke(this); }
     }
 }
