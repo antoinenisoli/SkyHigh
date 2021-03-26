@@ -26,6 +26,15 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    public int GetAverage()
+    {
+        int i = 0;
+        foreach (var item in allStats.Values)
+            i += item.CurrentAmount;
+
+        return i / allStats.Count;
+    }
+
     public bool CanBuy(float cost)
     {
         return Money.CurrentAmount - cost >= 0;
