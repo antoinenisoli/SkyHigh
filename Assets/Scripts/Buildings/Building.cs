@@ -29,10 +29,7 @@ public class Building : MonoBehaviour
 
     public virtual void Effect()
     {
-        if (stat == StatType.Money)
-            ResourceManager.Instance.ModifyMoney(resourceGain);
-        else
-            ResourceManager.Instance.GetStat(stat).CurrentAmount += resourceGain;
+        ResourceManager.Instance.ModifyStat(stat, resourceGain);
 
         if (fx)
             fx.Play();

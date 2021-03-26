@@ -1337,6 +1337,9 @@ MonoBehaviour:
     type: 3}
   statPanel: {fileID: 190878928249499882}
   displayGoal: {fileID: 4209748616880333415}
+  backButton: {fileID: 6960011872617325498}
+  hapinessDescription: {fileID: 5729759189618743143}
+  educationDescription: {fileID: 810146121198454623}
   displayMode: {fileID: 190878928344183258}
   turnText: {fileID: 6575840125891130400}
   turnActionText: {fileID: 1834790367416728470}
@@ -2386,6 +2389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8510f1b023f594295cb9e8c484f114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTurnAction: {fileID: 3589442248053719674}
   buildingPrefab: {fileID: 593468330607413572, guid: 4ffa3877a61fd1449910bdebc1434ddb,
     type: 3}
   costDisplay: {fileID: 2216252321942720366}
@@ -4452,7 +4456,7 @@ GameObject:
   - component: {fileID: 1238591883097126993}
   - component: {fileID: 5695056574616471910}
   m_Layer: 5
-  m_Name: ActionButton
+  m_Name: CharityActionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4585,7 +4589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d0796b893da9c47a8012dd151d7eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modeIndex: 1
+  modeIndex: 3
   pointCost: 2
 --- !u!1 &2962916030286892824
 GameObject:
@@ -4861,8 +4865,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9028884664605186055}
   m_HandleRect: {fileID: 5473447956320874876}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.5047175
+  m_Value: 1.0000001
+  m_Size: 0.5047176
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5526,7 +5530,7 @@ GameObject:
   - component: {fileID: 3980051970646984785}
   - component: {fileID: 5729759189618743143}
   m_Layer: 5
-  m_Name: Text
+  m_Name: HappinessDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5595,7 +5599,8 @@ MonoBehaviour:
   m_Text: '<b>Hapiness</b>
 
 
-    Increase the rates of all sources of money incomes.'
+    Increase the rates by 10% of all sources of money
+    incomes.'
 --- !u!1 &3968926767886468475
 GameObject:
   m_ObjectHideFlags: 0
@@ -6203,7 +6208,7 @@ GameObject:
   - component: {fileID: 986218583253949211}
   - component: {fileID: 810146121198454623}
   m_Layer: 5
-  m_Name: Text
+  m_Name: EducationDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7085,7 +7090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d0796b893da9c47a8012dd151d7eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modeIndex: 2
+  modeIndex: 4
   pointCost: 1
 --- !u!1 &5478579479230664954
 GameObject:
@@ -7099,7 +7104,7 @@ GameObject:
   - component: {fileID: 1947482199992505636}
   - component: {fileID: 2247141546551662826}
   m_Layer: 5
-  m_Name: Text
+  m_Name: VisibilityDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7366,7 +7371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d0796b893da9c47a8012dd151d7eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modeIndex: 0
+  modeIndex: 2
   pointCost: 1
 --- !u!1 &5592453177507662924
 GameObject:
@@ -7898,6 +7903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8510f1b023f594295cb9e8c484f114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTurnAction: {fileID: 3589442248053719674}
   buildingPrefab: {fileID: 593468330607413572, guid: 4ffa3877a61fd1449910bdebc1434ddb,
     type: 3}
   costDisplay: {fileID: 7613454322771721667}
@@ -8511,6 +8517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8510f1b023f594295cb9e8c484f114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTurnAction: {fileID: 3589442248053719674}
   buildingPrefab: {fileID: 593468330607413572, guid: 4ffa3877a61fd1449910bdebc1434ddb,
     type: 3}
   costDisplay: {fileID: 7955805251546729204}
@@ -11060,6 +11067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8510f1b023f594295cb9e8c484f114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTurnAction: {fileID: 3589442248053719674}
   buildingPrefab: {fileID: 593468330607413572, guid: 4ffa3877a61fd1449910bdebc1434ddb,
     type: 3}
   costDisplay: {fileID: 3594886314690745547}
@@ -11326,12 +11334,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5e20f54ba20c1b6428a6f0b6ea8aa7b5, type: 3}
   - {fileID: 21300000, guid: 5531bee6175bd2c4fb6abd3eb115b7fd, type: 3}
   endGameMessage:
-  - Very good !
-  - Pretty good
-  - Not so good...
-  - You lost but very cool
-  - you lost but pretty good...
-  - Try better next time !
+  - You reached the goal and you have a high satisfaction ! Congratulations !
+  - You reached the goal but your city's satisfaction is just correct. You should
+    focus more on it next time.
+  - You reached the goal but your city's satisfaction could be better... Don't forget
+    that every statistic is important for your city.
+  - You didn't reach the goal, but your city's satisfaction is excellent ! You should
+    make it the next time.
+  - You didn't reach the goal, but your city's satisfaction is pretty correct, keep
+    trying !
+  - You didn't reach the goal and your city's satisfaction is really low...Keep attention
+    on your stats, they are all important for your city.
 --- !u!1 &8833354409622704647
 GameObject:
   m_ObjectHideFlags: 0
@@ -11898,6 +11911,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 70.17795
       objectReference: {fileID: 0}
+    - target: {fileID: 7063886265546536886, guid: 94ecf04bc60331940b0e3f7c938ed2b6,
+        type: 3}
+      propertyPath: myTurnAction
+      value: 
+      objectReference: {fileID: 5695056574616471910}
     - target: {fileID: 8716775944176469508, guid: 94ecf04bc60331940b0e3f7c938ed2b6,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -12048,6 +12066,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 70.17795
       objectReference: {fileID: 0}
+    - target: {fileID: 7063886265546536886, guid: 94ecf04bc60331940b0e3f7c938ed2b6,
+        type: 3}
+      propertyPath: myTurnAction
+      value: 
+      objectReference: {fileID: 5695056574616471910}
     - target: {fileID: 8716775944176469508, guid: 94ecf04bc60331940b0e3f7c938ed2b6,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -12198,6 +12221,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 70.17795
       objectReference: {fileID: 0}
+    - target: {fileID: 7063886265546536886, guid: 94ecf04bc60331940b0e3f7c938ed2b6,
+        type: 3}
+      propertyPath: myTurnAction
+      value: 
+      objectReference: {fileID: 5695056574616471910}
     - target: {fileID: 8716775944176469508, guid: 94ecf04bc60331940b0e3f7c938ed2b6,
         type: 3}
       propertyPath: m_SizeDelta.x

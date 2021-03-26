@@ -54,11 +54,11 @@ public class EndGameUI : MonoBehaviour
             yield return new WaitForSeconds(duration + 0.4f);
         }
 
-        string s = "<b> Global Satisfaction </b> : " + ResourceManager.Instance.GetAverage() + " %";
+        string s = "<b> Global Satisfaction </b> : " + ResourceManager.Instance.GetGlobalSatisfaction() + " %";
         globalSatisfactionDisplay.DOText(s, 1.5f);
         yield return new WaitForSeconds(1.5f);
 
-        seal.sprite = ResourceManager.Instance.GetAverage() >= 50 ? sealSprites[0] : sealSprites[1];
+        seal.sprite = ResourceManager.Instance.GetGlobalSatisfaction() >= 50 ? sealSprites[0] : sealSprites[1];
         Sequence sequence = DOTween.Sequence();
         sequence.Append(seal.DOFade(1, 0.3f));
         sequence.Join(seal.transform.DOScale(Vector3.one * 0.8f, 0.3f));
@@ -68,15 +68,15 @@ public class EndGameUI : MonoBehaviour
         if (b)
         {
             message =
-                ResourceManager.Instance.GetAverage() >= 75 ? endGameMessage[0]
-                : ResourceManager.Instance.GetAverage() >= 50 ? endGameMessage[1]
+                ResourceManager.Instance.GetGlobalSatisfaction() >= 75 ? endGameMessage[0]
+                : ResourceManager.Instance.GetGlobalSatisfaction() >= 50 ? endGameMessage[1]
                 : endGameMessage[2];
         }
         else
         {
             message =
-                ResourceManager.Instance.GetAverage() >= 75 ? endGameMessage[3]
-                : ResourceManager.Instance.GetAverage() >= 50 ? endGameMessage[4]
+                ResourceManager.Instance.GetGlobalSatisfaction() >= 75 ? endGameMessage[3]
+                : ResourceManager.Instance.GetGlobalSatisfaction() >= 50 ? endGameMessage[4]
                 : endGameMessage[5];
         }
 

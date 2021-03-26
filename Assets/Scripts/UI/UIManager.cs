@@ -12,6 +12,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject floatingText;
     [SerializeField] GameObject statPanel;
     [SerializeField] Text displayGoal;
+    [SerializeField] Button backButton;
+
+    [Header("Stats")]
+    [SerializeField] Text hapinessDescription;
+    [SerializeField] Text educationDescription;
+    Slider[] statSliders;
 
     [Header("Turn actions")]
     [SerializeField] Text displayMode;
@@ -29,7 +35,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject charityPanel;
     Vector3 charityPanelScale;
     CharityActionButton[] charityActionButtons;
-    Slider[] statSliders;
 
     [Header("Random Events")]
     [SerializeField] GameObject eventPanel;
@@ -51,6 +56,17 @@ public class UIManager : MonoBehaviour
             blackScreen.DOFade(0, 0);
             blackScreen.gameObject.SetActive(false);
         }
+
+        hapinessDescription.text =
+            "<b>Hapiness</b> \n \n"
+            + "Increase all money incomes by " 
+            + ResourceManager.Instance.hapinessPercent 
+            + "% of this stat value.";
+
+        educationDescription.text =
+            "<b>Education</b> \n \n "
+            + "Defines the base money income per turn, which is "
+            + ResourceManager.Instance.educationPercent + "% of this stat value. ";
 
         turnText.text = MainGame.Instance.turnCount + " turns left !";
         charityActionButtons = GetComponentsInChildren<CharityActionButton>();
@@ -87,7 +103,7 @@ public class UIManager : MonoBehaviour
     {
         EventManager.Instance.onEndGame.AddListener(SetBlackScreen);
         EventManager.Instance.onNewAction.AddListener(NewAction);
-        EventManager.Instance.onNewTurn.AddListener(NewTurn);
+        EventManager.Instance.onNewTurn.AddListener(DoTurn);
         EventManager.Instance.onCost.AddListener(UpdateUI);
         EventManager.Instance.onNewTurn.AddListener(UpdateUI);
         EventManager.Instance.onNewRandomEvent.AddListener(DisplayEvent);
@@ -112,34 +128,24 @@ public class UIManager : MonoBehaviour
         sequence.Play().SetDelay(2f).OnComplete(NewAction);
     }
 
-    void PanelAnim(GameObject obj, bool grow, Vector3 baseScale, float delay = default(float))
+    void PanelAnim(GameObject obj, Vector3 targetScale, float delay = default)
     {
-        //obj.transform.DOComplete();
+        obj.transform.DOComplete();
         float duration = 0.7f;
-        Vector3 newScale = grow ? baseScale : Vector3.one * 0.0001f;
-        if (grow)
-            obj.transform.DOScale(newScale, duration).SetEase(Ease.InOutCubic).SetDelay(delay);
-        else
-            obj.transform.DOScale(newScale, duration).SetEase(Ease.InOutCubic).SetDelay(delay);
+        obj.transform.DOScale(targetScale, duration).SetEase(Ease.InOutCubic).SetDelay(delay);
     }
 
     public void NewAction()
     {
         blackScreen.gameObject.SetActive(false);
-        displayMode.text = "Choose an action !";
-        PanelAnim(turnButtons, true, turnPanelScale);
-        foreach (var item in charityPanel.GetComponentsInChildren<Button>())
-        {
-            item.interactable = false;
-        }
-
-        PanelAnim(charityPanel, false, charityPanelScale, 0.8f);
+        PanelAnim(charityPanel, Vector3.one * 0.0001f);
         buildPanel.transform.DOLocalMoveX(originPos.x, 0.5f).SetEase(Ease.InBack);
+        NewMode(ModeType.ChooseBasicAction);
     }
 
-    public void NewTurn()
+    public void DoTurn()
     {
-        displayMode.text = "...";
+        NewMode(ModeType.ExecuteTurn);
         buildPanel.transform.DOLocalMoveX(originPos.x, 0.5f).SetEase(Ease.InBack);
     }
 
@@ -172,30 +178,41 @@ public class UIManager : MonoBehaviour
             item.interactable = false;
         }
 
-        PanelAnim(charityPanel, false, charityPanelScale, 0.8f);
+        PanelAnim(charityPanel, Vector3.one * 0.0001f, 0.8f);
         NewAction();
     }
 
-    public void NewMode(int type)
+    public void NewMode(ModeType type)
     {
-        PanelAnim(turnButtons, false, turnPanelScale);
-        ModeType mode = (ModeType)type;
-        MainGame.Instance.SetMode(mode);
+        if (type != ModeType.ChooseBasicAction)
+            PanelAnim(turnButtons, Vector3.one * 0.0001f);
+        else
+            PanelAnim(turnButtons, turnPanelScale);
+
+        MainGame.Instance.SetMode(type);
         turnText.text = MainGame.Instance.turnCount + " turns left !";
-        switch (mode)
+        backButton.interactable = true;
+        switch (type)
         {
             case ModeType.Building:
                 displayMode.text = "Pick a building !";
                 buildPanel.transform.DOLocalMoveX(xPan, 0.7f).SetEase(Ease.OutExpo);
                 EventManager.Instance.onCost?.Invoke();
                 break;
-            case ModeType.ActionChoose:
-                displayMode.text = "Make an action !";
-                PanelAnim(charityPanel, true, charityPanelScale);
+            case ModeType.Charity:
+                displayMode.text = "Make a Charity Action !";
+                PanelAnim(charityPanel, charityPanelScale);
                 NewDeck();
                 break;
             case ModeType.Store:
-                displayMode.text = "Choose an action to buy !";
+                displayMode.text = "Pick an action to buy !";
+                break;
+            case ModeType.ChooseBasicAction:
+                displayMode.text = "Choose an action!";
+                break;
+            case ModeType.ExecuteTurn:
+                displayMode.text = "Execute turn...";
+                backButton.interactable = false;
                 break;
         }
     }
@@ -212,7 +229,8 @@ public class UIManager : MonoBehaviour
     public void EndTurn()
     {
         EventManager.Instance.onNewTurn.Invoke();
-        PanelAnim(turnButtons, false, turnPanelScale);
+        NewMode(ModeType.ExecuteTurn);
+        PanelAnim(turnButtons, Vector3.one * 0.0001f);
     }
 
     public void FloatingText(int amount)

@@ -5,16 +5,18 @@ using DG.Tweening;
 
 public enum ModeType
 {
+    ChooseBasicAction,
+    ExecuteTurn,
     Building,
-    ActionChoose,
+    Charity,
     Store,
-    None,
 }
 
 public class MainGame : MonoBehaviour
 {
     public static MainGame Instance;
     Camera mainCam;
+    [SerializeField] LevelData data;
     public Goal MainGoal;
 
     [Header("Charity Actions")]
@@ -53,7 +55,7 @@ public class MainGame : MonoBehaviour
             Destroy(gameObject);
 
         mainCam = Camera.main;
-        CurrentTurn = new Turn(3, ModeType.None);
+        CurrentTurn = new Turn(3, ModeType.ChooseBasicAction);
     }
 
     private IEnumerator Start()
@@ -68,7 +70,7 @@ public class MainGame : MonoBehaviour
 
     public void NewTurn()
     {
-        CurrentTurn = new Turn(3, ModeType.None);
+        CurrentTurn = new Turn(3, ModeType.ChooseBasicAction);
         turnCount--;
         UIManager.Instance.UpdateUI();
         StartCoroutine(InvokeNewTurn());
@@ -77,13 +79,16 @@ public class MainGame : MonoBehaviour
     IEnumerator InvokeNewTurn()
     {
         yield return new WaitForSeconds(waitTurn);
-        CurrentTurn = new Turn(3, ModeType.None);
+        CurrentTurn = new Turn(3, ModeType.ChooseBasicAction);
         Building[] buildings = FindObjectsOfType<Building>();
         foreach (var item in buildings)
         {
             yield return new WaitForSeconds(1f);
             item.Effect();
         }
+
+        yield return new WaitForSeconds(1f);
+        ResourceManager.Instance.PayDay();
 
         yield return new WaitForSeconds(2f);
         if (turnCount > 0)
@@ -100,15 +105,6 @@ public class MainGame : MonoBehaviour
     public void SetMode(ModeType newMode)
     {
         CurrentTurn.currentMode = newMode;
-        switch (newMode)
-        {
-            case ModeType.Building:
-                break;
-            case ModeType.ActionChoose:
-                break;
-            case ModeType.Store:
-                break;
-        }
     }
 
     public void CreateGrid()
