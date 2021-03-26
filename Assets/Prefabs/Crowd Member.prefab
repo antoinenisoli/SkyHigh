@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4360002b9a0966344a3cd41313348d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rend: {fileID: 1916920352179569645}
   route: []
   speed: 1
+  fadeDuration: 0.75
 --- !u!1 &8823533666723477497
 GameObject:
   m_ObjectHideFlags: 0
