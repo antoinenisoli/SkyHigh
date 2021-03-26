@@ -27,6 +27,8 @@ public class MainGame : MonoBehaviour
     [SerializeField] Transform grid;
     [SerializeField] GameObject cell;
     [SerializeField] Vector2Int gridSize;
+    [SerializeField] Transform waypoint;
+    public Transform[] crowdWaypoints;
 
     [Header("Turns")]
     [SerializeField] float waitTurn = 4f;
@@ -109,14 +111,26 @@ public class MainGame : MonoBehaviour
 
     public void CreateGrid()
     {
-        int xScale = gridSize.x * 5;
-        int zScale = gridSize.y * 5;
+        //The waypoints are the inner corners of the grid; i.e., a grid smaller in each dimension by one
+        crowdWaypoints = new Transform[(gridSize.x - 1) * (gridSize.y - 1)];
+        int waypointCount = 0;
+
+        int xScale = gridSize.x * (int)cell.transform.localScale.x;
+        int zScale = gridSize.y * (int)cell.transform.localScale.z;
         for (int i = 0; i < xScale; i += (int)cell.transform.localScale.x)
         {
             for (int j = 0; j < zScale; j += (int)cell.transform.localScale.z)
             {
                 GameObject newCell = Instantiate(cell, grid);
                 newCell.transform.localPosition = new Vector3(i, 0, j);
+
+                if (i < xScale - (int)cell.transform.localScale.x
+                    && j < zScale - (int)cell.transform.localScale.z)
+                {
+                    crowdWaypoints[waypointCount] = Instantiate(waypoint, newCell.transform);
+                    crowdWaypoints[waypointCount].localPosition = Vector3.one * 0.5f;
+                    waypointCount++;
+                }
             }
         }
     }
