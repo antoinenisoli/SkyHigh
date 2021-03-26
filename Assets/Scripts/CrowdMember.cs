@@ -58,7 +58,7 @@ public class CrowdMember : MonoBehaviour
         //If the route is invalid, bail out and cry about it in the console.
         if (newRoute.Length < 2)
         {
-            Debug.LogError($"Invalid route assigned to {gameObject.name}: {newRoute}");
+            Debug.LogError($"Invalid route assigned to {gameObject.name}. The route length must be at least 2, not {newRoute.Length}.");
             return;
         }
 

@@ -165,6 +165,9 @@ MonoBehaviour:
   grid: {fileID: 0}
   cell: {fileID: 2083073688832064984, guid: 0f1cecf211775d347a961d9e1a09476c, type: 3}
   gridSize: {x: 5, y: 5}
+  waypoint: {fileID: 7493733611764033639, guid: a7a47a6f6e300ec48afcf1e1f90009b9,
+    type: 3}
+  crowdWaypoints: []
   waitTurn: 2
   turnCount: 5
   CurrentTurn:

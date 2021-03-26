@@ -13,6 +13,8 @@ public class CrowdManager : MonoBehaviour
     [SerializeField] private Vector3 inactivePos = Vector3.up * -75;
     [Tooltip("How long to wait before \"spawning\" a member at a spawn position")]
     [SerializeField] private float delayBetweenMemberSpawns = 1;
+    [Tooltip("X = Minimum number of waypoints between the start and end of this member's route. Y = Maximum. Defaults to (1, 3).")]
+    [SerializeField] private Vector2Int routeMidpointRange = Vector2Int.one * -1;
 
     [Header("Member Collections")]
     [SerializeField] private GameObject memberContainer;
@@ -30,13 +32,19 @@ public class CrowdManager : MonoBehaviour
     {
         //On startup, init the members array to have the amount of members specified,
         members = new CrowdMember[maxMemberAmount];
-        //Create an empty game object to put all the member's in if one wasn't designated, for better inspector organization
-        if (!memberContainer)
+
+        //Sanitize the given route length range; default if less than 0,
+        routeMidpointRange = routeMidpointRange.x < 0 || routeMidpointRange.y < 0 ? new Vector2Int(1, 3) : routeMidpointRange;
+        //Swap if x is bigger than y
+        if (routeMidpointRange.x > routeMidpointRange.y)
         {
-            memberContainer = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
-            memberContainer.name = "Crowd Members";
+            int swap = routeMidpointRange.x;
+            routeMidpointRange.x = routeMidpointRange.y;
+            routeMidpointRange.y = swap;
         }
 
+        //Create an empty game object to put all the member's in if one wasn't designated, for better inspector organization
+        if (!memberContainer) { memberContainer = new GameObject("Crowd Members"); }
         for (int i = 0; i < maxMemberAmount; i++)
         {
             //Then make a new member for each element of the array.
@@ -89,14 +97,28 @@ public class CrowdManager : MonoBehaviour
         //Wait until there is at least one spawn position.
         yield return new WaitUntil(() => memberSpawnPositions.Count > 0);
 
-        Transform startPos = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
-        Transform endPos = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
+        //Generate a route with a start and end(the +2 at the end), plus a random number of mid points
+        var whywontthisarrayinit = Random.Range(routeMidpointRange.x, routeMidpointRange.y) + 2;
+        Transform[] notCursedArray = new Transform[whywontthisarrayinit];
+        Transform[] newRoute = new Transform[whywontthisarrayinit];
+        //Set the start and end to random member spawn positions
+        newRoute[0] = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
+        newRoute[newRoute.Length - 1] = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
 
-        //Now that the route is constructed, wait until the cooldown on this location is up
-        yield return new WaitUntil(() => spawnCooldowns[startPos] <= 0);
+        int lastIndex = -1;
+        for (int i = 1; i < newRoute.Length - 1; i++)
+        {
+            int waypointIndex = lastIndex;
+            while (waypointIndex == lastIndex) { waypointIndex = Random.Range(0, MainGame.Instance.crowdWaypoints.Length); }
+            newRoute[i] = MainGame.Instance.crowdWaypoints[waypointIndex];
+            lastIndex = waypointIndex;
+        }
+
+        ////Now that the route is constructed, wait until the cooldown on the start location is up
+        yield return new WaitUntil(() => spawnCooldowns[newRoute[0]] <= 0);
 
         //Start the cooldown at this spawn position and reset the member's route in preparation for them to set out
-        spawnCooldowns[startPos] = delayBetweenMemberSpawns;
-        member.ResetRoute(startPos, endPos);
+        spawnCooldowns[newRoute[0]] = delayBetweenMemberSpawns;
+        member.ResetRoute(newRoute);
     }
 }
