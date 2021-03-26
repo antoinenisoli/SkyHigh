@@ -17,13 +17,12 @@ public class CharityActionButton : ActionButton
         }
     }
 
-    Text displayDescription;
-    Image image;
+    [SerializeField] Text displayDescription;
+    [SerializeField] Text displayEffect;
+    [SerializeField] Image illustrationDisplay;
 
     public override void Awake()
     {
-        displayDescription = GetComponentInChildren<Text>();
-        image = GetComponentInChildren<Image>();
         UpdateUI();
         base.Awake();
     }
@@ -34,9 +33,10 @@ public class CharityActionButton : ActionButton
             return;
 
         button.interactable = true;
-        displayDescription.text = Action.description + ToString();
+        displayDescription.text = Action.description;
+        displayEffect.text = ToString();
         if (Action.illustration)
-            image.sprite = Action.illustration;
+            illustrationDisplay.sprite = Action.illustration;
     }
 
     public void ExecuteAction()
@@ -49,6 +49,6 @@ public class CharityActionButton : ActionButton
 
     public override string ToString()
     {
-        return "\n (Earn " + Action.amount + " " + Action.statType + ", cost : " + Action.moneyCost + "$)";
+        return "Earn " + Action.amount + " " + Action.statType + ", cost : " + Action.moneyCost + "$";
     }
 }

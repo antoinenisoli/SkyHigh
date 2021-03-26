@@ -8,7 +8,7 @@ public class BuildingButton : ActionButton
 {
     [HideInInspector] public GameObject buildingPrefab;
     Building building;
-    Image image;
+    [SerializeField] Image photo;
     [SerializeField] Text costDisplay;
     [SerializeField] Text nameDisplay;
     [SerializeField] Text descriptionDisplay;
@@ -17,7 +17,6 @@ public class BuildingButton : ActionButton
     {
         base.Start();
         building = buildingPrefab.GetComponent<Building>();
-        image = GetComponent<Image>();
         UpdateUI();
     }
 
@@ -28,7 +27,7 @@ public class BuildingButton : ActionButton
         nameDisplay.text = building.name;
         descriptionDisplay.text = building.ToString();
         if (building.buildingImage)
-            image.sprite = building.buildingImage;
+            photo.sprite = building.buildingImage;
     }
 
     public void GetBuilding()

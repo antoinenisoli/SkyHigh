@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     Vector3 startScale;
     protected Button button;
@@ -21,7 +21,10 @@ public abstract class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPo
         EventManager.Instance.onCost.AddListener(UpdateUI);
     }
 
-    public abstract void UpdateUI();
+    public virtual void UpdateUI()
+    {
+
+    }
 
     public virtual void Click()
     {
@@ -39,9 +42,6 @@ public abstract class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!button.interactable)
-            return;
-
         transform.DOScale(startScale, 0.2f);
     }
 }

@@ -47,9 +47,12 @@ MonoBehaviour:
     type: 3}
   maxMemberAmount: 50
   inactivePos: {x: -0, y: -75, z: -0}
+  delayBetweenMemberSpawns: 1
   memberContainer: {fileID: 0}
   members: []
   memberSpawnPositions: []
+  showCooldowns: 1
+  editor_SpawnCooldowns: []
 --- !u!1 &4745296644338113602
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981dfce2fbda15e45a6fc3d00145f33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
   MainGoal:
     stat: 2
     condition: 1
@@ -161,6 +165,9 @@ MonoBehaviour:
   grid: {fileID: 0}
   cell: {fileID: 2083073688832064984, guid: 0f1cecf211775d347a961d9e1a09476c, type: 3}
   gridSize: {x: 5, y: 5}
+  waypoint: {fileID: 7493733611764033639, guid: a7a47a6f6e300ec48afcf1e1f90009b9,
+    type: 3}
+  crowdWaypoints: []
   waitTurn: 2
   turnCount: 5
   CurrentTurn:
