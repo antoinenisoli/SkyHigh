@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DollarFX
+  m_Name: HapinessFX
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _REQUIRE_UV2
   m_LightmapFlags: 0
@@ -90,8 +90,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.20392157, g: 0.8862745, b: 0.0627451, a: 1}
+    - _Color: {r: 0.8862745, g: 0.7953037, b: 0.06274507, a: 1}
     - _ColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0.0882353, g: 0.2, b: 0.07254902, a: 1}
+    - _EmissionColor: {r: 1, g: 0.99501103, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

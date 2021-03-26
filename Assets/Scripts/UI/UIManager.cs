@@ -60,6 +60,15 @@ public class UIManager : MonoBehaviour
         UpdateUI();
     }
 
+    void SetBlackScreen(bool b)
+    {
+        if (blackScreen)
+        {
+            blackScreen.DOFade(0.7f, 1f);
+            blackScreen.gameObject.SetActive(true);
+        }
+    }
+
     void SetupScales()
     {
         originPos = buildPanel.transform.localPosition;
@@ -76,6 +85,7 @@ public class UIManager : MonoBehaviour
 
     void SetupEvents()
     {
+        EventManager.Instance.onEndGame.AddListener(SetBlackScreen);
         EventManager.Instance.onNewAction.AddListener(NewAction);
         EventManager.Instance.onNewTurn.AddListener(NewTurn);
         EventManager.Instance.onCost.AddListener(UpdateUI);
@@ -212,7 +222,7 @@ public class UIManager : MonoBehaviour
             displayMoney.transform.DOPunchScale(Vector3.one * -0.2f, 0.3f);
         }
 
-        float duration = 1.5f;
+        float duration = 3f;
         newText.transform.DOMoveY(displayMoney.transform.position.y + 200, duration);
         newText.DOFade(0, duration).SetEase(Ease.Linear);
         Destroy(newText.gameObject, duration);
