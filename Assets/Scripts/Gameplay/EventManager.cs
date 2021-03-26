@@ -19,6 +19,7 @@ public class EventManager : MonoBehaviour
     [HideInInspector] public UnityEventBool onEndGame = new UnityEventBool();
 
     public Action<Building> onBuildingBuilt;
+    public Action<Building> onBuildingDestroyed;
     [HideInInspector] public Action<CrowdMember> onCrowdMemberReachedEnd;
 
     void Awake()

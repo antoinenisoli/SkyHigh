@@ -8,7 +8,10 @@ public class CrowdManager : MonoBehaviour
     [SerializeField] [Range(0, 1000)] private int maxMemberAmount = 50;
     [Tooltip("The position crowd members go to on startup, and when they are not used/inactive.")]
     [SerializeField] private Vector3 inactivePos = Vector3.up * -75;
+    [Tooltip("How long to wait before \"spawning\" a member at a spawn position")]
+    [SerializeField] private float delayBetweenMemberSpawns = 1;
 
+    [Header("Member Collections")]
     [SerializeField] private GameObject memberContainer;
     [SerializeField] private CrowdMember[] members;
     [SerializeField] private List<Transform> memberSpawnPositions;
@@ -34,21 +37,18 @@ public class CrowdManager : MonoBehaviour
         memberSpawnPositions = new List<Transform>();
 
         EventManager.Instance.onBuildingBuilt += AddSpawnPosition;
+        EventManager.Instance.onBuildingDestroyed += RemoveSpawnPosition;
         EventManager.Instance.onCrowdMemberReachedEnd += StartResetCrowdMember;
     }
     private void OnDestroy()
     {
         EventManager.Instance.onBuildingBuilt -= AddSpawnPosition;
+        EventManager.Instance.onBuildingDestroyed -= RemoveSpawnPosition;
         EventManager.Instance.onCrowdMemberReachedEnd -= StartResetCrowdMember;
     }
 
-    private void AddSpawnPosition(Building posObject)
-    {
-        memberSpawnPositions.Add(posObject.CrowdEntryPosition
-            ? posObject.CrowdEntryPosition
-            : posObject.transform
-        );
-    }
+    private void AddSpawnPosition(Building posObject) { memberSpawnPositions.Add(posObject.CrowdEntryPosition); }
+    private void RemoveSpawnPosition(Building posObject) { memberSpawnPositions.Remove(posObject.CrowdEntryPosition); }
 
     private void StartResetCrowdMember(CrowdMember member) { StartCoroutine(ResetCrowdMember(member)); }
     private IEnumerator ResetCrowdMember(CrowdMember member)
