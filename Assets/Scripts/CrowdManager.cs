@@ -1,3 +1,6 @@
+#if UNITY_EDITOR
+using System.Linq;
+#endif
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +18,13 @@ public class CrowdManager : MonoBehaviour
     [SerializeField] private GameObject memberContainer;
     [SerializeField] private CrowdMember[] members;
     [SerializeField] private List<Transform> memberSpawnPositions;
+    private Dictionary<Transform, float> spawnCooldowns;
+
+#if UNITY_EDITOR
+    [Header("! Editor Only !")]
+    [SerializeField] private bool showCooldowns = false;
+    [SerializeField] private float[] editor_SpawnCooldowns;
+#endif
 
     private void Start()
     {
@@ -35,6 +45,7 @@ public class CrowdManager : MonoBehaviour
         }
 
         memberSpawnPositions = new List<Transform>();
+        spawnCooldowns = new Dictionary<Transform, float>();
 
         EventManager.Instance.onBuildingBuilt += AddSpawnPosition;
         EventManager.Instance.onBuildingDestroyed += RemoveSpawnPosition;
@@ -47,8 +58,30 @@ public class CrowdManager : MonoBehaviour
         EventManager.Instance.onCrowdMemberReachedEnd -= StartResetCrowdMember;
     }
 
-    private void AddSpawnPosition(Building posObject) { memberSpawnPositions.Add(posObject.CrowdEntryPosition); }
-    private void RemoveSpawnPosition(Building posObject) { memberSpawnPositions.Remove(posObject.CrowdEntryPosition); }
+
+    private void Update()
+    {
+        foreach (Transform spawnPosition in memberSpawnPositions)
+        {
+            spawnCooldowns[spawnPosition] -= Time.deltaTime;
+        }
+
+#if UNITY_EDITOR
+        if (showCooldowns) { editor_SpawnCooldowns = spawnCooldowns.Values.ToArray(); }
+#endif
+    }
+
+
+    private void AddSpawnPosition(Building posObject)
+    {
+        memberSpawnPositions.Add(posObject.CrowdEntryPosition);
+        spawnCooldowns.Add(posObject.CrowdEntryPosition, delayBetweenMemberSpawns);
+    }
+    private void RemoveSpawnPosition(Building posObject)
+    {
+        memberSpawnPositions.Remove(posObject.CrowdEntryPosition);
+        spawnCooldowns.Remove(posObject.CrowdEntryPosition);
+    }
 
     private void StartResetCrowdMember(CrowdMember member) { StartCoroutine(ResetCrowdMember(member)); }
     private IEnumerator ResetCrowdMember(CrowdMember member)
@@ -59,6 +92,11 @@ public class CrowdManager : MonoBehaviour
         Transform startPos = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
         Transform endPos = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
 
+        //Now that the route is constructed, wait until the cooldown on this location is up
+        yield return new WaitUntil(() => spawnCooldowns[startPos] <= 0);
+
+        //Start the cooldown at this spawn position and reset the member's route in preparation for them to set out
+        spawnCooldowns[startPos] = delayBetweenMemberSpawns;
         member.ResetRoute(startPos, endPos);
     }
 }
