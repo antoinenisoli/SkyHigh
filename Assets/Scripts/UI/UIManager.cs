@@ -151,7 +151,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        displayMoney.text = ResourceManager.Instance.Money.CurrentAmount + " $";
+        displayMoney.text = ResourceManager.Instance.Money.CurrentAmount + "";
         turnActionText.text = MainGame.Instance.CurrentTurn.actionsCount + " points left";
         turnText.text = MainGame.Instance.turnCount + " turns left !";
         displayGoal.text = "Goals : \n" + MainGame.Instance.MainGoal.ToString();

@@ -80,7 +80,7 @@ public class EndGameUI : MonoBehaviour
                 : endGameMessage[5];
         }
 
-        displayMessage.DOText(message, 1f);
+        displayMessage.DOText(message, 2f);
         yield return new WaitForSeconds(1);
         if (nextButton)
             nextButton.interactable = b;
