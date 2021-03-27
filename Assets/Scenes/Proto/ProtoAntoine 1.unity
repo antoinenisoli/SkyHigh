@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.20627663, g: 0.40600854, b: 0.53684217, a: 1}
+  m_IndirectSpecularColor: {r: 0.34006745, g: 0.5510772, b: 0.699502, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -260,7 +260,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.32156864, g: 0.8431373, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
