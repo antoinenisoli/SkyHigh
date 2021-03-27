@@ -201,7 +201,6 @@ public class UIManager : MonoBehaviour
             case ModeType.Charity:
                 displayMode.text = "Make a Charity Action !";
                 PanelAnim(charityPanel, charityPanelScale);
-                NewDeck();
                 break;
             case ModeType.Store:
                 displayMode.text = "Pick an action to buy !";
@@ -218,16 +217,28 @@ public class UIManager : MonoBehaviour
 
     void NewDeck()
     {
-        foreach (var item in charityActionButtons)
+        List<CharityAction> allActions = MainGame.Instance.allCharityActions;
+        for (int i = 0; i < charityActionButtons.Length; i++)
         {
-            int random = Random.Range(0, MainGame.Instance.allCharityActions.Count);
-            item.Action = MainGame.Instance.allCharityActions[random];
+            bool good = false;
+            while (!good)
+            {
+                int random = Random.Range(0, allActions.Count);
+                CharityAction randomAction = allActions[random];
+                if (allActions.Contains(randomAction))
+                {
+                    good = true;
+                    charityActionButtons[i].Action = randomAction;
+                    allActions.Remove(randomAction);
+                }
+            }
         }
     }
 
     public void EndTurn()
     {
         EventManager.Instance.onNewTurn.Invoke();
+        NewDeck();
     }
 
     public void FloatingText(int amount)

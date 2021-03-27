@@ -54,7 +54,7 @@ MonoBehaviour:
   shakeStrength: 0.3
   fx: {fileID: 895419822837537876}
   stat: 3
-  resourceGain: 30
+  resourceGain: 15
   crowdEntryPos: {fileID: 7137720800589894035}
 --- !u!1 &7077263513336333548
 GameObject:

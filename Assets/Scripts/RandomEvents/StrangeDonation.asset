@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: StrangeDonation
   m_EditorClassIdentifier: 
   name: Bank Donation
-  minProbabilityRange: 11
-  maxProbabilityRange: 45
-  description: A major city Bank gives you half of his gains in exchange for the
-    silence of what they call "your inclusiveness policy thing". Accepting would
-    make you lose major visibility...
+  minProbabilityRange: 0
+  maxProbabilityRange: 15
+  description: A major city Bank gives you 50$ in exchange for the silence of what
+    they call "your inclusiveness policy thing". Accepting would make you lose 25
+    visibility points...
   choices:
   - name: Accept
     eventType: 0

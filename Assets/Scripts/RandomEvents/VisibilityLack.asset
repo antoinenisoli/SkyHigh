@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: VisibilityLack
   m_EditorClassIdentifier: 
   name: Lack of visibility
-  minProbabilityRange: 86
-  maxProbabilityRange: 100
+  minProbabilityRange: 0
+  maxProbabilityRange: 5
   description: The citizens are fighting amongst each other because of the lack of
     visibility in your policy. Should we organize a job meeting for 45$ or just a
     street party for 10$ ?

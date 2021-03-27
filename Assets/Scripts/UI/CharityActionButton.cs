@@ -17,6 +17,7 @@ public class CharityActionButton : ActionButton
         }
     }
 
+    [SerializeField] Text displayName;
     [SerializeField] Text displayDescription;
     [SerializeField] Text displayEffect;
     [SerializeField] Image illustrationDisplay;
@@ -32,7 +33,8 @@ public class CharityActionButton : ActionButton
         if (!Action)
             return;
 
-        button.interactable = true;
+        button.interactable = ResourceManager.Instance.CanBuy(Action.moneyCost);
+        displayName.text = action.actionName;
         displayDescription.text = Action.description;
         displayEffect.text = ToString();
         if (Action.illustration)

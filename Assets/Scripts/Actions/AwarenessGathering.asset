@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce123c30fa640004b946b582343644bf, type: 3}
-  m_Name: JobMeeting
+  m_Name: AwarenessGathering
   m_EditorClassIdentifier: 
+  actionName: Awareness gathering
   statType: 2
   illustration: {fileID: 0}
-  amount: 20
-  moneyCost: 50
-  description: jobs
+  amount: 15
+  moneyCost: 5
+  description: Host a social awareness gathering with the people of your city. This
+    approach will allow people to come across together, and sensitize them to the
+    causes of minorities in the city.

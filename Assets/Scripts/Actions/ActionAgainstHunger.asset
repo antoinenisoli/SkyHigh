@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce123c30fa640004b946b582343644bf, type: 3}
-  m_Name: NeighboorhoodParty
+  m_Name: ActionAgainstHunger
   m_EditorClassIdentifier: 
-  statType: 0
+  actionName: Action against anger
+  statType: 2
   illustration: {fileID: 0}
-  amount: 15
-  moneyCost: 15
-  description: party !
+  amount: 30
+  moneyCost: 60
+  description: "Donate to the \u201CAction Against Hunger\u201D association. The
+    world needs a better way to deal with hunger. Together, we're creating it. For
+    everyone. For good."
