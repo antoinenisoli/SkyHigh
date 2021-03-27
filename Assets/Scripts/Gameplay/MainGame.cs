@@ -21,7 +21,6 @@ public class MainGame : MonoBehaviour
 
     [Header("Charity Actions")]
     public List<CharityAction> allCharityActions = new List<CharityAction>();
-    public List<CharityAction> availableCharityActions = new List<CharityAction>();
 
     [Header("Generate Grid")]
     [SerializeField] Transform grid;

@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text displayMode;
     [SerializeField] Text turnText;
     [SerializeField] Text turnActionText;
-    [SerializeField] GameObject turnButtons;
+    [SerializeField] GameObject turnPanel;
     Vector3 turnPanelScale;
 
     [Header("Build mode")]
@@ -89,8 +89,8 @@ public class UIManager : MonoBehaviour
     {
         originPos = buildPanel.transform.localPosition;
 
-        turnPanelScale = turnButtons.transform.localScale;
-        turnButtons.transform.localScale = Vector3.one * 0.0001f;
+        turnPanelScale = turnPanel.transform.localScale;
+        turnPanel.transform.localScale = Vector3.one * 0.0001f;
 
         charityPanelScale = charityPanel.transform.localScale;
         charityPanel.transform.localScale = Vector3.one * 0.0001f;
@@ -178,16 +178,15 @@ public class UIManager : MonoBehaviour
             item.interactable = false;
         }
 
-        PanelAnim(charityPanel, Vector3.one * 0.0001f, 0.8f);
         NewAction();
     }
 
     public void NewMode(ModeType type)
     {
         if (type != ModeType.ChooseBasicAction)
-            PanelAnim(turnButtons, Vector3.one * 0.0001f);
+            PanelAnim(turnPanel, Vector3.one * 0.0001f);
         else
-            PanelAnim(turnButtons, turnPanelScale);
+            PanelAnim(turnPanel, turnPanelScale);
 
         MainGame.Instance.SetMode(type);
         turnText.text = MainGame.Instance.turnCount + " turns left !";
@@ -221,16 +220,14 @@ public class UIManager : MonoBehaviour
     {
         foreach (var item in charityActionButtons)
         {
-            int random = Random.Range(0, MainGame.Instance.availableCharityActions.Count);
-            item.Action = MainGame.Instance.availableCharityActions[random];
+            int random = Random.Range(0, MainGame.Instance.allCharityActions.Count);
+            item.Action = MainGame.Instance.allCharityActions[random];
         }
     }
 
     public void EndTurn()
     {
         EventManager.Instance.onNewTurn.Invoke();
-        NewMode(ModeType.ExecuteTurn);
-        PanelAnim(turnButtons, Vector3.one * 0.0001f);
     }
 
     public void FloatingText(int amount)
