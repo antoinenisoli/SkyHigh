@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce123c30fa640004b946b582343644bf, type: 3}
+  m_Name: HomelessDonate
+  m_EditorClassIdentifier: 
+  actionName: Donation
+  statType: 2
+  illustration: {fileID: 0}
+  amount: 25
+  moneyCost: 50
+  description: Donate to an anti-Homeless Organisation. The goal is to end and prevent
+    homelessness, while ensuring the immediate needs of those. Ensure that their
+    civil rights are respected and protected.

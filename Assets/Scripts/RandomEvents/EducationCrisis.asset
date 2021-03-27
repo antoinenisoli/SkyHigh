@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: EducationCrisis
   m_EditorClassIdentifier: 
   name: Education Crisis
-  minProbabilityRange: 39
-  maxProbabilityRange: 63
+  minProbabilityRange: 0
+  maxProbabilityRange: 11
   description: Students are dropping out of school because of crappy educational
-    stuff in your schools. Should we pay 50$ for better equipment ?
+    stuff in our schools. Should we pay 50$ for better equipment ? (Lose 40 Hapiness
+    and Education in case of refusal)
   choices:
   - name: Yes
     eventType: 0

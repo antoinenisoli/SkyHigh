@@ -48,6 +48,7 @@ MonoBehaviour:
   maxMemberAmount: 50
   inactivePos: {x: -0, y: -75, z: -0}
   delayBetweenMemberSpawns: 1
+  routeMidpointRange: {x: -1, y: -1}
   memberContainer: {fileID: 0}
   members: []
   memberSpawnPositions: []
@@ -154,14 +155,14 @@ MonoBehaviour:
     condition: 1
     compare: 50
   allCharityActions:
-  - {fileID: 11400000, guid: 6493f60a9985cf043a82b5fb79770fc7, type: 2}
+  - {fileID: 11400000, guid: a6720f720a3e8e84a98e5d2037577266, type: 2}
+  - {fileID: 11400000, guid: 3ba8dab1fbab9184bb269e862577bc54, type: 2}
   - {fileID: 11400000, guid: cd2917cf919c2614bac29bbff2707a47, type: 2}
-  - {fileID: 11400000, guid: 7087d5cfd4387f64b98e5585103b3a48, type: 2}
-  availableCharityActions:
-  - {fileID: 11400000, guid: 6493f60a9985cf043a82b5fb79770fc7, type: 2}
-  - {fileID: 11400000, guid: cd2917cf919c2614bac29bbff2707a47, type: 2}
-  - {fileID: 11400000, guid: 7087d5cfd4387f64b98e5585103b3a48, type: 2}
-  - {fileID: 11400000, guid: 7087d5cfd4387f64b98e5585103b3a48, type: 2}
+  - {fileID: 11400000, guid: 7d87c1db775bf784c95119ef799fbe9f, type: 2}
+  - {fileID: 11400000, guid: c4957384a17f0ae44a7e8f542d2c0aa3, type: 2}
+  - {fileID: 11400000, guid: a70a7e6e17d4eb340a09fa3933fc687e, type: 2}
+  - {fileID: 11400000, guid: 293824df93b30324596a028bc06f5146, type: 2}
+  - {fileID: 11400000, guid: 3f1ca26f1b0d75944bc25ed9e3678247, type: 2}
   grid: {fileID: 0}
   cell: {fileID: 2083073688832064984, guid: 0f1cecf211775d347a961d9e1a09476c, type: 3}
   gridSize: {x: 5, y: 5}
@@ -261,15 +262,15 @@ MonoBehaviour:
   educationPercent: 35
   stats:
   - statType: 0
-    currentAmount: 30
+    currentAmount: 20
     maxAmount: 100
   - statType: 1
-    currentAmount: 30
+    currentAmount: 20
     maxAmount: 100
   - statType: 2
-    currentAmount: 30
+    currentAmount: 20
     maxAmount: 100
   Money:
     statType: 3
-    currentAmount: 150
+    currentAmount: 35
     maxAmount: 500

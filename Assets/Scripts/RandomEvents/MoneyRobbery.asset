@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Robbery
   minProbabilityRange: 0
-  maxProbabilityRange: 18
-  description: Treasury has been pillaged ! Should we talk about it to your citizens
-    ?
+  maxProbabilityRange: 20
+  description: "30\u20AC were stolen from our treasury ! Should we talk about it
+    to your citizens ? They will be happier, but lies make them less educated ..."
   choices:
   - name: Yes
     eventType: 0
