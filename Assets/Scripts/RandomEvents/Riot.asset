@@ -24,7 +24,7 @@ MonoBehaviour:
     buildingToDestroy: Bank
     changes: []
   - name: Pay
-    eventType: 2
+    eventType: 0
     buildingToDestroy: 
     changes:
     - statType: 3

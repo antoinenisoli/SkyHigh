@@ -153,7 +153,7 @@ MonoBehaviour:
   MainGoal:
     stat: 2
     condition: 1
-    compare: 50
+    compare: 75
   allCharityActions:
   - {fileID: 11400000, guid: a6720f720a3e8e84a98e5d2037577266, type: 2}
   - {fileID: 11400000, guid: 3ba8dab1fbab9184bb269e862577bc54, type: 2}
@@ -170,7 +170,7 @@ MonoBehaviour:
     type: 3}
   crowdWaypoints: []
   waitTurn: 2
-  turnCount: 5
+  turnCount: 10
   CurrentTurn:
     myEvent: {fileID: 0}
     actionsCount: 0

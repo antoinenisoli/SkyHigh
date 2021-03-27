@@ -18,7 +18,7 @@ public class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public virtual void Start()
     {
-        EventManager.Instance.onCost.AddListener(UpdateUI);
+        EventManager.Instance?.onCost.AddListener(UpdateUI);
     }
 
     public virtual void UpdateUI()

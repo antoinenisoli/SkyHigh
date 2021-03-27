@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: School
   buildingImage: {fileID: 21300000, guid: fff3a0d905ace35499b712808285d4c1, type: 3}
-  moneyCost: -100
+  moneyCost: -10
   animDuration: 2
   shakeVibration: 90
   shakeStrength: 0.3

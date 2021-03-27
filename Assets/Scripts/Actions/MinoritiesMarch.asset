@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce123c30fa640004b946b582343644bf, type: 3}
   m_Name: MinoritiesMarch
   m_EditorClassIdentifier: 
-  actionName: 
+  actionName: Minorities March
   statType: 2
   illustration: {fileID: 0}
   amount: 20
