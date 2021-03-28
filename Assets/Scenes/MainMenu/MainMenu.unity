@@ -1463,12 +1463,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f5e3e8bad7e5a3847a3e1d9a08152473, type: 3}
-    m_FontSize: 99
-    m_FontStyle: 3
+    m_Font: {fileID: 12800000, guid: 379e889a07e9a3c45b68d01e68e7322f, type: 3}
+    m_FontSize: 267
+    m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 99
+    m_MaxSize: 267
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1496,7 +1496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.078431375}
   m_EffectDistance: {x: 2.8, y: 3.67}
   m_UseGraphicAlpha: 1
 --- !u!114 &1077792734

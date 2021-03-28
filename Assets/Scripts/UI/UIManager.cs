@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
             + "Defines the base money income per turn, which is "
             + ResourceManager.Instance.educationPercent + "% of this stat value. ";
 
-        turnText.text = MainGame.Instance.turnCount + " turns left !";
+        turnText.text = MainGame.Instance.TurnCount + " turns left !";
         charityActionButtons = GetComponentsInChildren<CharityActionButton>();
         SetupEvents();
         NewDeck();
@@ -153,8 +153,8 @@ public class UIManager : MonoBehaviour
     {
         displayMoney.text = ResourceManager.Instance.Money.CurrentAmount + "";
         turnActionText.text = MainGame.Instance.CurrentTurn.actionsCount + " points left";
-        turnText.text = MainGame.Instance.turnCount + " turns left !";
-        displayGoal.text = "Goals : \n" + MainGame.Instance.MainGoal.ToString();
+        turnText.text = MainGame.Instance.TurnCount + " turns left !";
+        displayGoal.text = "Goals : \n" + MainGame.Instance.LevelData.MainGoal.ToString();
 
         statSliders = statPanel.GetComponentsInChildren<Slider>();
         for (int i = 0; i < statSliders.Length; i++)
@@ -189,7 +189,7 @@ public class UIManager : MonoBehaviour
             PanelAnim(turnPanel, turnPanelScale);
 
         MainGame.Instance.SetMode(type);
-        turnText.text = MainGame.Instance.turnCount + " turns left !";
+        turnText.text = MainGame.Instance.TurnCount + " turns left !";
         backButton.interactable = true;
         switch (type)
         {
@@ -217,19 +217,25 @@ public class UIManager : MonoBehaviour
 
     void NewDeck()
     {
-        List<CharityAction> allActions = MainGame.Instance.allCharityActions;
+        List<CharityAction> actions = new List<CharityAction>();
+        foreach (var item in MainGame.Instance.LevelData.allCharityActions)
+        {
+            if (!actions.Contains(item))
+                actions.Add(item);
+        }
+
         for (int i = 0; i < charityActionButtons.Length; i++)
         {
             bool good = false;
             while (!good)
             {
-                int random = Random.Range(0, allActions.Count);
-                CharityAction randomAction = allActions[random];
-                if (allActions.Contains(randomAction))
+                int random = Random.Range(0, actions.Count);
+                CharityAction randomAction = actions[random];
+                if (actions.Contains(randomAction))
                 {
                     good = true;
                     charityActionButtons[i].Action = randomAction;
-                    allActions.Remove(randomAction);
+                    actions.Remove(randomAction);
                 }
             }
         }

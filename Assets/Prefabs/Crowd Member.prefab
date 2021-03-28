@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rend: {fileID: 1916920352179569645}
-  route: []
   speed: 1
   fadeDuration: 0.75
+  route: []
 --- !u!1 &8823533666723477497
 GameObject:
   m_ObjectHideFlags: 0

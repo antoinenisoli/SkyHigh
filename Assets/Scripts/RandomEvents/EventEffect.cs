@@ -30,12 +30,11 @@ public class EventEffect
 
         if (eventType.HasFlag(EventType.DestroyBuilding))
         {
-            Building[] b = UnityEngine.Object.FindObjectsOfType<Building>();
-            foreach (var item in b)
+            foreach (var item in MainGame.Instance.AllBuildings)
             {
-                if (item.buildingName == buildingToDestroy)
+                if (item.Value.buildingName == buildingToDestroy)
                 {
-                    item.Death();
+                    item.Value.Death();
                     return;
                 }
             }
@@ -47,11 +46,10 @@ public class EventEffect
         bool b = true;
         if (eventType.HasFlag(EventType.DestroyBuilding))
         {
-            Building[] buildings = UnityEngine.Object.FindObjectsOfType<Building>();
             b = false;
-            foreach (var item in buildings)
+            foreach (var item in MainGame.Instance.AllBuildings)
             {
-                if (item.buildingName == buildingToDestroy)
+                if (item.Key.Contains(buildingToDestroy))
                 {
                     b = true;
                     break;

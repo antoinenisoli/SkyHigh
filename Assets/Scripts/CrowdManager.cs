@@ -17,10 +17,10 @@ public class CrowdManager : MonoBehaviour
     [SerializeField] private Vector2Int routeMidpointRange = Vector2Int.one * -1;
 
     [Header("Member Collections")]
-    [SerializeField] private GameObject memberContainer;
-    [SerializeField] private CrowdMember[] members;
-    [SerializeField] private List<Transform> memberSpawnPositions;
-    private Dictionary<Transform, float> spawnCooldowns;
+    [SerializeField] GameObject memberContainer;
+    [SerializeField] CrowdMember[] members;
+    [SerializeField] List<Transform> memberSpawnPositions = new List<Transform>();
+    Dictionary<Transform, float> spawnCooldowns = new Dictionary<Transform, float>();
 
 #if UNITY_EDITOR
     [Header("! Editor Only !")]
@@ -44,7 +44,9 @@ public class CrowdManager : MonoBehaviour
         }
 
         //Create an empty game object to put all the member's in if one wasn't designated, for better inspector organization
-        if (!memberContainer) { memberContainer = new GameObject("Crowd Members"); }
+        if (!memberContainer) 
+            memberContainer = new GameObject("Crowd Members"); 
+
         for (int i = 0; i < maxMemberAmount; i++)
         {
             //Then make a new member for each element of the array.
@@ -79,12 +81,12 @@ public class CrowdManager : MonoBehaviour
 #endif
     }
 
-
     private void AddSpawnPosition(Building posObject)
     {
         memberSpawnPositions.Add(posObject.CrowdEntryPosition);
         spawnCooldowns.Add(posObject.CrowdEntryPosition, delayBetweenMemberSpawns);
     }
+
     private void RemoveSpawnPosition(Building posObject)
     {
         memberSpawnPositions.Remove(posObject.CrowdEntryPosition);
@@ -92,6 +94,7 @@ public class CrowdManager : MonoBehaviour
     }
 
     private void StartResetCrowdMember(CrowdMember member) { StartCoroutine(ResetCrowdMember(member)); }
+
     private IEnumerator ResetCrowdMember(CrowdMember member)
     {
         //Wait until there is at least one spawn position.

@@ -20,7 +20,7 @@ public class Turn
     public RandomEvent NewEvent()
     {
         int random = UnityEngine.Random.Range(0, 100);
-        foreach (var item in MainGame.Instance.allRandomEvents)
+        foreach (var item in MainGame.Instance.LevelData.allRandomEvents)
         {
             if (random >= item.minProbabilityRange && random <= item.maxProbabilityRange && item.CanHappen())
                 return item;

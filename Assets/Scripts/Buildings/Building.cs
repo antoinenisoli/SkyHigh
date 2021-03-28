@@ -40,28 +40,19 @@ public class Building : MonoBehaviour
         transform.DOMoveY(position.y, animDuration);
         pos = position;
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
-
-        StartCoroutine(InvokeBuildingEvent(animDuration, true));
+        EventManager.Instance.onBuildingBuilt?.Invoke(this);
     }
 
     public void Death()
     {
         transform.DOMoveY(pos.Value.y - 4, animDuration);
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
-        StartCoroutine(InvokeBuildingEvent(animDuration - 0.01f, false));
         Destroy(gameObject, animDuration);
+        EventManager.Instance.onBuildingDestroyed?.Invoke(this);
     }
 
     public override string ToString()
     {
         return "Earn " + resourceGain + " " + stat.ToString() + " per turn.";
-    }
-
-    private IEnumerator InvokeBuildingEvent(float delay, bool isBuilt)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (isBuilt) { EventManager.Instance.onBuildingBuilt?.Invoke(this); }
-        else { EventManager.Instance.onBuildingDestroyed?.Invoke(this); }
     }
 }

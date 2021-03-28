@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class CrowdMember : MonoBehaviour
 {
-    [SerializeField] private Renderer rend;
+    [SerializeField] Renderer rend;
     [Tooltip("How fast this crowd member should move, in units per second.")]
-    [SerializeField] private float speed;
+    [SerializeField] float speed;
     [Tooltip("How long it takes in seconds for this member to fade in/out when starting/coming to the end of its route.")]
-    [SerializeField] private float fadeDuration;
+    [SerializeField] float fadeDuration;
     [Tooltip("The path this crowd member is following.\n" +
         "Elements are connected by a straight line.\n" +
         "[0] = start, [length - 1] = end.")]
-    [SerializeField] private Transform[] route;
+    [SerializeField] Transform[] route;
 
     private int nextRouteIndex = 1;
     private bool endActionInvoked = false;
-    private MaterialPropertyBlock fadeBlock;
+    private Material fadeMat;
     private bool canFadeInUpdate = true;
 
-    private void Start() { fadeBlock = new MaterialPropertyBlock(); }
+    private void Start() 
+    { 
+        fadeMat = rend.material; 
+    }
 
     private void Update()
     {
@@ -85,18 +88,9 @@ public class CrowdMember : MonoBehaviour
         {
             //Advance one step such that progress = 1 once `duration` seconds have passed
             progress += Time.deltaTime / duration;
-
-            rend.GetPropertyBlock(fadeBlock);
             //Lerp the renderer's alpha from start to end with easing at the start and end
             float newAlpha = Mathf.SmoothStep(startAlpha, endAlpha, progress);
-            fadeBlock.SetColor("_Color", new Color(
-                rend.material.color.r,
-                rend.material.color.g,
-                rend.material.color.b,
-                newAlpha
-            ));
-            rend.SetPropertyBlock(fadeBlock);
-
+            fadeMat.SetFloat("_Opacity", newAlpha);
             yield return null;
         }
     }

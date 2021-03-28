@@ -93,6 +93,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 593468330607227084}
     m_Modifications:
+    - target: {fileID: 1025015476895588313, guid: 64710706063b9cb4ab8ef28641e38b63,
+        type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025015476895588313, guid: 64710706063b9cb4ab8ef28641e38b63,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025015476895588313, guid: 64710706063b9cb4ab8ef28641e38b63,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.data[4]
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 6612062933702317626, guid: 64710706063b9cb4ab8ef28641e38b63,
         type: 3}
       propertyPath: m_Name
