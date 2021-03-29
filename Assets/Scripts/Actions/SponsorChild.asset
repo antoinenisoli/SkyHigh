@@ -16,7 +16,7 @@ MonoBehaviour:
   statType: 2
   illustration: {fileID: 0}
   amount: 10
-  moneyCost: 10
+  moneyCost: 100000
   description: 'Sponsor a child thanks to the "Vision du Monde" organization. Through
     their 17 development programs and aids, they work simultaneously in several areas
     essential to the well-being of children. '

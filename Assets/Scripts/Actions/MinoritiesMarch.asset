@@ -16,7 +16,7 @@ MonoBehaviour:
   statType: 2
   illustration: {fileID: 0}
   amount: 20
-  moneyCost: 50
+  moneyCost: 500000
   description: Minorities and indigenous peoples are targeted by populist governments
     and often presented as scapegoats. Organize a march for defending the human rights
     of minorities.

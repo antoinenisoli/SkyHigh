@@ -40,7 +40,7 @@ public class CrowdMember : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, route[nextRouteIndex].position, moveSpeed * Time.deltaTime);
             currentTarget = route[nextRouteIndex];
             Vector3 distance = currentTarget.position - transform.position;
-            distance += new Vector3(0.001f, 0.0f);
+            distance += Vector3.right * 0.001f;
             Quaternion quater = Quaternion.LookRotation(distance.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, quater, rotSpeed * Time.deltaTime);
 

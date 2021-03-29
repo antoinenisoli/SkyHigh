@@ -23,7 +23,7 @@ public class BuildingButton : ActionButton
     public override void UpdateUI()
     {
         button.interactable = ResourceManager.Instance.CanBuy(building.moneyCost) && !MainGame.Instance.BuildingPrefab;
-        costDisplay.text = -building.moneyCost + "$";
+        costDisplay.text = MoneyConverter.Convert(-building.moneyCost) + "$";
         nameDisplay.text = building.name;
         descriptionDisplay.text = building.ToString();
         if (building.buildingImage)

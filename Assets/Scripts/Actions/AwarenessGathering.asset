@@ -16,7 +16,7 @@ MonoBehaviour:
   statType: 2
   illustration: {fileID: 0}
   amount: 15
-  moneyCost: 5
+  moneyCost: 500000
   description: Host a social awareness gathering with the people of your city. This
     approach will allow people to come across together, and sensitize them to the
     causes of minorities in the city.

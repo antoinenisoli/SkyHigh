@@ -256,8 +256,8 @@ MonoBehaviour:
     maxAmount: 100
   Money:
     statType: 3
-    currentAmount: 35
-    maxAmount: 500
+    currentAmount: 100000000
+    maxAmount: 999999999
 --- !u!1 &6177748807330440005
 GameObject:
   m_ObjectHideFlags: 0

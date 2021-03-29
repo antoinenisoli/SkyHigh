@@ -16,7 +16,7 @@ MonoBehaviour:
   statType: 2
   illustration: {fileID: 0}
   amount: 25
-  moneyCost: 75
+  moneyCost: 750000
   description: Organizations  help for homeless people trying to get back into the
     workforce. Some companies employ homeless people and even find them housing.
     We can help help with resumes, interviews and job placement.

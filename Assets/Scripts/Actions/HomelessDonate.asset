@@ -16,7 +16,7 @@ MonoBehaviour:
   statType: 2
   illustration: {fileID: 0}
   amount: 25
-  moneyCost: 50
+  moneyCost: 500000
   description: Donate to an anti-Homeless Organisation. The goal is to end and prevent
     homelessness, while ensuring the immediate needs of those. Ensure that their
     civil rights are respected and protected.

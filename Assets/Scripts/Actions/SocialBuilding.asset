@@ -16,7 +16,7 @@ MonoBehaviour:
   statType: 2
   illustration: {fileID: 0}
   amount: 50
-  moneyCost: 125
+  moneyCost: 1250000
   description: Support the construction of a social building where homeless people
     would gather and can be heard. Often ignored in the streets, it's an occasion
     to let them communicate their problems with us.

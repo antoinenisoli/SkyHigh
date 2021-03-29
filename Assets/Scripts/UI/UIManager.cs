@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -168,12 +169,12 @@ public class UIManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        displayMoney.text = ResourceManager.Instance.Money.CurrentAmount + "";
+        displayMoney.text = MoneyConverter.Convert(ResourceManager.Instance.Money.CurrentAmount);
         turnActionText.text = MainGame.Instance.CurrentTurn.ActionsCount + " points left";
         turnText.text = MainGame.Instance.TurnCount + " turns left !";
         displayGoal.text = "Goals : \n" + MainGame.Instance.LevelData.MainGoal.ToString();
-
         statSliders = statPanel.GetComponentsInChildren<Slider>();
+
         for (int i = 0; i < statSliders.Length; i++)
         {
             Statistic stat = ResourceManager.Instance.stats[i];
@@ -272,13 +273,13 @@ public class UIManager : MonoBehaviour
         if (amount > 0)
         {
             newText.color = Color.green;
-            newText.text = "+" + amount + " $";
+            newText.text = "+" + MoneyConverter.Convert(amount) + " $";
             displayMoney.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f);
         }
         else if (amount < 0)
         {
             newText.color = Color.red;
-            newText.text = amount + " $";
+            newText.text = MoneyConverter.Convert(amount) + " $";
             displayMoney.transform.DOPunchScale(Vector3.one * -0.2f, 0.3f);
         }
 

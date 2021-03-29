@@ -16,7 +16,7 @@ MonoBehaviour:
   statType: 2
   illustration: {fileID: 0}
   amount: 30
-  moneyCost: 60
+  moneyCost: 600000
   description: "Donate to the \u201CAction Against Hunger\u201D association. The
     world needs a better way to deal with hunger. Together, we're creating it. For
     everyone. For good."

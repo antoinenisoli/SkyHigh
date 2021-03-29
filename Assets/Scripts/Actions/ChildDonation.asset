@@ -16,6 +16,6 @@ MonoBehaviour:
   statType: 2
   illustration: {fileID: 0}
   amount: 10
-  moneyCost: 35
+  moneyCost: 350000
   description: Donate to the local orphanage in order to give more visibility to
     your city childrens.

@@ -48,13 +48,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Bank
   buildingImage: {fileID: 21300000, guid: 7444564ad9ccdcc4db560506da0aaac9, type: 3}
-  moneyCost: -35
+  moneyCost: -350000
   animDuration: 2
   shakeVibration: 90
   shakeStrength: 0.3
   fx: {fileID: 895419822837537876}
   stat: 3
-  resourceGain: 15
+  resourceGain: 100000
   crowdEntryPos: {fileID: 7137720800589894035}
 --- !u!1 &7077263513336333548
 GameObject:

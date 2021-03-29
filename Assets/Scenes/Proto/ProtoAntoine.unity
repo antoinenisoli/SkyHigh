@@ -15181,7 +15181,7 @@ PrefabInstance:
     - target: {fileID: 8115738792024004133, guid: e8a7a9183bb818d4f89f8d90de36b47c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 8420888953764497611, guid: e8a7a9183bb818d4f89f8d90de36b47c,
         type: 3}
@@ -15540,6 +15540,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745296645965959523, guid: b075efc185faa984984f6e8fd1b500e7,
+        type: 3}
+      propertyPath: Money.currentAmount
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 6100851188889187410, guid: b075efc185faa984984f6e8fd1b500e7,
         type: 3}

@@ -14,7 +14,7 @@ public class ResourceManager : MonoBehaviour
     Dictionary<StatType, Statistic> allStats = new Dictionary<StatType, Statistic>();
     public Statistic Money;
 
-    public int BaseIncome => GetStat(StatType.Education).CurrentAmount * educationPercent / 100;
+    public int BaseIncome => (GetStat(StatType.Education).CurrentAmount * educationPercent / 100) * 10000;
 
     void Awake()
     {

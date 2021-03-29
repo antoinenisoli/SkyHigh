@@ -51,6 +51,6 @@ public class CharityActionButton : ActionButton
 
     public override string ToString()
     {
-        return "Earn " + Action.amount + " " + Action.statType + ", cost : " + Action.moneyCost + "$";
+        return "Earn " + Action.amount + " " + Action.statType + ", cost : " + MoneyConverter.Convert(Action.moneyCost) + "$";
     }
 }
