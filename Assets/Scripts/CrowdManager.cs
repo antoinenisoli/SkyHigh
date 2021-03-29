@@ -118,7 +118,10 @@ public class CrowdManager : MonoBehaviour
         }
 
         ////Now that the route is constructed, wait until the cooldown on the start location is up
-        yield return new WaitUntil(() => spawnCooldowns[newRoute[0]] <= 0);
+        if (spawnCooldowns.ContainsKey(newRoute[0]))
+            yield return new WaitUntil(() => spawnCooldowns[newRoute[0]] <= 0);
+        else
+            yield return null;
 
         //Start the cooldown at this spawn position and reset the member's route in preparation for them to set out
         spawnCooldowns[newRoute[0]] = delayBetweenMemberSpawns;

@@ -52,7 +52,9 @@ MonoBehaviour:
   animDuration: 2
   shakeVibration: 90
   shakeStrength: 0.3
-  fx: {fileID: 895419822837537876}
+  effectVFX: {fileID: 895419822837537876}
+  buildVFX: {fileID: 7068819882361311594, guid: d838a7bc40f6d2f49bf0b4c194c1fa7d,
+    type: 3}
   stat: 3
   resourceGain: 100000
   crowdEntryPos: {fileID: 7137720800589894035}
