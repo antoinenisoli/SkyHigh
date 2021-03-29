@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    [SerializeField] LayerMask surfaceLayer;
     Material myMat;
     float value = 1;
     bool highlight;
@@ -38,7 +39,7 @@ public class Cell : MonoBehaviour
             return;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, surfaceLayer))
         {
             Vector3 position = transform.position;
             position.y = hit.point.y;

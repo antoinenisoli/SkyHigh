@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.34006745, g: 0.5510772, b: 0.699502, a: 1}
+  m_IndirectSpecularColor: {r: 0.34004977, g: 0.55108005, b: 0.69946826, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -124,6 +124,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &169452509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2016564536357663531, guid: efe6a0f2fe26beb40a341a0d97022108,
+    type: 3}
+  m_PrefabInstance: {fileID: 2030285198463841821}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &169452513
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169452509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3392040664700520542, guid: 117ee4fed1cb25c499973016ece2babe, type: 3}
 --- !u!4 &452130426 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2030285198575878247, guid: efe6a0f2fe26beb40a341a0d97022108,
@@ -278,7 +298,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 24.11
+  orthographic size: 24
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -302,7 +322,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.27296796, y: 0.37315598, z: -0.11586801, w: 0.87910056}
-  m_LocalPosition: {x: -27.22, y: 32.58, z: -30.999998}
+  m_LocalPosition: {x: -27.22, y: 30.52, z: -30.999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5566,7 +5586,7 @@ PrefabInstance:
     - target: {fileID: 8115738792024004133, guid: e8a7a9183bb818d4f89f8d90de36b47c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: 218.74359
       objectReference: {fileID: 0}
     - target: {fileID: 8420888953764497611, guid: e8a7a9183bb818d4f89f8d90de36b47c,
         type: 3}
@@ -5687,6 +5707,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 9.963
+      objectReference: {fileID: 0}
+    - target: {fileID: 2016564536357663531, guid: efe6a0f2fe26beb40a341a0d97022108,
+        type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2030285198575878244, guid: efe6a0f2fe26beb40a341a0d97022108,
         type: 3}
@@ -5812,6 +5837,11 @@ PrefabInstance:
         type: 3}
       propertyPath: turnCount
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745296644883290546, guid: b075efc185faa984984f6e8fd1b500e7,
+        type: 3}
+      propertyPath: cinematicOrthoSize
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4745296645209064104, guid: b075efc185faa984984f6e8fd1b500e7,
         type: 3}

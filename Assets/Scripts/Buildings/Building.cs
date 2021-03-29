@@ -35,20 +35,30 @@ public class Building : MonoBehaviour
             fx.Play();
     }
 
-    public void Build(Vector3 position)
+    public void Build()
     {
-        transform.DOMoveY(position.y, animDuration);
-        pos = position;
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DOLocalMoveY(0.4f, animDuration));
+        sequence.Play().OnComplete(FinishBuilding);
+
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
-        EventManager.Instance.onBuildingBuilt?.Invoke(this);
     }
 
     public void Death()
     {
-        transform.DOMoveY(pos.Value.y - 4, animDuration);
+        pos = transform.position;
+        transform.DOLocalMoveY(pos.Value.y - 4, animDuration);
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
         Destroy(gameObject, animDuration);
         EventManager.Instance.onBuildingDestroyed?.Invoke(this);
+    }
+
+    void FinishBuilding()
+    {
+        Vector3 local = transform.localPosition;
+        local.y = 0.4f;
+        transform.localPosition = local;
+        EventManager.Instance.onBuildingBuilt?.Invoke(this);
     }
 
     public override string ToString()

@@ -17,6 +17,10 @@ public class MainGame : MonoBehaviour
 {
     public static MainGame Instance;
     Camera mainCam;
+    [SerializeField] float cinematicOrthoSize = 15;
+    float baseOrthoSize;
+
+    [Header("Level")]
     [ContextMenuItem("Find data", nameof(GetLevelData))] public LevelData LevelData;
     [SerializeField] string LevelDataBaseName;
 
@@ -73,6 +77,7 @@ public class MainGame : MonoBehaviour
     private IEnumerator Start()
     {
         CreateGrid();
+        baseOrthoSize = mainCam.orthographicSize;
         EventManager.Instance.onBuildingBuilt += AddBuilding;
         EventManager.Instance.onCost?.Invoke();
         yield return new WaitForSeconds(0.5f);
@@ -83,7 +88,8 @@ public class MainGame : MonoBehaviour
 
     public void AddBuilding(Building build)
     {
-        AllBuildings.Add(build.name, build);
+        if (!AllBuildings.ContainsValue(build))
+            AllBuildings.Add(build.name + build.GetInstanceID(), build);
     }
 
     public void NewTurn()
@@ -96,6 +102,7 @@ public class MainGame : MonoBehaviour
 
     IEnumerator InvokeNewTurn()
     {
+        mainCam.DOOrthoSize(cinematicOrthoSize, waitTurn * 2).SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(waitTurn);
         CurrentTurn = new Turn(3, ModeType.ChooseBasicAction);
         foreach (var item in AllBuildings)
@@ -108,6 +115,7 @@ public class MainGame : MonoBehaviour
         ResourceManager.Instance.PayDay();
 
         yield return new WaitForSeconds(2f);
+        mainCam.DOOrthoSize(baseOrthoSize, waitTurn * 2).SetEase(Ease.InOutSine);
         if (TurnCount > 0)
         {
             if (CurrentTurn.myEvent)
@@ -159,7 +167,7 @@ public class MainGame : MonoBehaviour
     public void PlaceBuilding(Vector3 position)
     {
         GameObject newBuilding = Instantiate(BuildingPrefab, position - Vector3.up * 4, BuildingPrefab.transform.rotation, grid);
-        newBuilding.GetComponent<Building>().Build(position);
+        newBuilding.GetComponent<Building>().Build();
         BuildingPrefab = null;
         EventManager.Instance.onNewAction.Invoke();
     }
