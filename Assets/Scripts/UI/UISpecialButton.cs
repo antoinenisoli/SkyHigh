@@ -37,11 +37,13 @@ public class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (!button.interactable)
             return;
 
+        transform.DOComplete();
         transform.DOScale(startScale * 1.1f, 0.2f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        transform.DOComplete();
         transform.DOScale(startScale, 0.2f);
     }
 }

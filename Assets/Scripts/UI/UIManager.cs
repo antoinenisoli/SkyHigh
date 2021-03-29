@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text hapinessDescription;
     [SerializeField] Text educationDescription;
     Slider[] statSliders;
+    CanvasGroup fadeGroup;
 
     [Header("Turn actions")]
     [SerializeField] Text displayMode;
@@ -70,6 +71,7 @@ public class UIManager : MonoBehaviour
 
         turnText.text = MainGame.Instance.TurnCount + " turns left !";
         charityActionButtons = GetComponentsInChildren<CharityActionButton>();
+        fadeGroup = GetComponentInChildren<CanvasGroup>();
         SetupEvents();
         NewDeck();
         SetupScales();
@@ -137,22 +139,37 @@ public class UIManager : MonoBehaviour
 
     public void NewAction()
     {
+        if (fadeGroup.alpha == 0)
+        {
+            print("waw");
+            fadeGroup.DOComplete();
+            fadeGroup.DOFade(1, 0.7f);
+        }
+
         blackScreen.gameObject.SetActive(false);
         PanelAnim(charityPanel, Vector3.one * 0.0001f);
         buildPanel.transform.DOLocalMoveX(originPos.x, 0.5f).SetEase(Ease.InBack);
         NewMode(ModeType.ChooseBasicAction);
+        MainGame.Instance.BuildingPrefab = null;
     }
 
     public void DoTurn()
     {
         NewMode(ModeType.ExecuteTurn);
         buildPanel.transform.DOLocalMoveX(originPos.x, 0.5f).SetEase(Ease.InBack);
+
+        if (fadeGroup.alpha == 1)
+        {
+            print("waw");
+            fadeGroup.DOComplete();
+            fadeGroup.DOFade(0, 0.7f);
+        }
     }
 
     public void UpdateUI()
     {
         displayMoney.text = ResourceManager.Instance.Money.CurrentAmount + "";
-        turnActionText.text = MainGame.Instance.CurrentTurn.actionsCount + " points left";
+        turnActionText.text = MainGame.Instance.CurrentTurn.ActionsCount + " points left";
         turnText.text = MainGame.Instance.TurnCount + " turns left !";
         displayGoal.text = "Goals : \n" + MainGame.Instance.LevelData.MainGoal.ToString();
 
@@ -243,21 +260,24 @@ public class UIManager : MonoBehaviour
 
     public void EndTurn()
     {
-        EventManager.Instance.onNewTurn.Invoke();
+        EventManager.Instance.onNewTurn?.Invoke();
         NewDeck();
     }
 
     public void FloatingText(int amount)
     {
-        Text newText = Instantiate(floatingText, displayMoney.transform.position, Quaternion.identity, transform).GetComponent<Text>();
+        Text newText = Instantiate(floatingText, displayMoney.transform.position + Vector3.up * 10f, Quaternion.identity, transform).GetComponent<Text>();
         displayMoney.transform.DOComplete();
+
         if (amount > 0)
         {
+            newText.color = Color.green;
             newText.text = "+" + amount + " $";
             displayMoney.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f);
         }
         else if (amount < 0)
         {
+            newText.color = Color.red;
             newText.text = amount + " $";
             displayMoney.transform.DOPunchScale(Vector3.one * -0.2f, 0.3f);
         }

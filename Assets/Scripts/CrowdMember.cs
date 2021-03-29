@@ -39,7 +39,9 @@ public class CrowdMember : MonoBehaviour
             //Move towards the next waypoint in the route at `speed` units per second.
             transform.position = Vector3.MoveTowards(transform.position, route[nextRouteIndex].position, moveSpeed * Time.deltaTime);
             currentTarget = route[nextRouteIndex];
-            Quaternion quater = Quaternion.LookRotation((currentTarget.position - transform.position).normalized);
+            Vector3 distance = currentTarget.position - transform.position;
+            distance += new Vector3(0.001f, 0.0f);
+            Quaternion quater = Quaternion.LookRotation(distance.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, quater, rotSpeed * Time.deltaTime);
 
             //If this member is approximately `fadeDuration` seconds away from reaching the final point in its route, start fading out

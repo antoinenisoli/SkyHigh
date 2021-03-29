@@ -7,8 +7,18 @@ using UnityEngine;
 public class Turn
 {
     public RandomEvent myEvent;
-    public int actionsCount = 5;
+    [SerializeField] int actionsCount = 5;
     public ModeType currentMode;
+
+    public int ActionsCount 
+    { 
+        get => actionsCount; 
+        set
+        {
+            actionsCount = value;
+            EventManager.Instance.onCost?.Invoke();
+        }
+    }
 
     public Turn(int actionsCount, ModeType currentMode)
     {

@@ -17,6 +17,7 @@ public class MainGame : MonoBehaviour
 {
     public static MainGame Instance;
     Camera mainCam;
+    [SerializeField] TurnActionButton buildingButton;
     [SerializeField] float cinematicOrthoSize = 15;
     float baseOrthoSize;
 
@@ -81,7 +82,7 @@ public class MainGame : MonoBehaviour
         EventManager.Instance.onBuildingBuilt += AddBuilding;
         EventManager.Instance.onCost?.Invoke();
         yield return new WaitForSeconds(0.5f);
-        EventManager.Instance.onNewTurn?.Invoke();
+        //EventManager.Instance.onNewTurn?.Invoke();
         EventManager.Instance.onNewAction?.Invoke();
         EventManager.Instance.onNewTurn.AddListener(NewTurn);
     }
@@ -166,6 +167,7 @@ public class MainGame : MonoBehaviour
 
     public void PlaceBuilding(Vector3 position)
     {
+        CurrentTurn.ActionsCount -= buildingButton.pointCost;
         GameObject newBuilding = Instantiate(BuildingPrefab, position - Vector3.up * 4, BuildingPrefab.transform.rotation, grid);
         newBuilding.GetComponent<Building>().Build();
         BuildingPrefab = null;

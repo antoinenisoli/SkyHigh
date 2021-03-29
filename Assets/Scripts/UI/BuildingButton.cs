@@ -32,7 +32,6 @@ public class BuildingButton : ActionButton
 
     public void GetBuilding()
     {
-        Click();
         MainGame.Instance.BuildingPrefab = buildingPrefab;
         ResourceManager.Instance.ModifyStat(StatType.Money, building.moneyCost);
         UpdateUI();

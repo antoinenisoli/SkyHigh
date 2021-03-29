@@ -10,6 +10,6 @@ public abstract class ActionButton : UISpecialButton
     {
         base.Click();
         if (myTurnAction)
-            MainGame.Instance.CurrentTurn.actionsCount -= myTurnAction.pointCost;
+            MainGame.Instance.CurrentTurn.ActionsCount -= myTurnAction.pointCost;
     }
 }
