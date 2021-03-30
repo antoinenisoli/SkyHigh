@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class CrowdMember : MonoBehaviour
 {
+    [SerializeField] [Range(0,100)] int waitProb = 40;
+    [SerializeField] Vector2 randomWait;
+
     [SerializeField] Color[] colors;
     [Tooltip("How fast this crowd member should move, in units per second.")]
     [SerializeField] float moveSpeed = 1f;
@@ -18,14 +21,17 @@ public class CrowdMember : MonoBehaviour
     [SerializeField] Transform[] route;
 
     Renderer rend;
+    Animator anim;
     int nextRouteIndex = 1;
     bool endActionInvoked = false;
     Material fadeMat;
     bool canFadeInUpdate = true;
+    bool stopped;
     Transform currentTarget;
 
     private void Start() 
     {
+        anim = GetComponentInChildren<Animator>();
         rend = GetComponentInChildren<Renderer>();
         fadeMat = rend.material;
         fadeMat.SetColor("_Color", colors[Random.Range(0, colors.Length)]);
@@ -33,6 +39,10 @@ public class CrowdMember : MonoBehaviour
 
     private void Update()
     {
+        anim.SetBool("Stopped", stopped);
+        if (stopped)
+            return;
+
         //If the route is valid and we're not at the end,
         if (route.Length > 1 && nextRouteIndex < route.Length)
         {
@@ -56,14 +66,29 @@ public class CrowdMember : MonoBehaviour
                 StartCoroutine(FadeInOut(false, fadeDuration));
             }
 
-            if (transform.position == route[nextRouteIndex].position) 
-                nextRouteIndex++; 
+            if (transform.position == route[nextRouteIndex].position)
+                StartCoroutine(Wait());
         }
         else if (!endActionInvoked)
         {
             EventManager.Instance.onCrowdMemberReachedEnd?.Invoke(this);
             endActionInvoked = true;
         }
+    }
+
+    IEnumerator Wait()
+    {
+        int toinCoss = Random.Range(0, 100);
+        if (toinCoss < waitProb)
+        {
+            stopped = true;
+            float randomTimer = Random.Range(randomWait.x, randomWait.y);
+            yield return new WaitForSeconds(randomTimer);
+            stopped = false;
+        }
+
+        yield return null;
+        nextRouteIndex++;
     }
 
     /// <summary>
