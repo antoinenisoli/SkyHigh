@@ -8,16 +8,23 @@ public class Building : MonoBehaviour
     [Header("Building")]
     public string buildingName;
     public Sprite buildingImage;
-
     public int moneyCost = 35;
+
+    [Header("Shake")]
     [SerializeField] float animDuration = 2f;
     [SerializeField] int shakeVibration = 90;
     [SerializeField] float shakeStrength = 0.3f;
+
+    [Header("Feedbacks")]
     [SerializeField] protected ParticleSystem effectVFX;
+    [SerializeField] protected string effectSoundName;
     [SerializeField] protected GameObject buildVFX;
+
+    [Header("Effect")]
     [SerializeField] protected StatType stat;
     [SerializeField] protected int resourceGain = 10;
-    [Space(15)]
+
+    [Header("Crowd")]
     [Tooltip("The positon that crowd members will enter and exit from. If null, they'll enter/exit from this object's position.")]
     [SerializeField] Transform crowdEntryPos = null;
     Vector3 pos;
@@ -31,6 +38,7 @@ public class Building : MonoBehaviour
     public virtual void Effect()
     {
         ResourceManager.Instance.ModifyStat(stat, resourceGain);
+        SoundManager.Instance.PlayAudio(effectSoundName);
 
         if (effectVFX)
             effectVFX.Play();
@@ -45,6 +53,7 @@ public class Building : MonoBehaviour
         sequence.Play().OnComplete(FinishBuilding);
         GameObject smoke = Instantiate(buildVFX, pos, buildVFX.transform.rotation, transform.parent);
         smoke.transform.localPosition = pos;
+        SoundManager.Instance.PlayAudio("build");
 
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
     }
@@ -74,11 +83,5 @@ public class Building : MonoBehaviour
     public override string ToString()
     {
         return "Earn " + resourceGain + " " + stat.ToString() + " per turn.";
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Death();
     }
 }

@@ -30,6 +30,7 @@ public class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         transform.DOComplete();
         transform.DOPunchScale(Vector3.one * -0.2f, 0.3f);
+        SoundManager.Instance.PlayAudio("game_start");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -39,6 +40,7 @@ public class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         transform.DOComplete();
         transform.DOScale(startScale * 1.1f, 0.2f);
+        SoundManager.Instance.PlayAudio("click-basic");
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -196,6 +196,7 @@ Transform:
   - {fileID: 4745296644338113605}
   - {fileID: 431177631770150964}
   - {fileID: 3471748775303910472}
+  - {fileID: 2849586403853803660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -385,3 +386,84 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &8425852232405728456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2849586403853803660}
+  - component: {fileID: 1820467376004664283}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2849586403853803660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8425852232405728456}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4745296645209064107}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1820467376004664283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8425852232405728456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9780c262db4d549ada1269e3b73d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 3e80c08d84e0aaa4885d3f0841219c3c, type: 3}
+  - {fileID: 8300000, guid: c28d439b8cfd87649b22b5efcb85fd01, type: 3}
+  - {fileID: 8300000, guid: b1eb81eef62022e4cbace2ccc06b28d5, type: 3}
+  - {fileID: 8300000, guid: 9d69a3fc51437ae48990412d4c409890, type: 3}
+  - {fileID: 8300000, guid: 8a43fc8583ab69042a660006b0dd6043, type: 3}
+  - {fileID: 8300000, guid: 017b1cd9579ca394dabd2f8db3de779f, type: 3}
+  sounds:
+  - soundType: bonk-click
+    clip: {fileID: 8300000, guid: 3e80c08d84e0aaa4885d3f0841219c3c, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: boot-sound
+    clip: {fileID: 8300000, guid: c28d439b8cfd87649b22b5efcb85fd01, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: click-basic
+    clip: {fileID: 8300000, guid: b1eb81eef62022e4cbace2ccc06b28d5, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: click-casualbuilding
+    clip: {fileID: 8300000, guid: 9d69a3fc51437ae48990412d4c409890, type: 3}
+    volume: 0.728
+    pitch: 1
+    radius: 20
+  - soundType: click-pop-two-part
+    clip: {fileID: 8300000, guid: 8a43fc8583ab69042a660006b0dd6043, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: game_start
+    clip: {fileID: 8300000, guid: 017b1cd9579ca394dabd2f8db3de779f, type: 3}
+    volume: 0.5
+    pitch: 1
+    radius: 20

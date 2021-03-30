@@ -4,40 +4,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public enum AudioType
-{
-    SelectCasern,
-    SelectMainBase,
-    NewBuilding,
-    BuildFinished,
-    NewUnit,
-    Explosion,
-}
-
 public class SoundManager : MonoBehaviour
 {
     [Serializable]
     class Sound
     {
-        public AudioType soundType;
+        public string soundType;
         public AudioClip clip;
         [Range(0, 1)]
         public float volume = 0.5f;
         [Range(-1, 1)]
         public float pitch = 1;
-        public bool spatialBlend = true;
         public float radius = 20;
+
+        public Sound(AudioClip clip = default, string soundType = "SoundName", float volume = 0.3f, float pitch = 1)
+        {
+            this.soundType = soundType;
+            this.clip = clip;
+            this.volume = volume;
+            this.pitch = pitch;
+        }
     }
 
-    public static SoundManager instance;
-    [SerializeField] Sound[] sounds = new Sound[1];
+    public static SoundManager Instance;
+    [SerializeField] List<AudioClip> clips = new List<AudioClip>();
+    [SerializeField] List<Sound> sounds = new List<Sound>();
     Dictionary<string, Sound> soundsLibrary = new Dictionary<string, Sound>();
     AudioSource lastSource;
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(gameObject);
 
@@ -46,12 +44,24 @@ public class SoundManager : MonoBehaviour
                 soundsLibrary.Add(s.soundType.ToString(), s);
     }
 
-    public void PlayAudio(string name, Transform target)
+    [ContextMenu(nameof(Convert))]
+    public void Convert()
+    {
+        sounds.Clear();
+        foreach (var item in clips)
+        {
+            Sound newSound = new Sound(item, item.name);
+            sounds.Add(newSound);
+        }
+
+        clips.Clear();
+    }
+
+    public void PlayAudio(string name, bool destroy = true)
     {
         if (soundsLibrary.TryGetValue(name, out Sound thisSound))
         {
             GameObject sound = new GameObject();
-            sound.transform.position = target.position;
             sound.name = thisSound.clip.name;
             sound.transform.parent = transform;
             if (lastSource != null && lastSource.clip == thisSound.clip && lastSource.isPlaying)
@@ -61,14 +71,14 @@ public class SoundManager : MonoBehaviour
             lastSource.clip = thisSound.clip;
             lastSource.volume = thisSound.volume;
             lastSource.pitch = thisSound.pitch;
-            lastSource.spatialBlend = thisSound.spatialBlend ? 1 : 0;
-            lastSource.minDistance = thisSound.radius;
             lastSource.dopplerLevel = 0;
+            lastSource.spatialBlend = 0;
 
-            sound.AddComponent<SelfDestroySFX>();
             lastSource.Play();
+            if (destroy)
+                sound.AddComponent<SelfDestroySFX>();
         }
         else
-            print("There is no song at this name : " + name);
+            Debug.LogWarning("There is no song at this name : " + name);
     }
 }

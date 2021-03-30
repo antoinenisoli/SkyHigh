@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using System;
 
 public class Cell : MonoBehaviour
 {
@@ -40,12 +41,16 @@ public class Cell : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, surfaceLayer))
-        {
-            Vector3 position = transform.position;
-            position.y = hit.point.y;
-            MainGame.Instance.PlaceBuilding(position);
-            full = true;
-        }
+            Build(hit.point);
+    }
+
+    private void Build(Vector3 pos)
+    {
+        Vector3 position = transform.position;
+        position.y = pos.y;
+        MainGame.Instance.PlaceBuilding(position);
+        full = true;
+        SoundManager.Instance.PlayAudio("click-casualbuilding");
     }
 
     private void Update()

@@ -59,6 +59,9 @@ public class ResourceManager : MonoBehaviour
 
     public void ModifyStat(StatType type, int amount)
     {
+        if (amount > 0)
+            SoundManager.Instance.PlayAudio(type.ToString() + "_Sound");
+
         if (type == StatType.Money)
         {
             int computeAmount = amount;

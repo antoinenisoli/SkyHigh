@@ -6998,7 +6998,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myTurnAction
       value: 
-      objectReference: {fileID: 3589442248053719674}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40457f96c23f9fd4abf5c7cf7f659943, type: 3}
 --- !u!224 &2378557322095139046 stripped
@@ -7253,7 +7253,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myTurnAction
       value: 
-      objectReference: {fileID: 3589442248053719674}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40457f96c23f9fd4abf5c7cf7f659943, type: 3}
 --- !u!224 &732639441897616174 stripped
@@ -7379,11 +7379,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingButton01
       objectReference: {fileID: 0}
-    - target: {fileID: 7799150391154151754, guid: 40457f96c23f9fd4abf5c7cf7f659943,
-        type: 3}
-      propertyPath: myTurnAction
-      value: 
-      objectReference: {fileID: 3589442248053719674}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40457f96c23f9fd4abf5c7cf7f659943, type: 3}
 --- !u!224 &7691534953794673787 stripped
@@ -7513,7 +7508,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myTurnAction
       value: 
-      objectReference: {fileID: 3589442248053719674}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40457f96c23f9fd4abf5c7cf7f659943, type: 3}
 --- !u!224 &7836758325257408853 stripped

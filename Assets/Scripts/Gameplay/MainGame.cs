@@ -82,7 +82,6 @@ public class MainGame : MonoBehaviour
         EventManager.Instance.onBuildingBuilt += AddBuilding;
         EventManager.Instance.onCost?.Invoke();
         yield return new WaitForSeconds(0.5f);
-        //EventManager.Instance.onNewTurn?.Invoke();
         EventManager.Instance.onNewAction?.Invoke();
         EventManager.Instance.onNewTurn.AddListener(NewTurn);
     }

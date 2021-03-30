@@ -142,7 +142,6 @@ public class UIManager : MonoBehaviour
     {
         if (fadeGroup.alpha == 0)
         {
-            print("waw");
             fadeGroup.DOComplete();
             fadeGroup.DOFade(1, 0.7f);
         }
@@ -161,7 +160,6 @@ public class UIManager : MonoBehaviour
 
         if (fadeGroup.alpha == 1)
         {
-            print("waw");
             fadeGroup.DOComplete();
             fadeGroup.DOFade(0, 0.7f);
         }
