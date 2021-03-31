@@ -77,8 +77,8 @@ public class SoundManager : MonoBehaviour
             lastSource.dopplerLevel = 0;
             lastSource.spatialBlend = spatialBlend;
             lastSource.minDistance = soundRadius;
-
             lastSource.Play();
+
             if (destroy)
             {
                 SelfDestroySFX selfDestroy = sound.AddComponent<SelfDestroySFX>();

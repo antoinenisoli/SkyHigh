@@ -27,6 +27,11 @@ public class ResourceManager : MonoBehaviour
             allStats.Add(item.statType, item);
     }
 
+    private void Start()
+    {
+        Money.CurrentAmount = MainGame.Instance.LevelData.moneyStart;
+    }
+
     public int GetGlobalSatisfaction() 
     {
         // get the average of the 3 game statistics

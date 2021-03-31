@@ -64,9 +64,7 @@ public class CrowdManager : MonoBehaviour
     private void Update()
     {
         foreach (Transform spawnPosition in memberSpawnPositions)
-        {
             spawnCooldowns[spawnPosition] -= Time.deltaTime;
-        }
 
 #if UNITY_EDITOR
         if (showCooldowns) { editor_SpawnCooldowns = spawnCooldowns.Values.ToArray(); }
@@ -75,14 +73,20 @@ public class CrowdManager : MonoBehaviour
 
     private void AddSpawnPosition(Building posObject)
     {
-        memberSpawnPositions.Add(posObject.CrowdEntryPosition);
-        spawnCooldowns.Add(posObject.CrowdEntryPosition, delayBetweenMemberSpawns);
+        if (!memberSpawnPositions.Contains(posObject.CrowdEntryPosition))
+            memberSpawnPositions.Add(posObject.CrowdEntryPosition);
+
+        if (!spawnCooldowns.ContainsKey(posObject.CrowdEntryPosition))
+            spawnCooldowns.Add(posObject.CrowdEntryPosition, delayBetweenMemberSpawns);
     }
 
     private void RemoveSpawnPosition(Building posObject)
     {
-        memberSpawnPositions.Remove(posObject.CrowdEntryPosition);
-        spawnCooldowns.Remove(posObject.CrowdEntryPosition);
+        if (memberSpawnPositions.Contains(posObject.CrowdEntryPosition))
+            memberSpawnPositions.Remove(posObject.CrowdEntryPosition);
+
+        if (spawnCooldowns.ContainsKey(posObject.CrowdEntryPosition))
+            spawnCooldowns.Remove(posObject.CrowdEntryPosition);
     }
 
     private void StartResetCrowdMember(CrowdMember member) { StartCoroutine(ResetCrowdMember(member)); }

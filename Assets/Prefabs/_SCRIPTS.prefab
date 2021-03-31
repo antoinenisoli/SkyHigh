@@ -473,9 +473,9 @@ MonoBehaviour:
     pitch: 1
     radius: 20
   - soundType: money
-    clip: {fileID: 8300000, guid: 26f8c800aae3a3d42941e4ec1be14bcd, type: 3}
+    clip: {fileID: 8300000, guid: fc7fd4642826d3a408ed365f63c8ead7, type: 3}
     volume: 0.3
-    pitch: 1
+    pitch: 1.6
     radius: 20
   - soundType: negative-beeps
     clip: {fileID: 8300000, guid: f82da36ef97b82247a5f7c58b77e4d16, type: 3}

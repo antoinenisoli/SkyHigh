@@ -44,6 +44,7 @@ public class Building : MonoBehaviour
 
     public void Build(Cell cell) //place the building at the defined height, and do a tween to move it above the island soil
     {
+        ResourceManager.Instance.ModifyStat(StatType.Money, moneyCost);
         myCell = cell;
         pos = transform.localPosition;
         pos.y = heightOffset;

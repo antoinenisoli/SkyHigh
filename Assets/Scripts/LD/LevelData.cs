@@ -8,6 +8,7 @@ public class LevelData : ScriptableObject
     public Goal MainGoal;
     public GameObject gridCell;
     public int turnStartCount = 10;
+    public int moneyStart = 500000;
     public List<RandomEvent> allRandomEvents = new List<RandomEvent>();
     public List<CharityAction> allCharityActions = new List<CharityAction>();
 }
