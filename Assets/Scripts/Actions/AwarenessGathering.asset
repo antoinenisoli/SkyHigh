@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Awareness gathering
   statType: 2
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 81b60e47603dc2f468be76485df83514, type: 3}
   amount: 15
   moneyCost: 500000
   description: Host a social awareness gathering with the people of your city. This

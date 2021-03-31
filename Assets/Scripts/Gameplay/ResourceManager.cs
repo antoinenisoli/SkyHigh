@@ -9,7 +9,7 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager Instance;
 
     [Range(0,100)] public int hapinessPercent = 10;
-    [Range(0, 100)] public int educationPercent = 35;
+    [Range(0, 100)] public int educationPercent = 25;
     public Statistic[] stats = new Statistic[3];
     Dictionary<StatType, Statistic> allStats = new Dictionary<StatType, Statistic>();
     public Statistic Money;
@@ -24,13 +24,12 @@ public class ResourceManager : MonoBehaviour
             Destroy(gameObject);
 
         foreach (var item in stats)
-        {
             allStats.Add(item.statType, item);
-        }
     }
 
-    public int GetGlobalSatisfaction()
+    public int GetGlobalSatisfaction() 
     {
+        // get the average of the 3 game statistics
         int i = 0;
         foreach (var item in allStats.Values)
             i += item.CurrentAmount;
@@ -54,20 +53,18 @@ public class ResourceManager : MonoBehaviour
         if (allStats.ContainsKey(type))
             return allStats[type];
 
-        return null;
+        return default(Statistic);
     }
 
     public void ModifyStat(StatType type, int amount)
     {
-        if (amount > 0)
-            SoundManager.Instance.PlayAudio(type.ToString() + "_Sound");
-
         if (type == StatType.Money)
         {
             int computeAmount = amount;
             if (amount > 0)
             {
-                int percent = GetStat(StatType.Hapiness).CurrentAmount * hapinessPercent / 100;
+                SoundManager.Instance.PlayAudio("money");
+                int percent = (GetStat(StatType.Hapiness).CurrentAmount * hapinessPercent / 100) * 10000;
                 computeAmount += percent;
             }
 
@@ -77,6 +74,8 @@ public class ResourceManager : MonoBehaviour
         else
         {
             GetStat(type).CurrentAmount += amount;
+            if (amount > 0)
+                SoundManager.Instance.PlayAudio("sound_confirmation");
         }
     }
 }

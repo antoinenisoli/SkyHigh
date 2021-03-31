@@ -29,6 +29,7 @@ public class Turn
 
     public RandomEvent NewEvent()
     {
+        // try to generate a new event each turn, based on its probability
         int random = UnityEngine.Random.Range(0, 100);
         foreach (var item in MainGame.Instance.LevelData.allRandomEvents)
         {

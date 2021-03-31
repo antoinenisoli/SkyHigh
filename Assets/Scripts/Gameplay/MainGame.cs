@@ -41,13 +41,14 @@ public class MainGame : MonoBehaviour
 
     void GetLevelData()
     {
+        // look up in the LD folder and find the Level Data which correspond to this level, depending on its build index.
         int i = SceneManager.GetActiveScene().buildIndex;
         string path = LevelDataBaseName + i;
 
         if (Resources.Load<LevelData>(path))
             LevelData = Resources.Load<LevelData>(path);
         else
-            Debug.LogError("Didn't find the asset at path : " + path);
+            Debug.LogError("Didn't find the level data at this path : " + path);
     }
 
     private void OnDrawGizmos()
@@ -115,6 +116,11 @@ public class MainGame : MonoBehaviour
         ResourceManager.Instance.PayDay();
 
         yield return new WaitForSeconds(2f);
+        NextTurn();
+    }
+
+    void NextTurn()
+    {
         mainCam.DOOrthoSize(baseOrthoSize, waitTurn * 2).SetEase(Ease.InOutSine);
         if (TurnCount > 0)
         {
@@ -134,7 +140,8 @@ public class MainGame : MonoBehaviour
 
     public void CreateGrid()
     {
-        //The waypoints are the inner corners of the grid; i.e., a grid smaller in each dimension by one
+        // generate the main game board, depending on the size of one Cell prefab.
+        // The waypoints are the inner corners of the grid; i.e., a grid smaller in each dimension by one.
         crowdWaypoints = new Transform[(gridSize.x - 1) * (gridSize.y - 1)];
         int waypointCount = 0;
 
@@ -160,15 +167,16 @@ public class MainGame : MonoBehaviour
 
     public void ShakeCamera(float animDuration = 2f, float shakeStrength = 0.3f, int shakeVibration = 10)
     {
+        // do a camera shake by tween
         mainCam.transform.DOComplete();
         mainCam.transform.DOShakePosition(animDuration, shakeStrength, shakeVibration);
     }
 
-    public void PlaceBuilding(Vector3 position)
+    public void PlaceBuilding(Vector3 position, Cell cell)
     {
         CurrentTurn.ActionsCount -= buildingButton.pointCost;
         GameObject newBuilding = Instantiate(BuildingPrefab, position - Vector3.up * 4, BuildingPrefab.transform.rotation, grid);
-        newBuilding.GetComponent<Building>().Build();
+        newBuilding.GetComponent<Building>().Build(cell);
         BuildingPrefab = null;
         EventManager.Instance.onNewAction.Invoke();
     }

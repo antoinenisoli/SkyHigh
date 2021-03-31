@@ -16,7 +16,7 @@ MonoBehaviour:
   minProbabilityRange: 0
   maxProbabilityRange: 11
   description: Students are dropping out of school because of crappy educational
-    stuff in our schools. Should we pay 50$ for better equipment ? (Lose 40 Hapiness
+    stuff in our schools. Should we pay 50K$ for better equipment ? (Lose 40 Hapiness
     and Education in case of refusal)
   choices:
   - name: Yes
@@ -24,7 +24,7 @@ MonoBehaviour:
     buildingToDestroy: 
     changes:
     - statType: 3
-      amount: -50
+      amount: -50000
   - name: No
     eventType: 0
     buildingToDestroy: 

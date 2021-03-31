@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Sponsor a child
   statType: 2
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 28f3d2cb1d0677946a397da7ed28b5b2, type: 3}
   amount: 10
   moneyCost: 100000
   description: 'Sponsor a child thanks to the "Vision du Monde" organization. Through

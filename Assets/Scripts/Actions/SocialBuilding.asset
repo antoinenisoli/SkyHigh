@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Support initiative
   statType: 2
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: e2560c9702754ad4681626e58b2d8477, type: 3}
   amount: 50
   moneyCost: 1250000
   description: Support the construction of a social building where homeless people

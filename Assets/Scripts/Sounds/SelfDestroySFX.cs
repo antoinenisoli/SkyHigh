@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class SelfDestroySFX : MonoBehaviour
 {
-    private void Awake()
+    public void Execute(float delay)
     {
         AudioSource source = GetComponent<AudioSource>();
         source.Play();
-        Destroy(gameObject, source.clip.length);
+        if (delay > 0)
+            Destroy(gameObject, delay);
+        else
+            Destroy(gameObject, source.clip.length);
     }
 }

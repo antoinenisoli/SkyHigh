@@ -257,7 +257,7 @@ MonoBehaviour:
     maxAmount: 100
   Money:
     statType: 3
-    currentAmount: 100000000
+    currentAmount: 500000
     maxAmount: 999999999
 --- !u!1 &6177748807330440005
 GameObject:
@@ -454,7 +454,7 @@ MonoBehaviour:
     radius: 20
   - soundType: click-casualbuilding
     clip: {fileID: 8300000, guid: 9d69a3fc51437ae48990412d4c409890, type: 3}
-    volume: 0.728
+    volume: 0.3
     pitch: 1
     radius: 20
   - soundType: click-pop-two-part
@@ -462,8 +462,53 @@ MonoBehaviour:
     volume: 0.3
     pitch: 1
     radius: 20
+  - soundType: earth-rumble
+    clip: {fileID: 8300000, guid: cc7f0e844fa888a4c99efa948fdfeca4, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
   - soundType: game_start
     clip: {fileID: 8300000, guid: 017b1cd9579ca394dabd2f8db3de779f, type: 3}
-    volume: 0.5
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: money
+    clip: {fileID: 8300000, guid: 26f8c800aae3a3d42941e4ec1be14bcd, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: negative-beeps
+    clip: {fileID: 8300000, guid: f82da36ef97b82247a5f7c58b77e4d16, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: seal
+    clip: {fileID: 8300000, guid: 3fe260f11a1e31b4689cf79026d8cee5, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: slow-swoosh
+    clip: {fileID: 8300000, guid: 80f238d0a908bb045ab2a0f1212e6eda, type: 3}
+    volume: 0.6
+    pitch: 1.5
+    radius: 20
+  - soundType: sound_confirmation
+    clip: {fileID: 8300000, guid: 204ef371d0a1571418d19d29119373d6, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: success-low
+    clip: {fileID: 8300000, guid: a25ad5958b6b59846bf0e7730d349df2, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: endgame
+    clip: {fileID: 8300000, guid: 67904b89990f24c46ac3d39c10d27f23, type: 3}
+    volume: 0.3
+    pitch: 1
+    radius: 20
+  - soundType: UI_hover
+    clip: {fileID: 8300000, guid: 72b12f30855e2594aa4e4375c9729112, type: 3}
+    volume: 0.3
     pitch: 1
     radius: 20

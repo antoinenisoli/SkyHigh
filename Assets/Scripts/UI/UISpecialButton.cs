@@ -21,16 +21,13 @@ public class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         EventManager.Instance?.onCost.AddListener(UpdateUI);
     }
 
-    public virtual void UpdateUI()
-    {
-
-    }
+    public virtual void UpdateUI() {}
 
     public virtual void Click()
     {
         transform.DOComplete();
         transform.DOPunchScale(Vector3.one * -0.2f, 0.3f);
-        SoundManager.Instance.PlayAudio("game_start");
+        SoundManager.Instance.PlayAudio("click-basic");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -40,7 +37,7 @@ public class UISpecialButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         transform.DOComplete();
         transform.DOScale(startScale * 1.1f, 0.2f);
-        SoundManager.Instance.PlayAudio("click-basic");
+        SoundManager.Instance.PlayAudio("UI_hover");
     }
 
     public void OnPointerExit(PointerEventData eventData)

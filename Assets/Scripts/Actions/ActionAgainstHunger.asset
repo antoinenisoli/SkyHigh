@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Action against anger
   statType: 2
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: c63ec95b662b88642b2a1c54eb391455, type: 3}
   amount: 30
   moneyCost: 600000
   description: "Donate to the \u201CAction Against Hunger\u201D association. The

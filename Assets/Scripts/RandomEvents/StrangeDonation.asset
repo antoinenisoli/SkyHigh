@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Bank Donation
   minProbabilityRange: 0
   maxProbabilityRange: 15
-  description: A major city Bank gives you 50$ in exchange for the silence of what
+  description: A major city Bank gives you 50K$ in exchange for the silence of what
     they call "your inclusiveness policy thing". Accepting would make you lose 25
     visibility points...
   choices:
@@ -24,7 +24,7 @@ MonoBehaviour:
     buildingToDestroy: 
     changes:
     - statType: 3
-      amount: 50
+      amount: 50000
     - statType: 2
       amount: -25
   - name: Refuse

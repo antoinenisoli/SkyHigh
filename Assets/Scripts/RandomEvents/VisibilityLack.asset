@@ -16,8 +16,8 @@ MonoBehaviour:
   minProbabilityRange: 0
   maxProbabilityRange: 5
   description: The citizens are fighting amongst each other because of the lack of
-    visibility in your policy. Should we organize a job meeting for 45$ or just a
-    street party for 10$ ?
+    visibility in your policy. Should we organize a job meeting for 45K$ or just
+    a street party for 10$ ?
   choices:
   - name: Job Meeting
     eventType: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
     - statType: 2
       amount: 30
     - statType: 3
-      amount: -45
+      amount: -45000
   - name: Little Party
     eventType: 0
     buildingToDestroy: 

@@ -46,6 +46,9 @@ public class CrowdMember : MonoBehaviour
         //If the route is valid and we're not at the end,
         if (route.Length > 1 && nextRouteIndex < route.Length)
         {
+            if (route[nextRouteIndex] == null)
+                return;
+
             //Move towards the next waypoint in the route at `speed` units per second.
             transform.position = Vector3.MoveTowards(transform.position, route[nextRouteIndex].position, moveSpeed * Time.deltaTime);
             currentTarget = route[nextRouteIndex];

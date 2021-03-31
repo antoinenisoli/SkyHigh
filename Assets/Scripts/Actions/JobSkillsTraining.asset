@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Job skills training
   statType: 2
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 0935ecf58e8a4b44c8bd40b33a34a6d4, type: 3}
   amount: 25
   moneyCost: 750000
   description: Organizations  help for homeless people trying to get back into the

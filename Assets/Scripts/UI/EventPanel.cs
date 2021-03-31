@@ -30,6 +30,7 @@ public class EventPanel : MonoBehaviour
 
     public void EventChoice(int choiceIndex)
     {
+        SoundManager.Instance.PlayAudio("click-basic");
         MainGame.Instance.CurrentTurn.myEvent.choices[choiceIndex].Execute();
         UIManager.Instance.ExitEventPanel();
         foreach (var item in buttons) { item.interactable = false; }

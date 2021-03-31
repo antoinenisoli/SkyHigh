@@ -43,6 +43,7 @@ public class EventEffect
 
     public bool CanHappen()
     {
+        // check if all this effect and its cost can happen in the game
         bool b = true;
         if (eventType.HasFlag(EventType.DestroyBuilding))
         {

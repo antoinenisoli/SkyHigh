@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Orphanage Donation
   statType: 2
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 942fb14494b8a8a409b170105bc58cd5, type: 3}
   amount: 10
   moneyCost: 350000
   description: Donate to the local orphanage in order to give more visibility to

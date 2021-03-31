@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Floating : MonoBehaviour
 {
-    [SerializeField] float offset = 3;
-    [SerializeField] float animDuration;
-    Vector3 startPos;
+    [SerializeField] float offset = 3f;
+    [SerializeField] float animDuration = 3f;
 
-    private void Awake()
+    void Start()
     {
-        startPos = transform.position;
+        // do a simple floating custom animation
+        Vector3 startPos = transform.position;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOMoveY(startPos.y - offset, animDuration/2).SetEase(Ease.InOutSine));
         sequence.Append(transform.DOMoveY(startPos.y, animDuration/2).SetEase(Ease.InOutSine));

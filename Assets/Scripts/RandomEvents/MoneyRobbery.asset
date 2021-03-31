@@ -15,15 +15,15 @@ MonoBehaviour:
   name: Robbery
   minProbabilityRange: 0
   maxProbabilityRange: 20
-  description: "30\u20AC were stolen from our treasury ! Should we talk about it
-    to your citizens ? They will be happier, but lies make them less educated ..."
+  description: 300 000$ were stolen from our treasury ! Should we talk about it to
+    your citizens ? They will be happier, but lies make them less educated ...
   choices:
   - name: Yes
     eventType: 0
     buildingToDestroy: 
     changes:
     - statType: 3
-      amount: -30
+      amount: -300000
     - statType: 0
       amount: 5
     - statType: 1
@@ -33,7 +33,7 @@ MonoBehaviour:
     buildingToDestroy: 
     changes:
     - statType: 3
-      amount: -30
+      amount: -300000
     - statType: 1
       amount: 5
     - statType: 0

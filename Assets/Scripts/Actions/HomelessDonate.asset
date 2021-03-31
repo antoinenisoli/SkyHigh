@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce123c30fa640004b946b582343644bf, type: 3}
   m_Name: HomelessDonate
   m_EditorClassIdentifier: 
-  actionName: Donation
+  actionName: Homeless Donation
   statType: 2
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 8f828ca0257019842aa9de6261c91b9a, type: 3}
   amount: 25
   moneyCost: 500000
   description: Donate to an anti-Homeless Organisation. The goal is to end and prevent

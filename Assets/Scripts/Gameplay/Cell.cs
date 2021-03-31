@@ -8,13 +8,14 @@ public class Cell : MonoBehaviour
 {
     [SerializeField] LayerMask surfaceLayer;
     Material myMat;
-    float value = 1;
-    bool highlight;
-    bool full;
+    float value;
+    bool isHover;
+    [HideInInspector] public bool full;
 
     private void Awake()
     {
         myMat = GetComponentInChildren<MeshRenderer>().material;
+        myMat.SetFloat("_Opacity", value);
     }
 
     private void OnMouseEnter()
@@ -23,7 +24,7 @@ public class Cell : MonoBehaviour
             return;
 
         value = 1;
-        highlight = !highlight;
+        HighLight();
     }
 
     private void OnMouseExit()
@@ -31,7 +32,7 @@ public class Cell : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject() || full || !MainGame.Instance.BuildingPrefab)
             return;
 
-        highlight = !highlight;
+        HighLight();
     }
 
     private void OnMouseDown()
@@ -48,14 +49,15 @@ public class Cell : MonoBehaviour
     {
         Vector3 position = transform.position;
         position.y = pos.y;
-        MainGame.Instance.PlaceBuilding(position);
+        MainGame.Instance.PlaceBuilding(position, this);
         full = true;
         SoundManager.Instance.PlayAudio("click-casualbuilding");
     }
 
-    private void Update()
+    private void HighLight()
     {
-        value = highlight && !full && !EventSystem.current.IsPointerOverGameObject() ? 1 : 0;
+        isHover = !isHover;
+        value = isHover && !full && !EventSystem.current.IsPointerOverGameObject() ? 1 : 0;
         myMat.SetFloat("_Opacity", value);
     }
 }

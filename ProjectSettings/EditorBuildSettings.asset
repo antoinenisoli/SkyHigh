@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu/MainMenu.unity
     guid: ce42b1048a66e194ab6d96f5d91f7ab0
   - enabled: 1
-    path: Assets/Scenes/Proto/ProtoAntoine.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/Scenes/Proto/VFX_Test.unity
-    guid: 27787270506ff904abc75cd84cb263b0
+    path: Assets/Scenes/Levels/Lvl01.unity
+    guid: ee381e9afc8bbe4469538ddb9f9a5ec6
   m_configObjects: {}

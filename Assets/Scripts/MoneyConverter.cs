@@ -14,6 +14,7 @@ public static class MoneyConverter
 
     public static string Convert(float number)
     {
+        // format this number to a money format defined in the abbreviations dictionary.
         for (int i = abbrevations.Count - 1; i >= 0; i--)
         {
             KeyValuePair<int, string> pair = abbrevations.ElementAt(i);

@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void SetupScales()
+    void SetupScales() //store the panels properties in order to tween them after
     {
         originPos = buildPanel.transform.localPosition;
 
@@ -120,6 +120,7 @@ public class UIManager : MonoBehaviour
         float duration = 0.7f;
         sequence.Join(eventPanel.transform.DOScale(eventPanelScale, duration).SetEase(Ease.InOutCubic));
         sequence.Play();
+        SoundManager.Instance.PlayAudio("negative-beeps");
     }
 
     public void ExitEventPanel()
@@ -190,14 +191,12 @@ public class UIManager : MonoBehaviour
     public void ExitCharityPanel()
     {
         foreach (var item in charityPanel.GetComponentsInChildren<Button>())
-        {
             item.interactable = false;
-        }
 
         NewAction();
     }
 
-    public void NewMode(ModeType type)
+    public void NewMode(ModeType type) //change the current action mode and animate the UI
     {
         if (type != ModeType.ChooseBasicAction)
             PanelAnim(turnPanel, Vector3.one * 0.0001f);
@@ -213,6 +212,7 @@ public class UIManager : MonoBehaviour
                 displayMode.text = "Pick a building !";
                 buildPanel.transform.DOLocalMoveX(xPan, 0.7f).SetEase(Ease.OutExpo);
                 EventManager.Instance.onCost?.Invoke();
+                SoundManager.Instance.PlayAudio("slow-swoosh");
                 break;
             case ModeType.Charity:
                 displayMode.text = "Make a Charity Action !";
@@ -231,7 +231,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void NewDeck()
+    void NewDeck() //generate a new set of random actions, based on the MainGame list
     {
         List<CharityAction> actions = new List<CharityAction>();
         foreach (var item in MainGame.Instance.LevelData.allCharityActions)
@@ -240,10 +240,11 @@ public class UIManager : MonoBehaviour
                 actions.Add(item);
         }
 
+        //check if we don't have same actions in one deck
         for (int i = 0; i < charityActionButtons.Length; i++)
         {
             bool good = false;
-            while (!good)
+            while (!good) 
             {
                 int random = Random.Range(0, actions.Count);
                 CharityAction randomAction = actions[random];
@@ -261,6 +262,7 @@ public class UIManager : MonoBehaviour
     {
         EventManager.Instance.onNewTurn?.Invoke();
         NewDeck();
+        SoundManager.Instance.PlayAudio("boot-sound");
     }
 
     public void FloatingText(int amount)

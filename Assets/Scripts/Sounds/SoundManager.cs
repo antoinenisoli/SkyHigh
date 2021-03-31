@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
         public AudioClip clip;
         [Range(0, 1)]
         public float volume = 0.5f;
-        [Range(-1, 1)]
+        [Range(-1, 3)]
         public float pitch = 1;
         public float radius = 20;
 
@@ -57,12 +57,15 @@ public class SoundManager : MonoBehaviour
         clips.Clear();
     }
 
-    public void PlayAudio(string name, bool destroy = true)
+    public void PlayAudio(string name, bool destroy = true, float destructionDelay = default, float spatialBlend = 0, float soundRadius = default)
     {
         if (soundsLibrary.TryGetValue(name, out Sound thisSound))
         {
-            GameObject sound = new GameObject();
-            sound.name = thisSound.clip.name;
+            GameObject sound = new GameObject
+            {
+                name = thisSound.clip.name
+            };
+
             sound.transform.parent = transform;
             if (lastSource != null && lastSource.clip == thisSound.clip && lastSource.isPlaying)
                 Destroy(lastSource.gameObject);
@@ -72,13 +75,19 @@ public class SoundManager : MonoBehaviour
             lastSource.volume = thisSound.volume;
             lastSource.pitch = thisSound.pitch;
             lastSource.dopplerLevel = 0;
-            lastSource.spatialBlend = 0;
+            lastSource.spatialBlend = spatialBlend;
+            lastSource.minDistance = soundRadius;
 
             lastSource.Play();
             if (destroy)
-                sound.AddComponent<SelfDestroySFX>();
+            {
+                SelfDestroySFX selfDestroy = sound.AddComponent<SelfDestroySFX>();
+                selfDestroy.Execute(destructionDelay);
+            }
         }
+        else if (string.IsNullOrEmpty(name))
+            Debug.LogError("This name is invalid.");
         else
-            Debug.LogWarning("There is no song at this name : " + name);
+            Debug.LogError("There is no song at this name : " + name);
     }
 }

@@ -19,13 +19,14 @@ public class Goal
 
     public bool Check()
     {
+        // check if the condition is valid
         Statistic stat = ResourceManager.Instance.GetStat(this.stat);
         switch (condition)
         {
             case Condition.Equal:
                 return stat.CurrentAmount == compare;
             case Condition.Greater:
-                return stat.CurrentAmount > compare;
+                return stat.CurrentAmount >= compare;
             case Condition.Lower:
                 return stat.CurrentAmount < compare;
         }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Minorities March
   statType: 2
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 428e5e5c28aaeeb429cdcfd69b16db0d, type: 3}
   amount: 20
   moneyCost: 500000
   description: Minorities and indigenous peoples are targeted by populist governments

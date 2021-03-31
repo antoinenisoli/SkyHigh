@@ -82,6 +82,7 @@ MonoBehaviour:
   animDuration: 2
   shakeVibration: 90
   shakeStrength: 0.3
+  heightOffset: -4
   effectVFX: {fileID: 8880545297513756261}
   buildVFX: {fileID: 7068819882361311594, guid: d838a7bc40f6d2f49bf0b4c194c1fa7d,
     type: 3}

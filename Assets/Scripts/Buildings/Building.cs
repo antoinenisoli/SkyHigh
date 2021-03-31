@@ -9,6 +9,7 @@ public class Building : MonoBehaviour
     public string buildingName;
     public Sprite buildingImage;
     public int moneyCost = 35;
+    Cell myCell;
 
     [Header("Shake")]
     [SerializeField] float animDuration = 2f;
@@ -16,8 +17,8 @@ public class Building : MonoBehaviour
     [SerializeField] float shakeStrength = 0.3f;
 
     [Header("Feedbacks")]
+    [SerializeField] float heightOffset = -0.4f;
     [SerializeField] protected ParticleSystem effectVFX;
-    [SerializeField] protected string effectSoundName;
     [SerializeField] protected GameObject buildVFX;
 
     [Header("Effect")]
@@ -38,38 +39,41 @@ public class Building : MonoBehaviour
     public virtual void Effect()
     {
         ResourceManager.Instance.ModifyStat(stat, resourceGain);
-        SoundManager.Instance.PlayAudio(effectSoundName);
-
-        if (effectVFX)
-            effectVFX.Play();
+        effectVFX?.Play();
     }
 
-    public void Build()
+    public void Build(Cell cell) //place the building at the defined height, and do a tween to move it above the island soil
     {
+        myCell = cell;
         pos = transform.localPosition;
-        pos.y = 0.7f;
+        pos.y = heightOffset;
+        transform.localPosition = pos;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOLocalMoveY(0.4f, animDuration));
         sequence.Play().OnComplete(FinishBuilding);
+
+        pos.y = 0.7f;
         GameObject smoke = Instantiate(buildVFX, pos, buildVFX.transform.rotation, transform.parent);
         smoke.transform.localPosition = pos;
-        SoundManager.Instance.PlayAudio("build");
+        SoundManager.Instance.PlayAudio("earth-rumble", true, animDuration);
 
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
     }
 
-    public void Death()
+    public void Death() //move the building beneath the island and destroy it
     {
         pos = transform.localPosition;
-        pos.y = 0.7f;
-        transform.DOLocalMoveY(pos.y - 4, animDuration);
+        transform.DOLocalMoveY(-5, animDuration);
         MainGame.Instance.ShakeCamera(animDuration, shakeStrength, shakeVibration);
+        pos.y = 0.7f;
         GameObject smoke = Instantiate(buildVFX, pos, buildVFX.transform.rotation, transform.parent);
         smoke.transform.localPosition = pos;
+        SoundManager.Instance.PlayAudio("earth-rumble", true, animDuration);
 
         Destroy(gameObject, animDuration);
         EventManager.Instance.onBuildingDestroyed?.Invoke(this);
         MainGame.Instance.AllBuildings.Remove(name + GetInstanceID());
+        myCell.full = false;
     }
 
     void FinishBuilding()
@@ -80,8 +84,18 @@ public class Building : MonoBehaviour
         EventManager.Instance.onBuildingBuilt?.Invoke(this);
     }
 
-    public override string ToString()
+    public override string ToString() 
     {
-        return "Earn " + resourceGain + " " + stat.ToString() + " per turn.";
+        //write the building effect's per turn
+        string gain = stat == StatType.Money ? MoneyConverter.Convert(resourceGain) : resourceGain.ToString();
+        return "Earn " + gain + " " + stat.ToString() + " per turn.";
+    }
+
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space))
+            Death();
+#endif
     }
 }
