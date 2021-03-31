@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CrowdMember : MonoBehaviour
 {
-    [SerializeField] [Range(0,100)] int waitProb = 40;
+    [SerializeField] [Range(0, 100)] int waitProb = 40;
     [SerializeField] Vector2 randomWait;
 
     [SerializeField] Color[] colors;
@@ -23,13 +23,13 @@ public class CrowdMember : MonoBehaviour
     Renderer rend;
     Animator anim;
     int nextRouteIndex = 1;
-    bool endActionInvoked = false;
+    Coroutine resetCoroutine = null;
     Material fadeMat;
     bool canFadeInUpdate = true;
     bool stopped;
     Transform currentTarget;
 
-    private void Start() 
+    private void Start()
     {
         anim = GetComponentInChildren<Animator>();
         rend = GetComponentInChildren<Renderer>();
@@ -72,10 +72,9 @@ public class CrowdMember : MonoBehaviour
             if (transform.position == route[nextRouteIndex].position)
                 StartCoroutine(Wait());
         }
-        else if (!endActionInvoked)
+        else if (resetCoroutine == null)
         {
-            EventManager.Instance.onCrowdMemberReachedEnd?.Invoke(this);
-            endActionInvoked = true;
+            resetCoroutine = StartCoroutine(RequestResetOnInterval(1));
         }
     }
 
@@ -112,10 +111,23 @@ public class CrowdMember : MonoBehaviour
         transform.position = newRoute[0].position;
 
         canFadeInUpdate = true;
-        endActionInvoked = false;
 
+        //Stop requesting to be reset, and stop fades
         StopAllCoroutines();
         StartCoroutine(FadeInOut(true, fadeDuration));
+    }
+
+    /// <summary>
+    /// Requests to be reset by invoking a "reached the end of route" event, every <paramref name="interval"/> seconds.
+    /// </summary>
+    /// <param name="interval">How long to wait between reset requests.</param>
+    private IEnumerator RequestResetOnInterval(float interval)
+    {
+        while (true)
+        {
+            EventManager.Instance.onCrowdMemberReachedEnd?.Invoke(this);
+            yield return new WaitForSeconds(interval);
+        }
     }
 
     private IEnumerator FadeInOut(bool fadingIn, float duration)
@@ -149,6 +161,7 @@ public class CrowdMember : MonoBehaviour
             //Lerp the renderer's alpha from start to end with easing at the start and end
             float newAlpha = Mathf.SmoothStep(startAlpha, endAlpha, progress);
             yield return null;
-        }*/
+        }
+        */
     }
 }

@@ -45,9 +45,9 @@ public class CrowdManager : MonoBehaviour
             routeMidpointRange.y = swap;
         }
 
-        //Create an empty game object to put all the member's in if one wasn't designated, for better inspector organization
-        if (!memberContainer) 
-            memberContainer = new GameObject("Crowd Members"); 
+        //Create an empty game object to put all the members in if one wasn't designated, for better inspector organization
+        if (!memberContainer)
+            memberContainer = new GameObject("Crowd Members");
 
         for (int i = 0; i < maxMemberAmount; i++)
         {
@@ -58,7 +58,7 @@ public class CrowdManager : MonoBehaviour
 
         EventManager.Instance.onBuildingBuilt += AddSpawnPosition;
         EventManager.Instance.onBuildingDestroyed += RemoveSpawnPosition;
-        EventManager.Instance.onCrowdMemberReachedEnd += StartResetCrowdMember;
+        EventManager.Instance.onCrowdMemberReachedEnd += ResetCrowdMember;
     }
 
     private void Update()
@@ -89,40 +89,45 @@ public class CrowdManager : MonoBehaviour
             spawnCooldowns.Remove(posObject.CrowdEntryPosition);
     }
 
-    private void StartResetCrowdMember(CrowdMember member) { StartCoroutine(ResetCrowdMember(member)); }
-
-    private IEnumerator ResetCrowdMember(CrowdMember member)
+    private void ResetCrowdMember(CrowdMember member)
     {
-        //Wait until there is at least one spawn position.
-        yield return new WaitUntil(() => memberSpawnPositions.Count > 0);
+        //If there aren't any spawn positions, there's nothing to do. Bail out early.
+        if (memberSpawnPositions.Count <= 0) { return; }
 
-        //Generate a route with a start and end(the +2 at the end), plus a random number of mid points
-        var whywontthisarrayinit = Random.Range(routeMidpointRange.x, routeMidpointRange.y) + 2;
-        Transform[] notCursedArray = new Transform[whywontthisarrayinit];
-        Transform[] newRoute = new Transform[whywontthisarrayinit];
-        //Set the start and end to random member spawn positions
-        newRoute[0] = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
-        newRoute[newRoute.Length - 1] = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
+        //Get a random position to start the route at.
+        Transform startPos = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
 
-        int lastIndex = -1;
-        for (int i = 1; i < newRoute.Length - 1; i++)
+        //If the spawn pos we've chosen as a start isn't on cooldown, continue. Otherwise, we're done here, just bail out
+        if (spawnCooldowns[startPos] <= 0)
         {
-            int waypointIndex = lastIndex;
-            while (waypointIndex == lastIndex) 
-                waypointIndex = Random.Range(0, MainGame.Instance.crowdWaypoints.Length); 
+            //Generate an array to represent a route. It has a start and end(the +2 at the end), plus a random number of mid points
+            Transform[] newRoute = new Transform[Random.Range(routeMidpointRange.x, routeMidpointRange.y) + 2];
+            //Set the start and end of the route
+            newRoute[0] = startPos;
+            newRoute[newRoute.Length - 1] = memberSpawnPositions[Random.Range(0, memberSpawnPositions.Count)];
 
-            newRoute[i] = MainGame.Instance.crowdWaypoints[waypointIndex];
-            lastIndex = waypointIndex;
+            int lastIndex = -1;
+            for (int i = 1; i < newRoute.Length - 1; i++)
+            {
+                //Choose a random waypoint to go to for this index of the route.
+                //If the waypoint we choose is the same as the last one, choose a different one.
+                int waypointIndex = lastIndex;
+                while (waypointIndex == lastIndex)
+                    waypointIndex = Random.Range(0, MainGame.Instance.crowdWaypoints.Length);
+
+                newRoute[i] = MainGame.Instance.crowdWaypoints[waypointIndex];
+                lastIndex = waypointIndex;
+            }
+
+            //Start the cooldown at this spawn position and reset the member's route in preparation for them to set out
+            spawnCooldowns[newRoute[0]] = delayBetweenMemberSpawns;
+            member.ResetRoute(newRoute);
         }
 
         ////Now that the route is constructed, wait until the cooldown on the start location is up
-        if (spawnCooldowns.ContainsKey(newRoute[0]) && newRoute[0] != null)
-            yield return new WaitUntil(() => spawnCooldowns[newRoute[0]] <= 0);
-        else
-            yield return null;
-
-        //Start the cooldown at this spawn position and reset the member's route in preparation for them to set out
-        spawnCooldowns[newRoute[0]] = delayBetweenMemberSpawns;
-        member.ResetRoute(newRoute);
+        //if (spawnCooldowns.ContainsKey(newRoute[0]) && newRoute[0] != null)
+        //    yield return new WaitUntil(() => spawnCooldowns[newRoute[0]] <= 0);
+        //else
+        //    yield return null;
     }
 }
