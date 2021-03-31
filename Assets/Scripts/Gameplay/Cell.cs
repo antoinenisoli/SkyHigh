@@ -10,7 +10,7 @@ public class Cell : MonoBehaviour
     Material myMat;
     float value;
     bool isHover;
-    [HideInInspector] public bool full;
+    public bool full;
 
     private void Awake()
     {
@@ -23,7 +23,6 @@ public class Cell : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject() || full || !MainGame.Instance.BuildingPrefab)
             return;
 
-        value = 1;
         HighLight();
     }
 
@@ -40,7 +39,7 @@ public class Cell : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject() || full || !MainGame.Instance.BuildingPrefab)
             return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = MainGame.Instance.MainCam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, surfaceLayer))
             Build(hit.point);
     }
@@ -52,9 +51,10 @@ public class Cell : MonoBehaviour
         MainGame.Instance.PlaceBuilding(position, this);
         full = true;
         SoundManager.Instance.PlayAudio("click-casualbuilding");
+        myMat.SetFloat("_Opacity", 0);
     }
 
-    private void HighLight()
+    public void HighLight()
     {
         isHover = !isHover;
         value = isHover && !full && !EventSystem.current.IsPointerOverGameObject() ? 1 : 0;

@@ -7,14 +7,16 @@ using UnityEngine;
 
 public class CrowdManager : MonoBehaviour
 {
-    [SerializeField] private CrowdMember memberPrefab = null;
-    [SerializeField] [Range(0, 1000)] private int maxMemberAmount = 50;
+    [SerializeField] CrowdMember memberPrefab;
+    [SerializeField] [Range(0, 1000)] int maxMemberAmount = 50;
     [Tooltip("The position crowd members go to on startup, and when they are not used/inactive.")]
-    [SerializeField] private Vector3 inactivePos = Vector3.up * -75;
+    [SerializeField] Vector3 inactivePos = Vector3.up * -75;
+
     [Tooltip("How long to wait before \"spawning\" a member at a spawn position")]
-    [SerializeField] private float delayBetweenMemberSpawns = 1;
+    [SerializeField] float delayBetweenMemberSpawns = 1;
+
     [Tooltip("X = Minimum number of waypoints between the start and end of this member's route. Y = Maximum. Defaults to (1, 3).")]
-    [SerializeField] private Vector2Int routeMidpointRange = Vector2Int.one * -1;
+    [SerializeField] Vector2Int routeMidpointRange = Vector2Int.one * -1;
 
     [Header("Member Collections")]
     [SerializeField] GameObject memberContainer;
@@ -24,8 +26,8 @@ public class CrowdManager : MonoBehaviour
 
 #if UNITY_EDITOR
     [Header("! Editor Only !")]
-    [SerializeField] private bool showCooldowns = false;
-    [SerializeField] private float[] editor_SpawnCooldowns;
+    [SerializeField] bool showCooldowns = false;
+    [SerializeField] float[] editor_SpawnCooldowns;
 #endif
 
     private void Start()
@@ -54,20 +56,10 @@ public class CrowdManager : MonoBehaviour
             members[i].name = members[i].name.Replace("(Clone)", $"({i})");
         }
 
-        memberSpawnPositions = new List<Transform>();
-        spawnCooldowns = new Dictionary<Transform, float>();
-
         EventManager.Instance.onBuildingBuilt += AddSpawnPosition;
         EventManager.Instance.onBuildingDestroyed += RemoveSpawnPosition;
         EventManager.Instance.onCrowdMemberReachedEnd += StartResetCrowdMember;
     }
-    private void OnDestroy()
-    {
-        EventManager.Instance.onBuildingBuilt -= AddSpawnPosition;
-        EventManager.Instance.onBuildingDestroyed -= RemoveSpawnPosition;
-        EventManager.Instance.onCrowdMemberReachedEnd -= StartResetCrowdMember;
-    }
-
 
     private void Update()
     {
@@ -112,13 +104,15 @@ public class CrowdManager : MonoBehaviour
         for (int i = 1; i < newRoute.Length - 1; i++)
         {
             int waypointIndex = lastIndex;
-            while (waypointIndex == lastIndex) { waypointIndex = Random.Range(0, MainGame.Instance.crowdWaypoints.Length); }
+            while (waypointIndex == lastIndex) 
+                waypointIndex = Random.Range(0, MainGame.Instance.crowdWaypoints.Length); 
+
             newRoute[i] = MainGame.Instance.crowdWaypoints[waypointIndex];
             lastIndex = waypointIndex;
         }
 
         ////Now that the route is constructed, wait until the cooldown on the start location is up
-        if (spawnCooldowns.ContainsKey(newRoute[0]))
+        if (spawnCooldowns.ContainsKey(newRoute[0]) && newRoute[0] != null)
             yield return new WaitUntil(() => spawnCooldowns[newRoute[0]] <= 0);
         else
             yield return null;

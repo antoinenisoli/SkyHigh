@@ -16,7 +16,6 @@ public enum ModeType
 public class MainGame : MonoBehaviour
 {
     public static MainGame Instance;
-    Camera mainCam;
     [SerializeField] TurnActionButton buildingButton;
     [SerializeField] float cinematicOrthoSize = 15;
     float baseOrthoSize;
@@ -38,6 +37,7 @@ public class MainGame : MonoBehaviour
 
     public Dictionary<string, Building> AllBuildings = new Dictionary<string, Building>();
     public GameObject BuildingPrefab { get; set; }
+    public Camera MainCam { get; set; }
 
     void GetLevelData()
     {
@@ -72,14 +72,14 @@ public class MainGame : MonoBehaviour
             GetLevelData();
 
         TurnCount = LevelData.turnStartCount;
-        mainCam = Camera.main;
+        MainCam = Camera.main;
         CurrentTurn = new Turn(3, ModeType.ChooseBasicAction);
     }
 
     private IEnumerator Start()
     {
         CreateGrid();
-        baseOrthoSize = mainCam.orthographicSize;
+        baseOrthoSize = MainCam.orthographicSize;
         EventManager.Instance.onBuildingBuilt += AddBuilding;
         EventManager.Instance.onCost?.Invoke();
         yield return new WaitForSeconds(0.5f);
@@ -103,7 +103,7 @@ public class MainGame : MonoBehaviour
 
     IEnumerator InvokeNewTurn()
     {
-        mainCam.DOOrthoSize(cinematicOrthoSize, waitTurn * 2).SetEase(Ease.InOutSine);
+        MainCam.DOOrthoSize(cinematicOrthoSize, waitTurn * 2).SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(waitTurn);
         CurrentTurn = new Turn(3, ModeType.ChooseBasicAction);
         foreach (var item in AllBuildings)
@@ -121,7 +121,7 @@ public class MainGame : MonoBehaviour
 
     void NextTurn()
     {
-        mainCam.DOOrthoSize(baseOrthoSize, waitTurn * 2).SetEase(Ease.InOutSine);
+        MainCam.DOOrthoSize(baseOrthoSize, waitTurn * 2).SetEase(Ease.InOutSine);
         if (TurnCount > 0)
         {
             if (CurrentTurn.myEvent)
@@ -168,8 +168,8 @@ public class MainGame : MonoBehaviour
     public void ShakeCamera(float animDuration = 2f, float shakeStrength = 0.3f, int shakeVibration = 10)
     {
         // do a camera shake by tween
-        mainCam.transform.DOComplete();
-        mainCam.transform.DOShakePosition(animDuration, shakeStrength, shakeVibration);
+        MainCam.transform.DOComplete();
+        MainCam.transform.DOShakePosition(animDuration, shakeStrength, shakeVibration);
     }
 
     public void PlaceBuilding(Vector3 position, Cell cell)

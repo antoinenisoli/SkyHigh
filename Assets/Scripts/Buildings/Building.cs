@@ -74,6 +74,7 @@ public class Building : MonoBehaviour
         EventManager.Instance.onBuildingDestroyed?.Invoke(this);
         MainGame.Instance.AllBuildings.Remove(name + GetInstanceID());
         myCell.full = false;
+        myCell.HighLight();
     }
 
     void FinishBuilding()
