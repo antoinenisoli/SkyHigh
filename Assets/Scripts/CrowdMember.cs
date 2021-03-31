@@ -24,9 +24,11 @@ public class CrowdMember : MonoBehaviour
     Animator anim;
     int nextRouteIndex = 1;
     Coroutine resetCoroutine = null;
+    Coroutine fadeCoroutine = null;
     Material fadeMat;
     bool canFadeInUpdate = true;
     bool stopped;
+    bool onWaitDelay = false;
     Transform currentTarget;
 
     private void Start()
@@ -65,16 +67,16 @@ public class CrowdMember : MonoBehaviour
                 && (transform.position - route[nextRouteIndex].position).sqrMagnitude <= Mathf.Pow(moveSpeed * fadeDuration, 2))
             {
                 canFadeInUpdate = false;
-                StopAllCoroutines();
-                StartCoroutine(FadeInOut(false, fadeDuration));
+                if (fadeCoroutine != null) { StopCoroutine(fadeCoroutine); }
+                fadeCoroutine = StartCoroutine(FadeInOut(false, fadeDuration));
             }
 
-            if (transform.position == route[nextRouteIndex].position)
+            if (!onWaitDelay && transform.position == route[nextRouteIndex].position)
                 StartCoroutine(Wait());
         }
-        else if (resetCoroutine == null)
+        else
         {
-            resetCoroutine = StartCoroutine(RequestResetOnInterval(1));
+            EventManager.Instance.onCrowdMemberReachedEnd?.Invoke(this);
         }
     }
 
@@ -84,13 +86,14 @@ public class CrowdMember : MonoBehaviour
         if (toinCoss < waitProb)
         {
             stopped = true;
+            onWaitDelay = true;
             float randomTimer = Random.Range(randomWait.x, randomWait.y);
             yield return new WaitForSeconds(randomTimer);
             stopped = false;
         }
-
-        yield return null;
         nextRouteIndex++;
+        yield return null;
+        onWaitDelay = false;
     }
 
     /// <summary>
@@ -112,26 +115,31 @@ public class CrowdMember : MonoBehaviour
 
         canFadeInUpdate = true;
 
-        //Stop requesting to be reset, and stop fades
-        StopAllCoroutines();
-        StartCoroutine(FadeInOut(true, fadeDuration));
-    }
-
-    /// <summary>
-    /// Requests to be reset by invoking a "reached the end of route" event, every <paramref name="interval"/> seconds.
-    /// </summary>
-    /// <param name="interval">How long to wait between reset requests.</param>
-    private IEnumerator RequestResetOnInterval(float interval)
-    {
-        while (true)
-        {
-            EventManager.Instance.onCrowdMemberReachedEnd?.Invoke(this);
-            yield return new WaitForSeconds(interval);
-        }
+        if (fadeCoroutine != null) { StopCoroutine(fadeCoroutine); }
+        fadeCoroutine = StartCoroutine(FadeInOut(true, fadeDuration));
     }
 
     private IEnumerator FadeInOut(bool fadingIn, float duration)
     {
+        //If fading in, go from 0 to 1, and vice versa.
+        float startAlpha = fadingIn ? 0 : 1;
+        float endAlpha = fadingIn ? 1 : 0;
+        float progress = 0;
+
+        //While still fading,
+        while (progress < 1)
+        {
+            //Advance one step such that progress = 1 once `duration` seconds have passed
+            progress += Time.deltaTime / duration;
+
+            //Lerp the renderer's alpha from start to end with easing at the start and end
+            float newAlpha = Mathf.SmoothStep(startAlpha, endAlpha, progress);
+            fadeMat.SetFloat("_Opacity", newAlpha);
+
+            yield return null;
+        }
+
+        /*
         float alpha = fadingIn ? 1 : 0;
         float progress = 0;
         Sequence sequence = DOTween.Sequence();
@@ -144,6 +152,7 @@ public class CrowdMember : MonoBehaviour
             fadeMat.SetFloat("_Opacity", progress);
             yield return null;
         }
+        */
 
         /*
         //If fading in, go from 0 to 1, and vice versa.
