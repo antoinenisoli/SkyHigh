@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingButton: {fileID: 0}
   cinematicOrthoSize: 19
-  LevelData: {fileID: 11400000, guid: c9fef8b47e858664ca8a39e8704d7ba1, type: 2}
+  LevelData: {fileID: 0}
   LevelDataBaseName: Lvl
   grid: {fileID: 0}
   gridSize: {x: 5, y: 5}
@@ -495,7 +495,7 @@ MonoBehaviour:
   - soundType: sound_confirmation
     clip: {fileID: 8300000, guid: 204ef371d0a1571418d19d29119373d6, type: 3}
     volume: 0.3
-    pitch: 1
+    pitch: 1.59
     radius: 20
   - soundType: success-low
     clip: {fileID: 8300000, guid: a25ad5958b6b59846bf0e7730d349df2, type: 3}

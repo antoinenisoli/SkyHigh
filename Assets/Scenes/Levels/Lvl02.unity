@@ -1238,6 +1238,11 @@ PrefabInstance:
       propertyPath: clips.Array.data[14]
       value: 
       objectReference: {fileID: 8300000, guid: 72b12f30855e2594aa4e4375c9729112, type: 3}
+    - target: {fileID: 1820467376004664283, guid: b075efc185faa984984f6e8fd1b500e7,
+        type: 3}
+      propertyPath: sounds.Array.data[11].pitch
+      value: 1.59
+      objectReference: {fileID: 0}
     - target: {fileID: 4745296644883290546, guid: b075efc185faa984984f6e8fd1b500e7,
         type: 3}
       propertyPath: grid

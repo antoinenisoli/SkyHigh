@@ -19,6 +19,7 @@ MonoBehaviour:
   gridCell: {fileID: 2083073688832064984, guid: 0f1cecf211775d347a961d9e1a09476c,
     type: 3}
   turnStartCount: 10
+  moneyStart: 500000
   allRandomEvents:
   - {fileID: 11400000, guid: f53d247139360f347b09e6f0df7c0ef4, type: 2}
   - {fileID: 11400000, guid: b9cd169586bacb14f816fca65f274012, type: 2}
