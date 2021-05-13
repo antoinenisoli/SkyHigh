@@ -180,4 +180,12 @@ public class MainGame : MonoBehaviour
         BuildingPrefab = null;
         EventManager.Instance.onNewAction.Invoke();
     }
+
+    #if UNITY_STANDALONE
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            GetComponent<Menu>().GoMenu();
+    }
+    #endif
 }

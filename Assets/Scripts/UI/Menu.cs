@@ -11,12 +11,17 @@ public class Menu : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         else
-            SceneManager.LoadScene(0);
+            GoMenu();
     }
 
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void GoMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void Reload()
